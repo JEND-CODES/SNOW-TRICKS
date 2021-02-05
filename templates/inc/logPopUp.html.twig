@@ -1,0 +1,46 @@
+{% if not app.user %}
+
+<!-- Bouton PopUp formulaire Insccription ou Connexion -->
+
+<v-btn fab v-if="$vuetify.breakpoint.smAndDown" elevation="0" color="rgba(255,255,255,0)" fixed @click="dialog = !dialog" class="login-btn white--text" alt="Login" title="Login">
+    <v-icon>fas fa-sign-in-alt</v-icon>
+</v-btn>
+
+<!-- V-if / V-else : Pour le rendu conditionnel voir -> https://fr.vuejs.org/v2/guide/conditional.html -->
+<v-btn fab v-else elevation="0" color="rgba(255,255,255,0)" fixed @click="dialog = !dialog" class="login-btn-2 white--text font-weight-bold px-4 py-4 mt-1" alt="Login" title="Login" width="auto" style="font-size:15px;">
+    Connexion&nbsp;<v-icon>fas fa-sign-in-alt</v-icon>
+</v-btn>
+
+<!-- PopUp formulaire Insccription ou Connexion -->
+
+<v-dialog v-model="dialog" max-width="500px">
+
+    <v-card class="pa-2" color="rgba(255,255,255,0.85)">
+
+        <v-card-text class="mt-5">
+
+            <form action="{{ path('security_connexion')}}" method="post">
+
+                <input placeholder="Email" required name="_username" type="text">
+
+                <input placeholder="Mot de passe" required name="_password" type="password">
+
+                <button type="submit">Connexion</button>
+
+            </form>
+
+        </v-card-text>
+
+    </v-card>
+</v-dialog>
+
+{% else %}
+<v-btn fab v-if="$vuetify.breakpoint.smAndDown" elevation="0" color="rgba(255,255,255,0)" fixed href="{{ path('security_disconnect') }}" class="login-btn white--text" alt="Logout" title="Logout">
+    <v-icon>fas fa-sign-out-alt</v-icon>
+</v-btn>
+
+<v-btn fab v-if="$vuetify.breakpoint.mdAndUp" elevation="0" color="rgba(255,255,255,0)" fixed href="{{ path('security_disconnect') }}" class="login-btn-2 white--text font-weight-bold px-4 py-4 mt-1" alt="Logout" title="Logout" width="auto" style="font-size:15px;">
+    Logout&nbsp;<v-icon>fas fa-sign-out-alt</v-icon>
+</v-btn>
+
+{% endif %}

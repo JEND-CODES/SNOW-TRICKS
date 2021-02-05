@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+
+    <title>{% block title %}SNOW TRICKS{% endblock %}</title>
+
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+
+    <meta name="description" content="SNOW TRICKS">
+
+    <meta content='width=device-width, initial-scale=1.0' name='viewport' />
+
+    <!-- Favicon -->
+    <link rel="shortcut icon" type="image/x-icon" href="/backgrounds/icon-graph-2.png" />
+
+    {#
+    {% if app.request.get('_route') == 'leafletMap' %}
+        {% endif %}
+    #}
+    
+    {% block stylesheets %}
+
+    <link rel="stylesheet" href="/css/vuetify.min.css" />
+    <!--<link href="https://cdn.jsdelivr.net/npm/vuetify@2.x/dist/vuetify.min.css" rel="stylesheet">-->
+
+    <!-- https://materialdesignicons.com/ Utiliser le préfixe "mdi-" pour ajouter ces icons -->
+
+    <!-- Pourquoi ce lien vers mon folder /css n'active pas les icons ?? -->
+    <!--<link rel="stylesheet" href="/css/materialdesignicons.min.css" />-->
+    <link href="https://cdn.jsdelivr.net/npm/@mdi/font@4.x/css/materialdesignicons.min.css" rel="stylesheet">
+
+    <!--Fontawesome Icons-->
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css" integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf" crossorigin="anonymous">
+
+    <!-- Polices du site -->
+    <link href="https://fonts.googleapis.com/css?family=Quicksand:400,700&display=swap" rel="stylesheet">
+
+    <link rel="stylesheet" href="/css/style.css" />
+
+    <!--<style>
+        
+    </style>-->
+
+    {% endblock %}
+
+</head>
+
+<body>
+    {# Autre manière de faire un include ? 
+
+    {% include 'inc/navbar.html.twig' %}
+
+    #}
+
+    {{ include('inc/spinner.html.twig') }}
+    {{ include('inc/navbar.html.twig') }}
+    {{ include('inc/searchBar.html.twig') }}
+    {{ include('inc/logPopUp.html.twig') }}
+
+    {% block body %}
+
+    {% endblock %}
+
+    {{ include('inc/footer.html.twig') }}
+
+
+    <!-- jQuery 3.4.1 -->
+    <!--<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>-->
+    <script src="/js/jquery.min.js"></script>
+
+    <!-- Vue.JS -->
+
+    <!--<script src="https://cdn.jsdelivr.net/npm/vue@2.x/dist/vue.min.js"></script>-->
+    
+    <!--Chargement de vue.min.js depuis le dossier public JS - éviter les CDN pour éviter les effets de Loading trop importants sur le site -->
+    <script src="/js/vue.min.js"></script>
+
+    <!-- Vuetify -->
+
+    <!-- cf. https://vuetifyjs.com/en/getting-started/quick-start#cdn-usage -> Guide d'intrégration de Vue.js dans une application Symfony : https://blog.elao.com/fr/dev/comment-integrer-vue-js-application-symfony/ -->
+
+    <!--<script src="https://cdn.jsdelivr.net/npm/vuetify@2.x/dist/vuetify.js"></script>-->
+    
+    <!--Chargement de vuetify.js depuis le dossier public JS - éviter les CDN afin d'éviter les effets de Loading trop importants sur le site -->
+    <script src="/js/vuetify.js"></script>
+
+    <!-- Vue & Vuetify APP -->
+    <script src="/js/app.js"></script>
+
+    <!-- jQuery Events -->
+    <script src="/js/event.js"></script>
+
+    <!-- TinyMCE -->
+    <!--<script src="https://cdn.tiny.cloud/1/5k258xz8b8894li1zboryqoh74ms5pwkns3ket7ysg708h1g/tinymce/5/tinymce.min.js"></script>-->
+    <script src="/js/tinymce.min.js"></script>
+
+    <!-- TinyMCE init function -->
+    <script src="/js/tinyInit.js"></script>
+
+    <!--Chargement Langage Fr TinyMCE-->
+    <script src="/js/langs/fr_FR.js"></script>
+
+    {% block javascripts %}{% endblock %}
+
+</body>
+
+</html>

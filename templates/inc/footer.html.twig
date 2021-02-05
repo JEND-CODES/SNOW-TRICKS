@@ -1,0 +1,138 @@
+<br />
+<br />
+
+<v-footer padless color="light-blue darken-4">
+
+    <v-container>
+
+        <v-layout row wrap>
+
+            <v-col cols="12">
+
+                <!-- Using Vuetify LAYOUT BREAKPOINT -->
+
+                <v-container fluid>
+
+                    <v-layout :column="$vuetify.breakpoint.smAndDown">
+
+                        <v-flex>
+
+                            <v-card flat class="text-center" color="light-blue darken-4" outlined>
+
+                                <v-card-text class="white--text">
+
+                                    &nbsp;
+
+                                </v-card-text>
+                                
+                            </v-card>
+
+                        </v-flex>
+
+                        <v-flex>
+                            <v-card flat class="text-center" color="light-blue darken-4" outlined>
+                                <v-card-text class="white--text" style="font-size:34px;">
+
+                                    <p style="font-size:18px;">SNOW TRICKS FOOTER</p>
+
+                                    <a href="https://github.com/JEND-CODES" target="_blank" style="color:white;">
+
+                                        <p class="mb-12 footer-link" style="font-size:16px;">Réalisation : Jean-Eudes Nouaille-Degorce</p>
+
+                                    </a>
+
+                                    <!--<i class="fab fa-vuejs"></i>&nbsp;<i class="fab fa-symfony"></i>&nbsp;-->
+
+                                </v-card-text>
+                            </v-card>
+
+                        </v-flex>
+
+                        <v-flex>
+                            <v-card flat class="text-center" color="light-blue darken-4" outlined>
+                                <v-card-text class="white--text">
+
+                                    &nbsp;
+
+                                </v-card-text>
+                            </v-card>
+
+                        </v-flex>
+
+                    </v-layout>
+                </v-container>
+
+                <!-- Vuetify Footer Floating Action Button -->
+
+                <v-speed-dial fab bottom left absolute>
+                    <v-btn slot="activator" v-model="fab" color="blue darken-2" dark fab>
+                        <v-icon>fa-share-alt</v-icon>
+
+                    </v-btn>
+
+                    <v-btn fab dark small color="indigo darken-1">
+                        <v-icon>fab fa-facebook-f</v-icon>
+                    </v-btn>
+
+                    <v-btn fab dark small color="blue darken-1">
+                        <v-icon>fab fa-twitter</v-icon>
+                    </v-btn>
+
+                    <v-btn fab dark small color="#0097a7">
+                        <v-icon>fab fa-linkedin</v-icon>
+                    </v-btn>
+
+                    <v-btn fab dark small color="blue-grey">
+                        <v-icon>far fa-envelope</v-icon>
+                    </v-btn>
+                </v-speed-dial>
+
+
+                <v-card flat class="text-center mb-n5" color="light-blue darken-4" outlined>
+                    <v-card-text class="white--text">
+
+                        Snowtricks.com - &copy; [+[ new Date().getFullYear() ]+]
+
+                    </v-card-text>
+                </v-card>
+                <br />
+            </v-col>
+
+        </v-layout>
+
+    </v-container>
+
+    <!-- Vuetify Dropdown Menu-->
+
+    <!--<v-menu
+          left
+          bottom
+            transition="scale-transition"
+            >
+          <template v-slot:activator="{ on }">
+            <v-btn icon v-on="on">
+              <v-icon>mdi-view-module</v-icon>
+            </v-btn>
+          </template>
+  
+          <v-list>
+            <v-list-item
+              v-for="(navlink, navEvent) in navlinks"
+              :key="navEvent"
+              @click="() => {}"
+            >
+              <v-list-item-title>[+[ navlink.title ]+]  </v-list-item-title>
+            </v-list-item>
+          </v-list>
+        </v-menu>-->
+
+</v-footer>
+
+<!-- Scroll on top Button-->
+<v-btn v-scroll="onScroll" v-show="fab" fab dark fixed bottom right color="primary" @click="toTop">
+    <v-icon>fa-chevron-up</v-icon>
+</v-btn>
+
+
+</v-app>
+</div>
