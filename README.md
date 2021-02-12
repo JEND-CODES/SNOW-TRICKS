@@ -4,7 +4,7 @@
 ### 2ème démo (ENV=prod) => http://symfony1.planetcode.fr
 
 ## Avancées
-* 4 entités : Figure (articles), Mention (commentaires), Classification (catégories), Member (membre) & Screen (médias)
+* 5 entités : Figure (articles), Mention (commentaires), Classification (catégories), Member (membre) & Screen (médias)
 * Liaisons multiples de clés étrangères
 * Contraintes @Assert
 * Ajout de CollectionType pour gérer les formulaires avec des liaisons entre les Entités
@@ -15,8 +15,8 @@
 * Tests d'envois de mails réussis avec des Tokens (inscription validée et nouveau mot de passe)
 * Ajout des boutons de navigation en page d'accueil
 * jQuery animation : bouton "Load More" en page d'accueil
-* Upload d'images desmembres lors de l'inscription sur le site + affichage fonctionnel des images sur les commentaires réservés aux membres
-* Première version de fixture fonctionnelle
+* Upload d'images de profils membres lors de l'inscription sur le site + affichage fonctionnel des images sur les commentaires réservés aux membres
+* Première version de fixture fonctionnelle qui génère des données liés entre les 5 entités 
 
 
 ![SNOWTRICKS](https://raw.githubusercontent.com/JEND-CODES/SNOW-TRICKS/main/Concepteur_BDD_SnowTricks_v1.png)
