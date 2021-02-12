@@ -1,5 +1,7 @@
 # SNOW-TRICKS
 
+[![Codacy Badge](https://api.codacy.com/project/badge/Grade/409598117bfa48e1b8a8c8c98a3434e1)](https://app.codacy.com/gh/JEND-CODES/SNOW-TRICKS?utm_source=github.com&utm_medium=referral&utm_content=JEND-CODES/SNOW-TRICKS&utm_campaign=Badge_Grade)
+
 ## 2ème démo (ENV=prod) => http://symfony1.planetcode.fr
 
 ### Avancées
