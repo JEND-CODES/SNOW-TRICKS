@@ -1,9 +1,9 @@
 # SNOW-TRICKS
-- Projet symfony en cours de développement
 
-### 2ème démo (ENV=prod) => http://symfony1.planetcode.fr
+## 2ème démo (ENV=prod) => http://symfony1.planetcode.fr
 
-## Avancées
+### Avancées
+``` bash
 * 5 entités : Figure (articles), Mention (commentaires), Classification (catégories), Member (membre) & Screen (médias)
 * Liaisons multiples de clés étrangères
 * Contraintes @Assert
@@ -17,6 +17,6 @@
 * jQuery animation : bouton "Load More" en page d'accueil
 * Upload d'images de profils membres lors de l'inscription sur le site + affichage fonctionnel des images sur les commentaires réservés aux membres
 * Première version de fixture fonctionnelle qui génère des données liées entre les 5 entités 
-
+```
 
 ![SNOWTRICKS](https://raw.githubusercontent.com/JEND-CODES/SNOW-TRICKS/main/diagrammes/Concepteur_BDD_SnowTricks_v2.JPG)
