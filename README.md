@@ -16,7 +16,7 @@
 * Ajout des boutons de navigation en page d'accueil
 * jQuery animation : bouton "Load More" en page d'accueil
 * Upload d'images de profils membres lors de l'inscription sur le site + affichage fonctionnel des images sur les commentaires réservés aux membres
-* Première version de fixture fonctionnelle qui génère des données liés entre les 5 entités 
+* Première version de fixture fonctionnelle qui génère des données liées entre les 5 entités 
 
 
 ![SNOWTRICKS](https://raw.githubusercontent.com/JEND-CODES/SNOW-TRICKS/main/diagrammes/Concepteur_BDD_SnowTricks_v2.JPG)
