@@ -19,4 +19,4 @@
 * Première version de fixture fonctionnelle qui génère des données liés entre les 5 entités 
 
 
-![SNOWTRICKS](https://raw.githubusercontent.com/JEND-CODES/SNOW-TRICKS/main/Concepteur_BDD_SnowTricks_v1.png)
+![SNOWTRICKS](https://raw.githubusercontent.com/JEND-CODES/SNOW-TRICKS/main/diagrammes/Concepteur_BDD_SnowTricks_v2.JPG)
