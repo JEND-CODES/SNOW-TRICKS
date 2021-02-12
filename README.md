@@ -4,7 +4,7 @@
 
 ### Avancées
 ``` bash
-* 5 entités : Figure (articles), Mention (commentaires), Classification (catégories), Member (membre) & Screen (médias)
+* 5 entités
 
 * Liaisons multiples de clés étrangères
 
