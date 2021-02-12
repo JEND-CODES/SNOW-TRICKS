@@ -352,6 +352,10 @@
 
                             <p class="body-1" style="color:dimgrey;">Par {{ mention.author }} le {{ mention.createdAt | date('d/m/Y à H:i') }}</p>
                             <p class="body-1" style="color:dimgrey;">{{ mention.content | striptags | raw }}</p> 
+                            <p>{{ mention.user.avatar }}</p>
+                            <img src="{{ asset('uploads/avatars/' ~ '/' ~ mention.user.avatar) }}">
+                           
+
 
                         </v-card-text>
 

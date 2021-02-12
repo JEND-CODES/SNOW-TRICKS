@@ -59,6 +59,56 @@
     {{ include('inc/searchBar.html.twig') }}
     {{ include('inc/logPopUp.html.twig') }}
 
+    {# read and display all flash messages #} 
+    {# https://symfony.com/doc/current/controller.html#flash-messages  #} 
+    {#
+    {% for label, messages in app.flashes %}
+        {% for message in messages %}
+            <div class="flash-{{ label }}">
+                {{ message }}
+            </div>
+        {% endfor %}
+    {% endfor %}
+    #} 
+
+    {% for message in app.flashes('notice') %}
+    <v-container>
+        <v-row>
+            <v-col md="4" offset-md="4" sm="6" offset-sm="3">
+                <v-alert
+                style="background-color:white !important;"
+                color="green"
+                dense
+                elevation="2"
+                outlined
+                type="success"
+                >
+                {{ message }}
+                </v-alert>
+            </v-col>
+        </v-row>
+    </v-container>
+    {% endfor %}
+
+    {% for message in app.flashes('warning') %}
+    <v-container>
+        <v-row>
+            <v-col md="4" offset-md="4" sm="6" offset-sm="3">
+                <v-alert
+                style="background-color:white !important;"
+                color="red"
+                dense
+                elevation="2"
+                outlined
+                type="warning"
+                >
+                {{ message }}
+                </v-alert>
+            </v-col>
+        </v-row>
+    </v-container>
+    {% endfor %}
+
     {% block body %}
 
     {% endblock %}

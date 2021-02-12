@@ -1,0 +1,7 @@
+swiftmailer:
+    url: '%env(MAILER_URL)%'
+    spool: { type: 'memory' }
+
+# 6 février : test de re-paramétrage de Swift Mailer pour essayer d'envoyer des messages en localhost..
+# https://stackoverflow.com/questions/48915515/symfony-4-swiftmailer-gmail-email-not-sent
+

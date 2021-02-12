@@ -2,6 +2,8 @@
 
 namespace App\Entity;
 
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 // Pas besoin d'appeller ça ?
 // use App\Repository\MemberRepository;
 
@@ -39,6 +41,11 @@ class Member implements UserInterface
     private $username;
 
     /**
+     * @ORM\Column(type="string", nullable=true)
+     */
+    private $avatar;
+
+    /**
      * @ORM\Column(type="string", length=255)
      * @Assert\Length(min=8, minMessage="Votre mot de passe doit avoir au moins 8 caractères")
      */
@@ -49,7 +56,49 @@ class Member implements UserInterface
      */
     public $confirm_password;
 
-    
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     * @Assert\Length(min=8, minMessage="Votre nouveau mot de passe doit avoir au moins 8 caractères")
+     */
+    private $newpass;
+
+    /**
+     * @Assert\EqualTo(propertyPath="newpass", message="Erreur de confirmation du nouveau mot de passe")
+     */
+    public $confirm_newpass;
+
+    /**
+     * @ORM\Column(type="datetime", nullable=true)
+     */
+    private $createdAt;
+
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private $token;
+
+    /**
+     * @ORM\Column(type="boolean")
+     */
+    private $validation;
+
+    /**
+     * @ORM\Column(type="integer", nullable=true)
+     */
+    private $status;
+
+     /**
+     * @ORM\OneToMany(targetEntity="App\Entity\Mention", mappedBy="user", orphanRemoval=true)
+     */
+    private $mentions;
+
+    public function __construct()
+    {
+        $this->mentions = new ArrayCollection();
+    }
+
+ 
+
     public function getId(): ?int
     {
         return $this->id;
@@ -79,6 +128,18 @@ class Member implements UserInterface
         return $this;
     }
 
+    public function getAvatar(): ?string
+    {
+        return $this->avatar;
+    }
+
+    public function setAvatar(string $avatar): self
+    {
+        $this->avatar = $avatar;
+
+        return $this;
+    }
+
     public function getPassword(): ?string
     {
         return $this->password;
@@ -90,7 +151,69 @@ class Member implements UserInterface
 
         return $this;
     }
-    
+
+    public function getNewpass(): ?string
+    {
+        return $this->newpass;
+    }
+
+    public function setNewpass(string $newpass): self
+    {
+        $this->newpass = $newpass;
+
+        return $this;
+    }
+
+    public function getCreatedAt(): ?\DateTimeInterface
+    {
+        return $this->createdAt;
+    }
+
+    public function setCreatedAt(\DateTimeInterface $createdAt): self
+    {
+        $this->createdAt = $createdAt;
+
+        return $this;
+    }
+
+    public function getToken(): ?string
+    {
+        return $this->token;
+    }
+
+    public function setToken(string $token): self
+    {
+        $this->token = $token;
+
+        return $this;
+    }
+
+    public function getValidation(): ?bool
+    {
+        return $this->validation;
+    }
+
+    public function setValidation(bool $validation): self
+    {
+        $this->validation = $validation;
+
+        return $this;
+    }
+
+    public function getStatus(): ?int
+    {
+        return $this->status;
+    }
+
+    public function setStatus($status): self
+    {
+        $this->status = $status;
+ 
+        return $this;
+    }
+
+   
+
     public function eraseCredentials() {}
     
     public function getSalt() {}
@@ -99,5 +222,37 @@ class Member implements UserInterface
     {
         return ['ROLE_USER'];
     }
+
+    /**
+     * @return Collection|Mention[]
+     */
+    public function getMentions(): Collection
+    {
+        return $this->mentions;
+    }
+
+    public function addMention(Mention $mention): self
+    {
+        if (!$this->mentions->contains($mention)) {
+            $this->mentions[] = $mention;
+            $mention->setMember($this);
+        }
+
+        return $this;
+    }
+
+    public function removeMention(Mention $mention): self
+    {
+        if ($this->mentions->removeElement($mention)) {
+            // set the owning side to null (unless already changed)
+            if ($mention->getMember() === $this) {
+                $mention->setMember(null);
+            }
+        }
+
+        return $this;
+    }
+
+
     
 }

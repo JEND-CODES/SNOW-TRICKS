@@ -10,6 +10,19 @@ body {
 }
 */
 
+#trick-box .load-more { 
+    display:none;
+}
+
+.input-file {
+    width:100%;
+    height:50px;
+    font-size:12px;
+    padding-left:10px;
+    padding-top:10px;
+    outline-style: none;
+}
+
 .my-span-title {
     /*background-color: blue;*/
     color: white;

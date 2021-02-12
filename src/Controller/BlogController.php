@@ -8,6 +8,13 @@
 // 1 -> php bin/console make:migration
 // 2 -> php bin/console doctrine:migrations:migrate
 
+// Utiliser le terminal de commande pour mettre à jour une Entité : après avoir indiqué par exemple "private $truc" avec son annotation, il suffit de faire un coup de  "php bin/console make:entity --regenerate App" et les getters/setters sont générés !
+// Pour mettre ensuite à jour la BDD faire un "php bin/console doctrine:schema:update --dump-sql" puis "php bin/console doctrine:schema:update --force"
+
+// Pour vérifier si les Entités sont conformes, qu'il n'y a notamment pas de problèmes de mappings entre Entités, faire : "php bin/console doctrine:schema:validate"
+
+// En savoir plus sur Doctrine : https://symfony.com/doc/3.3/doctrine.html
+
 
 // Lancer le LIVE : php -S localhost:8000 -t public
 
@@ -52,7 +59,8 @@ class BlogController extends AbstractController
     public function blog(FigureRepository $repoFigure)
     {
         // Requête pour l'affichage des articles en dessous du Slider en page d'accueil (limite de 6, en sautant les 3 derniers articles publiés)
-        $figures = $repoFigure->findBy(array(), array('id' => 'DESC'), 6, 3);
+        // $figures = $repoFigure->findBy(array(), array('id' => 'DESC'), 6, 3);
+        $figures = $repoFigure->findBy(array(), array('id' => 'DESC'), 100, 3);
         
         // Requête pour l'affichage sur le slider en page d'accueil
         $figureSlides = $repoFigure->findBy(array(), array('id' => 'DESC'), 3);
@@ -215,6 +223,11 @@ class BlogController extends AbstractController
             $manager->persist($figure);
 
             $manager->flush();
+
+            $this->addFlash(
+                'notice',
+                'CRÉATION RÉUSSIE'
+            );
             
             return $this->redirectToRoute('chapter_show',[
                 'id' => $figure->getId()
@@ -266,6 +279,11 @@ class BlogController extends AbstractController
             $manager->persist($figure);
 
             $manager->flush();
+
+            $this->addFlash(
+                'notice',
+                'MISE À JOUR RÉUSSIE'
+            );
             
             return $this->redirectToRoute('chapter_show',[
                 'id' => $figure->getId()
@@ -314,15 +332,24 @@ class BlogController extends AbstractController
                 $mention->setCreatedAt(new \DateTime());
             
                 $mention->setFigure($figure);
+
+                // 12 février -> Enregistrement du Membre auteur du commentaire
+                // It Works !!
+                $mention->setUser($this->getUser());
             }
           
-          $mention = $formMention->getData();
+        $mention = $formMention->getData();
           
         $entityManager = $this->getDoctrine()->getManager();
           
         $entityManager->persist($mention);
           
         $entityManager->flush();
+
+        $this->addFlash(
+            'notice',
+            'COMMENTAIRE AJOUTÉ'
+        );
      
         return $this->redirect($request->getUri());
       }
@@ -354,6 +381,13 @@ class BlogController extends AbstractController
         $entityManager->remove($figure);
         
         $entityManager->flush();
+
+        $this->addFlash(
+            'notice',
+            'SUPPRESSION RÉALISÉE'
+        );
+
+
         /*
         $response = new Response();
         

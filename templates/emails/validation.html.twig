@@ -1,0 +1,20 @@
+
+<h3>MAIL ENVOYÉ POUR CONFIRMER LE COMPTE</h3>
+                    
+<br />
+
+<h4>" Cher {{ member.username|capitalize }}, cliquez sur ce lien pour confirmer votre compte Snow Tricks "</h4>
+
+<br />
+
+<a href="{{ url('confirm_account', { username : member.username , token : member.token }) }}" class="button">VALIDER LE NOUVEAU COMPTE<a>
+
+{#
+
+path() - Generates a [relative] URL path given a route name and parameters.
+
+url() - Generates an absolute URL given a route name and parameters.
+
+<a href="{{ url('confirm_account', { username : member.username , token : member.token }) }}" class="button">VALIDER LE NOUVEAU COMPTE<a>
+
+#}

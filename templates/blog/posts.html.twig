@@ -76,19 +76,35 @@
 
 </v-carousel>
 
+<!-- BOUTON POUR DESCENDRE AUX TRICKS -->
+<v-container>
+
+    <v-btn
+    id="go-to-tricks"
+    style="float:right;margin-top:-80px;z-index:1 !important;"
+    color="primary"
+    dark
+    >
+    <i class="fas fa-arrow-down"></i>
+    </v-btn>
+
+</v-container>
+
+<span id="trick-section"></span>
+
 <v-container grid-list-xl text-xs-center mt-8>
+
     <v-layout row wrap>
 
         <v-card flat class="pa-5" color="rgb(255, 255, 255, 0)" outlined>
 
             <v-container fluid>
-                <v-row>
 
-                   
+                <v-row id="trick-box">
 
                     {% for figure in figures %}
 
-                    <v-col cols="12" md="4">
+                    <v-col cols="12" md="4" class="load-more">
 
                         <!-- Vuetify hover card : https://codepen.io/jmcting/pen/ExYBPVp?editors=1010 -->
 
@@ -158,20 +174,124 @@
                         <!--</v-hover>-->
 
                     </v-col>
+
                     {% endfor %}
 
-                 
-
                 </v-row>
+
             </v-container>
 
         </v-card>
 
     </v-layout>
+
+</v-container>
+
+<!--<div id="more-btn">Load more</div>-->
+<!--<div id="less-btn">Show less</div>-->
+
+<!-- BOUTONS POUR AFFICHER LES MÉDIAS EN VERSION SMARTHPONE -->
+<v-container class="text-center">
+
+    <v-btn
+    id="more-btn"
+    color="primary"
+    dark
+    >
+    <i class="fas fa-plus"></i>
+    </v-btn>
+
+</v-container>
+
+<br />
+<br />
+
+<!-- BOUTON POUR REMONTER AUX TRICKS -->
+<v-container class="hidden-up-btn">
+
+    <v-btn
+    id="up-to-tricks"
+    style="float:right;"
+    color="primary"
+    dark
+    >
+    <i class="fas fa-arrow-up"></i>
+    </v-btn>
+
 </v-container>
 
 {% endblock %}
 
+
+
 {% block javascripts %}
+
+<script>
+
+// https://jsfiddle.net/cse_tushar/6FzSb/
+
+$(document).ready(function () {
+
+    var totalTricks = $("#trick-box > .load-more").length;
+    // alert(totalTricks);
+
+    var x = 6;
+
+    $(".hidden-up-btn").hide();
+
+    $('#trick-box .load-more:lt('+x+')').show();
+
+        $('#more-btn').click(function () {
+
+        x = (x + 3 <= totalTricks) ? x + 3 : totalTricks;
+
+        $('#trick-box .load-more:lt('+x+')').slideDown();
+
+        // alert(x);
+
+        // A ne montrer que si il y a plus de 15 tricks affichés
+        if (x > 9) {
+            $(".hidden-up-btn").show();
+        }
+
+    });
+
+    /*
+    $('#less-btn').click(function () {
+
+        x = (x - 6 < 6) ? 6 : x - 6;
+
+        // $('#trick-box .load-more').not(':lt('+x+')').hide();
+        $('#trick-box .load-more').not(':lt('+x+')').slideUp();
+
+    });
+    */
+
+    // JQUERY SCROLL TO TRICKS SECTION
+    $("#go-to-tricks").click(function() { 
+
+        $('html, body').animate({
+
+            scrollTop: $("#trick-section").offset().top 
+
+        }, 500); 
+
+    });
+
+    // Ce bouton pour remonter en haut ne s'affiche qu'à condition où plus de 15 tricks sont affichés
+    $("#up-to-tricks").click(function() { 
+
+        $('html, body').animate({
+
+            scrollTop: $("#trick-section").offset().top 
+
+        }, 800); 
+
+    });
+
+
+});
+
+</script>
 
 {% endblock %}

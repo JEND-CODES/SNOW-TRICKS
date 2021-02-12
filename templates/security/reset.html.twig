@@ -1,6 +1,6 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Inscription{% endblock %}
+{% block title %}Réinitialiser mon mot de passe{% endblock %}
 
 {% block body %}
 
@@ -24,23 +24,15 @@
                     <v-col cols="12" md="4">
                         <v-card class="pa-5" outlined style="border-color:rgb(255,255,255,0);" color="rgba(255,255,255,0.2)">
 
-                            <p>Formulaire d'inscription</p>
+                            <p>Demande de réinitialisation de mot de passe</p>
 
-                            {{ form_start(formSecurity) }}
+                            {{ form_start(resetSecurity) }}
 
-                            {{ form_row(formSecurity.username, {'label': ' ', 'attr': {'placeholder': 'Nom d\'utilisateur'}}) }}
+                            {{ form_row(resetSecurity.username, {'label': ' ', 'attr': {'placeholder': 'Nom d\'utilisateur'}}) }}
 
-                            {{ form_row(formSecurity.email, {'label': ' ', 'attr': {'placeholder': 'Adresse email'}}) }}
+                            <button type="submit">Demande de réinitialisation</button>
 
-                            {{ form_row(formSecurity.password, {'label': ' ', 'attr': {'placeholder': 'Mot de passe'}}) }}
-
-                            {{ form_row(formSecurity.confirm_password, {'label': ' ', 'attr': {'placeholder': 'Confirmation'}}) }}
-
-                            {{ form_row(formSecurity.avatar, {'label': 'Image de profil', 'attr': {'class': 'input-file'}}) }}
-
-                            <button type="submit" style="float:right;">Inscription</button>
-
-                            {{ form_end(formSecurity) }}
+                            {{ form_end(resetSecurity) }}
 
                         </v-card>
                     </v-col>
@@ -68,15 +60,15 @@
 
                 <v-card class="text-center pa-5" outlined color="rgba(255,255,255,0.2)"> 
 
-                    <h3>MESSAGE DE CONFIRMATION D'INSCRIPTION</h3>
+                    <h3>DEMANDE DE RÉINITIALISATION DE VOTRE MOT DE PASSE</h3>
 
                     <br />
                     
-                    <h4>Merci {{ member.username|capitalize }} ! Votre inscription a bien été enregistrée. Confirmez votre compte, un email vous a été adressé...</h4>
+                    <h4>Cher {{ member.username|capitalize }}, votre demande de réinitialisation de mot de passe a bien été enregistrée. Un email vous a été adressé à partir duquel vous pourrez procéder au changement.</h4>
 
                     <br />
 
-                    <h4>TOKEN ENREGISTRÉ EN BASE DE DONNÉES</h4>
+                    <h4>NOUVEAU TOKEN ENREGISTRÉ EN BASE DE DONNÉES</h4>
                     <p>{{ member.token }}</p>
 
                 </v-card>
@@ -95,15 +87,15 @@
 
                 <v-card class="text-center pa-5" outlined color="rgba(255,255,255,0.4)"> 
 
-                    <h3>MAIL ENVOYÉ POUR CONFIRMER LE COMPTE</h3>
+                    <h3>MAIL ENVOYÉ POUR PROCÉDER AU CHANGEMENT DE MOT DE PASSE</h3>
                     
                     <br />
 
-                    <h4>" Cher {{ member.username|capitalize }}, cliquez sur ce lien pour confirmer votre compte Snow Tricks "</h4>
+                    <h4>" Cher {{ member.username|capitalize }}, cliquez sur ce lien pour accéder à la page de réinitialisation de votre mot passe sur le site Snow Tricks "</h4>
 
                     <br />
 
-                    <a href="{{ path('confirm_account', { username : member.username , token : member.token }) }}" class="button">VALIDER LE NOUVEAU COMPTE<a>
+                    <a href="{{ path('confirm_reset', { username : member.username , token : member.token }) }}" class="button">ACCÉDER À LA PAGE DE RÉINITIALISATION DE VOTRE MOT DE PASSE<a>
 
                     {#
 
@@ -111,7 +103,7 @@
 
                     url() - Generates an absolute URL given a route name and parameters.
 
-                    <a href="{{ url('confirm_account', { username : member.username , token : member.token }) }}" class="button">VALIDER LE NOUVEAU COMPTE<a>
+                    <a href="{{ url('confirm_reset', { username : member.username , token : member.token }) }}" class="button">ACCÉDER À LA PAGE DE RÉINITIALISATION DE VOTRE MOT DE PASSE<a>
 
                     #}
 
@@ -126,6 +118,7 @@
 {% endif %}
 
 
+
 <br />
 <br />
 <br />
@@ -139,13 +132,3 @@
 
 
 {% endblock %}
-
-{% block javascripts %}
-
-<script>
-
-</script>
-
-{% endblock %}
-
-

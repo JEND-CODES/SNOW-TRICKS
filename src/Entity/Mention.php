@@ -45,6 +45,12 @@ class Mention
      */
     private $figure;
 
+    /**
+     * @ORM\ManyToOne(targetEntity="App\Entity\Member", inversedBy="mentions")
+     * @ORM\JoinColumn(nullable=false)
+     */
+    private $user;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -98,4 +104,19 @@ class Mention
 
         return $this;
     }
+
+    public function getUser(): ?Member
+    {
+        return $this->user;
+    }
+
+    public function setUser(?Member $user): self
+    {
+        $this->user = $user;
+
+        return $this;
+    }
+    
+
+
 }

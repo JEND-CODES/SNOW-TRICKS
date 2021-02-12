@@ -51,8 +51,49 @@
                     </v-list-item-content>
                 </v-list-item>
 
-               
+                {% if not app.user %}
 
+                <v-list-item v-ripple="{ class: `white--text` }" link href="{{ path('security_registration') }}">
+                    <v-list-item-icon>
+                        <v-icon style="font-size:17px;text-indent:10px" color="#34495E">fas fa-user</v-icon>
+                    </v-list-item-icon>
+                    <v-list-item-content>
+                        <v-list-item-title style="font-size:15px;">INSCRIPTION</v-list-item-title>
+                    </v-list-item-content>
+                </v-list-item>
+
+                <v-list-item v-ripple="{ class: `white--text` }" link href="{{ path('security_connexion') }}">
+                    <v-list-item-icon>
+                        <v-icon style="font-size:17px;text-indent:10px" color="#34495E">fas fa-sign-in-alt</v-icon>
+                    </v-list-item-icon>
+                    <v-list-item-content>
+                        <v-list-item-title style="font-size:15px;">CONNEXION</v-list-item-title>
+                    </v-list-item-content>
+                </v-list-item>
+
+                {% else %}
+
+                <v-list-item v-ripple="{ class: `white--text` }" link href="{{ path('blog_create') }}">
+                    <v-list-item-icon>
+                        <v-icon style="font-size:15px;text-indent:10px" color="#34495E">fas fa-pencil-alt</v-icon>
+                    </v-list-item-icon>
+                    <v-list-item-content>
+                        <v-list-item-title style="font-size:15px;">NOUVEAU TRICK</v-list-item-title>
+                    </v-list-item-content>
+                </v-list-item>
+
+                <v-list-item v-ripple="{ class: `white--text` }" link href="{{ path('security_disconnect') }}">
+                    <v-list-item-icon>
+                        <v-icon style="font-size:17px;text-indent:10px" color="#34495E">fas fa-sign-out-alt</v-icon>
+                    </v-list-item-icon>
+                    <v-list-item-content>
+                        <v-list-item-title style="font-size:15px;">SE DÉCONNECTER</v-list-item-title>
+                    </v-list-item-content>
+                </v-list-item>
+
+                {% endif %}
+
+             
             </v-list>
 
         </v-navigation-drawer>
