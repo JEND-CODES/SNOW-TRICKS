@@ -19,6 +19,12 @@ class ScreenRepository extends ServiceEntityRepository
         parent::__construct($registry, Screen::class);
     }
 
+    public function fixtureIndex()
+	{
+		$connection = $this->getEntityManager()->getConnection();
+		$connection->exec("ALTER TABLE screen AUTO_INCREMENT = 1;");
+	}
+
     // /**
     //  * @return Screen[] Returns an array of Screen objects
     //  */

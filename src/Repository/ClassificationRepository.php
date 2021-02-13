@@ -19,6 +19,12 @@ class ClassificationRepository extends ServiceEntityRepository
         parent::__construct($registry, Classification::class);
     }
 
+    public function fixtureIndex()
+	{
+		$connection = $this->getEntityManager()->getConnection();
+		$connection->exec("ALTER TABLE classification AUTO_INCREMENT = 1;");
+	}
+
     // /**
     //  * @return Classification[] Returns an array of Classification objects
     //  */

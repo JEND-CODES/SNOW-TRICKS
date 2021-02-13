@@ -19,6 +19,12 @@ class MemberRepository extends ServiceEntityRepository
         parent::__construct($registry, Member::class);
     }
 
+    public function fixtureIndex()
+	{
+		$connection = $this->getEntityManager()->getConnection();
+		$connection->exec("ALTER TABLE member AUTO_INCREMENT = 1;");
+	}
+
     // /**
     //  * @return Member[] Returns an array of Member objects
     //  */

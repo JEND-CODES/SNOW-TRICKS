@@ -19,6 +19,12 @@ class MentionRepository extends ServiceEntityRepository
         parent::__construct($registry, Mention::class);
     }
 
+    public function fixtureIndex()
+	{
+		$connection = $this->getEntityManager()->getConnection();
+		$connection->exec("ALTER TABLE mention AUTO_INCREMENT = 1;");
+	}
+
     // /**
     //  * @return Mention[] Returns an array of Mention objects
     //  */

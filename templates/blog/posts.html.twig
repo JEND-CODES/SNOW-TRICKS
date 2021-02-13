@@ -3,7 +3,8 @@
 {% block body %}
 
 <!-- Carousel taille Smartphone -->
-<v-carousel v-if="$vuetify.breakpoint.smAndDown" pa-0 ma-0 class="mt-n7" cycle interval="10000" height="auto" hide-delimiter-background :show-arrows="false">
+<!--<v-carousel v-if="$vuetify.breakpoint.smAndDown" pa-0 ma-0 class="mt-n7" cycle interval="10000" height="auto" hide-delimiter-background :show-arrows="false">-->
+<v-carousel v-if="$vuetify.breakpoint.smAndDown" pa-0 ma-0 class="mt-n7" interval="10000" height="auto" hide-delimiter-background :show-arrows="false">
 
     {% for figureSlide in figureSlides %}
 
@@ -40,7 +41,8 @@
 </v-carousel>
 
 <!-- Carousel tailles Medium and Up -->
-<v-carousel v-if="$vuetify.breakpoint.mdAndUp" cycle interval="8000" height="710" hide-delimiters hide-delimiter-background :show-arrows="true" show-arrows-on-hover class="mt-n2">
+<!--<v-carousel v-if="$vuetify.breakpoint.mdAndUp" cycle interval="8000" height="710" hide-delimiters hide-delimiter-background :show-arrows="true" show-arrows-on-hover class="mt-n2">-->
+<v-carousel v-if="$vuetify.breakpoint.mdAndUp" interval="8000" height="710" hide-delimiters hide-delimiter-background :show-arrows="true" show-arrows-on-hover class="mt-n2">
 
     {% for figureSlide in figureSlides %}
 

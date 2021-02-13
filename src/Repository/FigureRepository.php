@@ -19,6 +19,12 @@ class FigureRepository extends ServiceEntityRepository
         parent::__construct($registry, Figure::class);
     }
 
+    public function fixtureIndex()
+	{
+		$connection = $this->getEntityManager()->getConnection();
+		$connection->exec("ALTER TABLE figure AUTO_INCREMENT = 1;");
+	}
+
     // /**
     //  * @return Figure[] Returns an array of Figure objects
     //  */
