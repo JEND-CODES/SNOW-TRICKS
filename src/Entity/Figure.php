@@ -37,7 +37,7 @@ class Figure
     private $content;
 
     /**
-     * @ORM\Column(type="string", length=255)
+     * @ORM\Column(type="string", length=255, nullable=true)
      * @Assert\Url()
      */
     private $image;
@@ -46,6 +46,16 @@ class Figure
      * @ORM\Column(type="datetime")
      */
     private $createdAt;
+
+    /**
+     * @ORM\Column(type="datetime", nullable=true)
+     */
+    private $freshDate;
+
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private $labelled;
 
     /**
      * @ORM\ManyToOne(targetEntity="App\Entity\Classification", inversedBy="figures")
@@ -73,37 +83,15 @@ class Figure
      * @ORM\OneToMany(targetEntity="App\Entity\Screen", mappedBy="figure", orphanRemoval=true, cascade={"persist"})
      */
     private $screens;
+
+    /**
+     * @ORM\ManyToOne(targetEntity="App\Entity\Member", inversedBy="tricks")
+     * @ORM\JoinColumn(nullable=false)
+     */
+    private $user;
     
     // Mise à jour de l'entité pour autoriser un champs vide ou NULL : https://openclassrooms.com/forum/sujet/symfony-form-required-false
-    /**
-     * @ORM\Column(type="text", nullable=true)
-     */
-    private $image_one;
-    
-    /**
-     * @ORM\Column(type="text", nullable=true)
-     */
-    private $image_two;
-    
-    /**
-     * @ORM\Column(type="text", nullable=true)
-     */
-    private $image_three;
-    
-    /**
-     * @ORM\Column(type="text", nullable=true)
-     */
-    private $video_one;
-    
-    /**
-     * @ORM\Column(type="text", nullable=true)
-     */
-    private $video_two;
-    
-    /**
-     * @ORM\Column(type="text", nullable=true)
-     */
-    private $video_three;
+   
     
     
     
@@ -246,77 +234,43 @@ class Figure
     // Cf. https://symfony.com/doc/3.3/doctrine.html
     // Utiliser le terminal de commande pour mettre à jour une Entité : après avoir indiqué "private $graphtitle" avec son annotation, il suffit de faire un coup de  "php bin/console make:entity --regenerate App" et les getters/setters sont générés !
     // Pour mettre ensuite à jour la BDD faire un "php bin/console doctrine:schema:update --dump-sql" puis "php bin/console doctrine:schema:update --force"
-    public function getImageOne(): ?string
+
+    public function getFreshDate(): ?\DateTimeInterface
     {
-        return $this->image_one;
+        return $this->freshDate;
     }
 
-    public function setImageOne(string $image_one): self
+    public function setFreshDate(?\DateTimeInterface $freshDate): self
     {
-        $this->image_one = $image_one;
+        $this->freshDate = $freshDate;
 
         return $this;
     }
 
-    public function getImageTwo(): ?string
+    public function getLabelled(): ?string
     {
-        return $this->image_two;
+        return $this->labelled;
     }
 
-    public function setImageTwo(?string $image_two): self
+    public function setLabelled(?string $labelled): self
     {
-        $this->image_two = $image_two;
+        $this->labelled = $labelled;
 
         return $this;
     }
 
-    public function getImageThree(): ?string
+    public function getUser(): ?Member
     {
-        return $this->image_three;
+        return $this->user;
     }
 
-    public function setImageThree(?string $image_three): self
+    public function setUser(?Member $user): self
     {
-        $this->image_three = $image_three;
+        $this->user = $user;
 
         return $this;
     }
-
-    public function getVideoOne(): ?string
-    {
-        return $this->video_one;
-    }
-
-    public function setVideoOne(string $video_one): self
-    {
-        $this->video_one = $video_one;
-
-        return $this;
-    }
-
-    public function getVideoTwo(): ?string
-    {
-        return $this->video_two;
-    }
-
-    public function setVideoTwo(?string $video_two): self
-    {
-        $this->video_two = $video_two;
-
-        return $this;
-    }
-
-    public function getVideoThree(): ?string
-    {
-        return $this->video_three;
-    }
-
-    public function setVideoThree(?string $video_three): self
-    {
-        $this->video_three = $video_three;
-
-        return $this;
-    }
+    
 
    
 }

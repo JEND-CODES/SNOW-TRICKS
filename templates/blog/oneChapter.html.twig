@@ -23,13 +23,27 @@
 
                 <br />
 
-                <v-img
-                :aspect-ratio="16/9"
-                src="{{ figure.image }}"
-                alt="{{ figure.title }}"
-                title="{{ figure.title }}"
-                >
-                </v-img>
+                {% if figure.image is not null %}
+
+                    <v-img
+                    :aspect-ratio="16/9"
+                    src="{{ figure.image }}"
+                    alt="{{ figure.title }}"
+                    title="{{ figure.title }}"
+                    >
+                    </v-img>
+
+                {% else %}
+
+                    <v-img
+                    :aspect-ratio="16/9"
+                    src="/backgrounds/default_picture.jpg"
+                    alt="Image par défaut"
+                    title="Image par défaut"
+                    >
+                    </v-img>
+
+                {% endif %}
 
         </v-col>
 
@@ -229,9 +243,9 @@
                     {% if app.user %}
 
                         <a href="{{ path('blog_edit', {'id': figure.id}) }}">
-                        <p class="text-right body-2">
-                            <i class="fas fa-pen"></i>&nbsp;&nbsp;MODIFIER CET ARTICLE
-                        </p>
+                            <p class="text-right body-2" style="font-weight:bold;">
+                                <i class="fas fa-pen"></i>&nbsp;&nbsp;MODIFIER CET ARTICLE
+                            </p>
                         </a>
                     {% endif %}
 
@@ -268,8 +282,6 @@
                         <v-card class="pa-5" outlined style="border-color:rgb(255,255,255,0);" color="rgba(255,255,255,0.2)">
 
                         {{ form_start(formMention) }}
-
-                        {{ form_row(formMention.author, {'label': ' ', 'attr': {'placeholder': 'Pseudo'}}) }}
 
                         {{ form_row(formMention.content, {'label': ' ', 'attr': {'placeholder': 'Commentaire'}}) }}
 
@@ -350,10 +362,11 @@
 
                         <v-card-text>
 
-                            <p class="body-1" style="color:dimgrey;">Par {{ mention.author }} le {{ mention.createdAt | date('d/m/Y à H:i') }}</p>
-                            <p class="body-1" style="color:dimgrey;">{{ mention.content | striptags | raw }}</p> 
-                            <p>{{ mention.user.avatar }}</p>
                             <img src="{{ asset('uploads/avatars/' ~ '/' ~ mention.user.avatar) }}">
+
+                            <p class="body-1" style="color:dimgrey;">Par {{ mention.user.username|upper }} le {{ mention.createdAt | date('d/m/Y à H:i') }}</p>
+                            
+                            <p class="body-1" style="color:dimgrey;">{{ mention.content | striptags | raw }}</p>
                            
 
 

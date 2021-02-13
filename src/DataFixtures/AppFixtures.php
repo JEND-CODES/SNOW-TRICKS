@@ -11,6 +11,7 @@ use App\Entity\Classification;
 use App\Entity\Screen;
 use App\Entity\Mention;
 
+
 // use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 
 // Voir documentation Symfony DoctrineFixturesBundle : 
@@ -33,11 +34,26 @@ class AppFixtures extends Fixture
 
     public function load(ObjectManager $manager)
     {
+        // 13 février ajout de fakerPhp via composer :
+        // https://packagist.org/packages/fakerphp/faker
+        // Full documentation : https://fakerphp.github.io/
+        // composer require fakerphp/faker
+        // $faker = \Faker\Factory::create('FR-fr');
+
         // $members = [];
-        $figures = [];
-        // $classifications = [];
-        // $arrayCategories = ['Actualités', 'Nouveautés'];
-        $screens = [];
+
+        // $figures = [];
+        // 30 figures
+        $figures = ['Mute', 'Style Week', 'Indy', 'Stalefish', 'Tail grab', 'Nose Grab', 'Japan Air', 'Seat Belt', 'Truck driver', 'Big foot', 'Slide', 'Rocket Air', 'Flip', 'Method Air', 'Back flip', 'Misty', 'Tail slide', 'Backside air', 'Gutter Ball', 'Flip 900', 'Rotation 180', 'Rotation 360', 'Rotation 720', 'Switch 270', 'Front flip', 'Mac Twist', 'Rodeo', 'Backside Air', 'Nose slide', 'Modulo'];
+
+        // $images = ['https://www.snowsurf.com/media/NEWS_2016/ovembre%202016/itw%20lucile%20lefevre/lucile%20lefevre.jpg', 'https://cdn.unitycms.io/image/focus/1200,900,1000,1000,0,0,500,500/HkMGZ2vmlOc/Ald6zCINK-H84XhALHYLwQ.jpg', 'https://cdn.shopify.com/s/files/1/0244/5983/7536/articles/erik1_1200x.jpg?v=1581671080', 'https://www.sci-sport.com/articles/img/a02400.jpg', 'https://www.10wallpaper.com/wallpaper/2560x1600/1307/snowboard_tricks_guys_snow-Sports_HD_Wallpaper_2560x1600.jpg', 'https://cdn.shopify.com/s/files/1/0148/9585/articles/snowboardingtricks_1800x900.png?v=1539207001', 'https://www.abc-of-snowboarding.com/wp-content/uploads/2019/05/Snowboarding-Tricks.jpg', 'https://cdn.shopify.com/s/files/1/0230/2239/articles/Snowboard_Trick_Terminology_1024x1024.jpg?v=1556396922', 'https://www.abc-of-snowboarding.com/wp-content/uploads/2019/05/Snowboarding-Tricks.jpg', 'https://www.sci-sport.com/articles/img/a02400.jpg', 'https://www.meriski.co.uk/uploads/Images/blog/Beginners_Guide_To_Skiing/_1200/41273701930_c5a6c590f0_o.jpg', 'https://www.sci-sport.com/articles/img/a02400.jpg', 'https://www.meriski.co.uk/uploads/Images/blog/Beginners_Guide_To_Skiing/_1200/41273701930_c5a6c590f0_o.jpg', 'https://www.sci-sport.com/articles/img/a02400.jpg', 'https://www.meriski.co.uk/uploads/Images/blog/Beginners_Guide_To_Skiing/_1200/41273701930_c5a6c590f0_o.jpg'];
+
+        $classifications = [];
+        // $arrayClassifications = ['Nouveautés', 'Créations', 'Grabs', 'Rotations', 'Flips', 'Slides', 'One Foot', 'Old School', 'Switchings',  'Improvisés', 'Flyings', 'Big Air', 'Half Pipe', 'Slopestyle', 'Bordercross', 'Street'];
+
+        // $screens = [];
+        $screens = ['aINlzgrOovI', '8AWdZKMTG3U', 'Zc8Gu8FwZkQ', 'UrMDH3um3CE', 's3jRiFyOijw', 'SQyTWk7OxSI'];
+
         // $mentions = [];
 
         /*
@@ -102,15 +118,21 @@ class AppFixtures extends Fixture
         // }
 
         // 24 TRICKS CRÉÉS 
-        for ($j=0; $j<24; $j++)
+        // for ($j=0; $j<24; $j++)
+
+        // 30 TRICKS CRÉÉS
+        foreach ($figures as $key => $value)
         {
             $figure = new Figure();
 
-            $figure->setTitle('Trick Post '.$j)
+            // $figure->setTitle('Trick Post '.$j)
+            $figure->setTitle($value)
                     ->setContent("Lorem Ipsum sed ut perspiciatis !")
                     ->setImage('https://www.meriski.co.uk/uploads/Images/blog/Beginners_Guide_To_Skiing/_1200/41273701930_c5a6c590f0_o.jpg')
+                    // ->setImage($faker->randomElement($images))
                     ->setCreatedAt(new \Datetime)
                     ->setClassification($classification)
+                    ->setUser($member)
                     
                     ;
 
@@ -121,11 +143,12 @@ class AppFixtures extends Fixture
         }
 
         // 6 MÉDIAS CRÉÉS 
-        for ($j=0; $j<6; $j++)
+        // for ($j=0; $j<6; $j++)
+        foreach ($screens as $key => $media)
         {
             $screen = new Screen();
 
-            $screen->setThumbnail('8AWdZKMTG3U')
+            $screen->setThumbnail($media)
                     // ->setFigure(20)
                     ->setFigure($figure)
 

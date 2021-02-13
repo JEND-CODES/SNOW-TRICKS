@@ -27,21 +27,27 @@
 
             <p class="post-title">{{ figure.title }}</p>
 
-                <!--<br />-->
+                {% if figure.image is not null %}
 
-                <!--<p style="color:blueviolet;text-align:right;border:0px solid white;width:99%;margin-bottom:4px;">
-                    <i class="fas fa-pen"></i> 
-                    &nbsp;&nbsp;&nbsp;&nbsp;
-                    <i class="far fa-trash-alt"></i>
-                </p>-->
+                    <v-img
+                    :aspect-ratio="16/9"
+                    src="{{ figure.image }}"
+                    alt="{{ figure.title }}"
+                    title="{{ figure.title }}"
+                    >
+                    </v-img>
 
-                <v-img
-                :aspect-ratio="16/9"
-                src="{{ figure.image }}"
-                alt="{{ figure.title }}"
-                title="{{ figure.title }}"
-                >
-                </v-img>
+                {% else %}
+
+                    <v-img
+                    :aspect-ratio="16/9"
+                    src="/backgrounds/default_picture.jpg"
+                    alt="Image par défaut"
+                    title="Image par défaut"
+                    >
+                    </v-img>
+
+                {% endif %}
 
         </v-col>
 
@@ -345,22 +351,6 @@
                 <br />
                 <br />
                 <br />
-               
-                <div style="display:none;">
-
-                    {{ form_row(updateFigure.image_one, {'label': ' ','attr': {'class':"area-resize",'placeholder': "URL"}}) }} 
-
-                    {{ form_row(updateFigure.image_two, {'label': ' ','attr': {'class':"area-resize",'placeholder': "URL"}}) }} 
-
-                    {{ form_row(updateFigure.image_three, {'label': ' ','attr': {'class':"area-resize",'placeholder': "URL"}}) }} 
-
-                    {{ form_row(updateFigure.video_one, {'label': ' ','attr': {'class':"area-resize",'placeholder': "URL"}}) }} 
-
-                    {{ form_row(updateFigure.video_two, {'label': ' ','attr': {'class':"area-resize",'placeholder': "URL"}}) }} 
-
-                    {{ form_row(updateFigure.video_three, {'label': ' ','attr': {'class':"area-resize",'placeholder': "URL"}}) }} 
-
-                </div>
 
                 {{ form_end(updateFigure) }}
 

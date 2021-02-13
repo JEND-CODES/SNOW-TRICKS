@@ -47,22 +47,9 @@ class FigureType extends AbstractType
                 'attr' => array('class' => 'tinymce')
             ))
             ->add('image')
-            ->add('image_one')
-            ->add('image_two')
-            ->add('image_three')
-            /*
-            ->add('graph_colorone', ChoiceType::class, [
-                'choices'  => [
-                    'Couleurs Highcharts' => 'highcharts_colors',
-                    'Tons rouge-rose' => 'coloration_1',
-                    'Tons bleu-violet' => 'coloration_2',
-                    'Dégradé bleu' => 'coloration_3'
-                ],
-            ])
-            */
-            ->add('video_one')
-            ->add('video_two')
-            ->add('video_three')
+          
+
+     
         ;
     }
 

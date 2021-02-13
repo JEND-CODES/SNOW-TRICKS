@@ -30,7 +30,9 @@
 
 * Upload et affichages d'images de profils membres
 
-* 1ère version de fixture fonctionnelle
+* Fixtures fonctionnelles (composer require FakerPhp)
+
+* Relation établie entre entités Member et Figure
 ```
 
-![SNOWTRICKS](https://raw.githubusercontent.com/JEND-CODES/SNOW-TRICKS/main/diagrammes/Concepteur_BDD_SnowTricks_v2.JPG)
+![SNOWTRICKS](https://raw.githubusercontent.com/JEND-CODES/SNOW-TRICKS/main/diagrammes/Concepteur_BDD_SnowTricks_v3.JPG)

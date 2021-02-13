@@ -92,9 +92,15 @@ class Member implements UserInterface
      */
     private $mentions;
 
+    /**
+     * @ORM\OneToMany(targetEntity="App\Entity\Figure", mappedBy="user", orphanRemoval=true)
+     */
+    private $tricks;
+
     public function __construct()
     {
         $this->mentions = new ArrayCollection();
+        $this->tricks = new ArrayCollection();
     }
 
  
@@ -247,6 +253,36 @@ class Member implements UserInterface
             // set the owning side to null (unless already changed)
             if ($mention->getMember() === $this) {
                 $mention->setMember(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Figure[]
+     */
+    public function getTricks(): Collection
+    {
+        return $this->tricks;
+    }
+
+    public function addTrick(Figure $trick): self
+    {
+        if (!$this->tricks->contains($trick)) {
+            $this->tricks[] = $trick;
+            $trick->setUser($this);
+        }
+
+        return $this;
+    }
+
+    public function removeTrick(Figure $trick): self
+    {
+        if ($this->tricks->removeElement($trick)) {
+            // set the owning side to null (unless already changed)
+            if ($trick->getUser() === $this) {
+                $trick->setUser(null);
             }
         }
 

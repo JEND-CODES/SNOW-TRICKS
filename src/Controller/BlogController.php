@@ -216,6 +216,8 @@ class BlogController extends AbstractController
             if(!$figure->getId())
             {
                 $figure->setCreatedAt(new \DateTime());
+
+                $figure->setUser($this->getUser());
             }
 
             
@@ -311,7 +313,7 @@ class BlogController extends AbstractController
         
       $formMention = $this->createFormBuilder($mention)
             
-            ->add('author')
+            // ->add('author')
             ->add('content')
 
             // 3 février -> On peut simplement mettre un "Button type Submit" au coeur du formulaire pour l'activer (ici j'ai désactivé le bouton, j'en ai placé un dans le fichier TWIG et j'ai désactivé la dépendance en haut de BlogController -> use..\SubmitType)
