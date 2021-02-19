@@ -2,7 +2,7 @@
 
 [![Codacy Badge](https://app.codacy.com/project/badge/Grade/304f528b398a466fbe59f9d97595f1a4)](https://www.codacy.com/gh/JEND-CODES/SNOW-TRICKS/dashboard?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=JEND-CODES/SNOW-TRICKS&amp;utm_campaign=Badge_Grade)
 
-## 3ème démo (ENV=prod) => http://symfony4.planetcode.fr
+## 4ème démo (ENV=prod) => http://symfony1.planetcode.fr
 
 ### Avancées
 ``` bash
@@ -33,6 +33,16 @@
 * Fixtures fonctionnelles (composer require FakerPhp)
 
 * Relation établie entre entités Member et Figure
+
+* Pagination révisée sur les commentaires
+
+* Affichage photo membre connecté dans la sidebar
+
+* Mise en place des SLUGS URL
+
+* Révisions multiples Entités, Controllers, Fixtures
+
+* Tests de Mise en PROD fonctionnels
 ```
 
 ![SNOWTRICKS](https://raw.githubusercontent.com/JEND-CODES/SNOW-TRICKS/main/diagrammes/Concepteur_BDD_SnowTricks_v3.JPG)
