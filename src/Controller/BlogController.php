@@ -15,8 +15,9 @@
 
 // En savoir plus sur Doctrine : https://symfony.com/doc/3.3/doctrine.html
 
+// ROUTE NOT FOUND ? Try to clear the cache ! "php bin/console cache:clear"
 
-// Lancer le LIVE : php -S localhost:8000 -t public
+// LANCER LE LIVE : php -S localhost:8000 -t public
 
 namespace App\Controller;
 
@@ -43,21 +44,39 @@ namespace App\Controller;
 
     use App\Repository\FigureRepository;
 
+    // IDENTIFICATION DU MEMBRE EN COURS
+    // CORE\SECURITY -> UTILISÉ POUR AFFICHER LES INFORMATIONS DU MEMBRE CONNECTÉ -> ET POUR OPÉRER DES REDIRECTIONS
+    // How do I get the entity that represents the current user in Symfony ?
+    // https://stackoverflow.com/questions/7680917/how-do-i-get-the-entity-that-represents-the-current-user-in-symfony2
+    use Symfony\Component\Security\Core\Security;
+
+
     // Pas besoin d'appeller ça ?
     // use App\Repository\MentionRepository;
 
-// On utilise le formulaire de Symfony pour la gestion des erreurs -> voir les modifications effectuées dans ce fichier :
+    // On utilise le formulaire de Symfony pour la gestion des erreurs -> voir les modifications effectuées dans ce fichier :
     use App\Form\FigureType;
 
 
 class BlogController extends AbstractController
 {
+
+    private $security;
+
+    public function __construct(Security $security)
+    {
+       $this->security = $security;
+    }
+
     // PAGE D'ACCUEIL
     /**
      * @Route("/", name="blog")
      */
     public function blog(FigureRepository $repoFigure)
     {
+        $current_member = $this->security->getUser();
+        // $current_member = $this->getUser();
+
         // Requête pour l'affichage des articles en dessous du Slider en page d'accueil (limite de 6, en sautant les 3 derniers articles publiés)
         // $figures = $repoFigure->findBy(array(), array('id' => 'DESC'), 6, 3);
         $figures = $repoFigure->findBy(array(), array('id' => 'DESC'), 100, 3);
@@ -66,18 +85,19 @@ class BlogController extends AbstractController
         $figureSlides = $repoFigure->findBy(array(), array('id' => 'DESC'), 3);
         
         return $this->render('blog/posts.html.twig', [
-            
+            'current_member' => $current_member,
             'figures' => $figures,
             'figureSlides' => $figureSlides
         ]);
     }
- 
+
     // CRÉATION D'UN ARTICLE
     /**
     * @Route("/blog/new", name="blog_create")
     */
     public function createFigure(Figure $figure = null, Request $request, EntityManagerInterface $manager)
     {
+        $current_member = $this->security->getUser();
         //if(!$figure)
         //{
             $figure = new Figure();
@@ -152,14 +172,19 @@ class BlogController extends AbstractController
         // var_dump($get_screen);
 
         // Si le $_GET['selected_screen'] est inexistant..
-        if(is_null($get_screen))
+        if (is_null($get_screen))
         {
             // ..On renvoie par défaut 6 champs d'éditions d'images associées à l'article dans le formulaire..
             $nbr_screens = 6;
             // var_dump($get_screen);
 
-        } else {
-            // Ici il faudra mettre une condition pour ne pas envoyer mille images par article en BDD !!
+        }  /* elseif ($get_screen < 6 || $get_screen > 20) {
+            // Condition pour ne pas éditer mille images ou vidéos par article et les envoyer BDD !!
+            // Limitations du nombre minimal ou maximal de médias (au cas où l'internaute choisirait de modifier directement le Param Get de l'URL en entrant par exemple " new?selected_screen=225580 "....)
+            // On rétablit alors à 6 médias par défaut (en dessous de 6 ou au dessus de 20)
+            $nbr_screens = 6;
+
+        } */ else {
 
             // ..Sinon on choisit le nombre que l'on veut ! 
             // Exemple dans l'URL : " new?selected_screen=10 "
@@ -217,6 +242,14 @@ class BlogController extends AbstractController
             {
                 $figure->setCreatedAt(new \DateTime());
 
+                // CRÉATION SLUG & FORMATAGE SANS CARACTÈRES SPÉCIAUX + REMPLACEMENT DES ESPACES VIDES PAR DES TIRETS
+                // https://stackoverflow.com/questions/2955251/php-function-to-make-slug-url-string
+                // $figure->setLabelled($figure->getTitle());
+                // trim() — Supprime les espaces (ou d'autres caractères) en début et fin de chaîne
+                // preg_replace() — Rechercher et remplacer par expression rationnelle standard
+
+                $figure->setLabelled(strtolower(trim(preg_replace('/[^A-Za-z0-9-]+/', '-', $figure->getTitle() ))));
+
                 $figure->setUser($this->getUser());
             }
 
@@ -232,12 +265,14 @@ class BlogController extends AbstractController
             );
             
             return $this->redirectToRoute('chapter_show',[
-                'id' => $figure->getId()
+                'id' => $figure->getId(),
+                'labelled' => $figure->getLabelled()
             ]);
         }
         
         return $this->render('blog/createChapter.html.twig',[
             //'figure' => $figure,
+            'current_member' => $current_member,
             'createFigure' => $createFigure->createView()
         ]);
         
@@ -249,6 +284,7 @@ class BlogController extends AbstractController
     */
     public function updateFigure(Figure $figure, Request $request, EntityManagerInterface $manager)
     {
+        $current_member = $this->security->getUser();
         /*
         if(!$figure)
         {
@@ -277,6 +313,15 @@ class BlogController extends AbstractController
                 $figure->setCreatedAt(new \DateTime());
             }
             */
+            $figure->setFreshDate(new \DateTime());
+
+            // MISE À JOUR SLUG & FORMATAGE SANS CARACTÈRES SPÉCIAUX + REMPLACEMENT DES ESPACES VIDES PAR DES TIRETS
+            // https://stackoverflow.com/questions/2955251/php-function-to-make-slug-url-string
+            // $figure->setLabelled($figure->getTitle());
+            // trim() — Supprime les espaces (ou d'autres caractères) en début et fin de chaîne
+            // preg_replace() — Rechercher et remplacer par expression rationnelle standard
+
+            $figure->setLabelled(strtolower(trim(preg_replace('/[^A-Za-z0-9-]+/', '-', $figure->getTitle() ))));
             
             $manager->persist($figure);
 
@@ -288,11 +333,13 @@ class BlogController extends AbstractController
             );
             
             return $this->redirectToRoute('chapter_show',[
-                'id' => $figure->getId()
+                'id' => $figure->getId(),
+                'labelled' => $figure->getLabelled()
             ]);
         }
         
         return $this->render('blog/updateChapter.html.twig',[
+            'current_member' => $current_member,
             'figure' => $figure,
             'updateFigure' => $updateFigure->createView()
         ]);
@@ -304,69 +351,105 @@ class BlogController extends AbstractController
    // 24 octobre -> // Erreur Entity was not found ? J'ai supprimé la mention "Mention $mention" dans les paramètres de la fonction, car je me retrouvai sans cesse avec le message "App\Entity\Mention not found by @paramConvert annotation" 
    // LECTURE D'UN ARTICLE ET AJOUTS DE COMMENTAIRES
    /**
-     * @Route("/blog/{id}", name="chapter_show")
+     * @Route("/blog/{id}/{labelled}", name="chapter_show")
      */
-    public function show(Figure $figure, Request $request)
+    public function show(Figure $figure, Request $request, string $labelled)
     {
+
+        $current_member = $this->security->getUser();
+
+        // PAGINATION DES COMMENTAIRES
+        $get_mentions = $request->query->get('show_mentions');
+
+        if (is_null($get_mentions))
+        {
         
-      $mention = new Mention();
-        
-      $formMention = $this->createFormBuilder($mention)
+            $start = 0;
+            $limit = 5;
+
+        } else {
+
+            $start = (int) strip_tags($get_mentions);
+            $limit = 5;
             
-            // ->add('author')
-            ->add('content')
+        }
+        // FIN DE PAGINATION
 
-            // 3 février -> On peut simplement mettre un "Button type Submit" au coeur du formulaire pour l'activer (ici j'ai désactivé le bouton, j'en ai placé un dans le fichier TWIG et j'ai désactivé la dépendance en haut de BlogController -> use..\SubmitType)
-            /*  
-            ->add('save', SubmitType::class, array(
-                'label' => 'Publier'        
-            ))
-            */
+
+        // ENREGISTREMENTS DES COMMENTAIRES
+        $mention = new Mention();
             
-            ->getForm();
-        
-      $formMention->handleRequest($request);
-        
-      if($formMention->isSubmitted() && $formMention->isValid()) 
-      {
-        if(!$mention->getId())
-            {
-                $mention->setCreatedAt(new \DateTime());
+        $formMention = $this->createFormBuilder($mention)
+                
+                // ->add('author')
+                ->add('content')
+
+                // 3 février -> On peut simplement mettre un "Button type Submit" au coeur du formulaire pour l'activer (ici j'ai désactivé le bouton, j'en ai placé un dans le fichier TWIG et j'ai désactivé la dépendance en haut de BlogController -> use..\SubmitType)
+                /*  
+                ->add('save', SubmitType::class, array(
+                    'label' => 'Publier'        
+                ))
+                */
+                
+                ->getForm();
             
-                $mention->setFigure($figure);
+        $formMention->handleRequest($request);
+            
+        if($formMention->isSubmitted() && $formMention->isValid()) 
+        {
+            if(!$mention->getId())
+                {
+                    $mention->setCreatedAt(new \DateTime());
+                
+                    $mention->setFigure($figure);
 
-                // 12 février -> Enregistrement du Membre auteur du commentaire
-                // It Works !!
-                $mention->setUser($this->getUser());
-            }
-          
-        $mention = $formMention->getData();
-          
-        $entityManager = $this->getDoctrine()->getManager();
-          
-        $entityManager->persist($mention);
-          
-        $entityManager->flush();
+                    // 12 février -> Enregistrement du Membre auteur du commentaire
+                    // It Works !!
+                    $mention->setUser($this->getUser());
+                }
+            
+            $mention = $formMention->getData();
+            
+            $entityManager = $this->getDoctrine()->getManager();
+            
+            $entityManager->persist($mention);
+            
+            $entityManager->flush();
 
-        $this->addFlash(
-            'notice',
-            'COMMENTAIRE AJOUTÉ'
-        );
-     
-        return $this->redirect($request->getUri());
-      }
+            $this->addFlash(
+                'notice',
+                'COMMENTAIRE AJOUTÉ'
+            );
+        
+            return $this->redirect($request->getUri());
+        }
 
-      return $this->render('blog/oneChapter.html.twig', array(
-          'figure' => $figure,
-          'formMention' => $formMention->createView()
-      ));
+        return $this->render('blog/oneChapter.html.twig', array(
+            'current_member' => $current_member,
+            'limit' => $limit,
+            'start' => $start,
+            'figure' => $figure,
+            'labelled' => $figure->getLabelled(),
+            'formMention' => $formMention->createView()
+        ));
         
     }
     
+    /**
+     * @Route("/blog/{id}/{start}", name="mention_paging", requirements={"start": "\d+"})
+     */
+    /*
+    public function mentionPaging(FigureRepository $repoFigure, $id, $start = 5)
+    {
+        $figure = $repoFigure->findOneById($id);
+
+        return $this->render('inc/mentionPaging.html.twig', [
+            'figure' => $figure,
+            'start' => $start
+        ]);
+    }
+    */
     
-    
-    
-   
     
     // SUPPRESSION D'UN ARTICLE
     /**
@@ -428,6 +511,7 @@ class BlogController extends AbstractController
        return $this->render('paging/backOffice.html.twig', array('chapters' => $chapters, 'backlists' => $backlists));
        */
     }
+    
     
     
    

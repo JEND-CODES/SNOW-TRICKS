@@ -64,13 +64,17 @@ class AppFixtures extends Fixture
         // 30 figures
         $figures = ['Mute', 'Style Week', 'Indy', 'Stalefish', 'Tail grab', 'Nose Grab', 'Japan Air', 'Seat Belt', 'Truck driver', 'Big foot', 'Slide', 'Modulo', 'Flip', 'Method Air', 'Back flip', 'Misty', 'Tail slide', 'Backside air', 'Gutter Ball', 'Flip 900', 'Rotation 180', 'Rotation 360', 'Rotation 720', 'Switch 270', 'Front flip', 'Mac Twist', 'Rodeo', 'Backside Air', 'Nose slide', 'Rocket Air'];
 
-        $images = ['http://localhost:8000/photos/styleweek.jpg','http://localhost:8000/photos/tips.jpg','http://localhost:8000/photos/backair.jpg','http://localhost:8000/photos/stalefish.jpg','http://localhost:8000/photos/redstyle.jpg', 'http://localhost:8000/photos/backgrab.jpg', 'http://localhost:8000/photos/birdy.jpg', 'http://localhost:8000/photos/elegant.jpg', 'http://localhost:8000/photos/falling.jpg', 'http://localhost:8000/photos/flying.jpg', 'http://localhost:8000/photos/halfpipe.jpg', 'http://localhost:8000/photos/header.jpg', 'http://localhost:8000/photos/indy.jpg', 'http://localhost:8000/photos/jump.jpg', 'http://localhost:8000/photos/jumpgrab.jpg', 'http://localhost:8000/photos/longrampe.jpg', 'http://localhost:8000/photos/multiple.jpg', 'http://localhost:8000/photos/mute.jpg', 'http://localhost:8000/photos/noseslide.jpg', 'http://localhost:8000/photos/onehand.jpg', 'http://localhost:8000/photos/perspective.jpg', 'http://localhost:8000/photos/rampe.jpg', 'http://localhost:8000/photos/sapins.jpg', 'http://localhost:8000/photos/slide.jpg', 'http://localhost:8000/photos/slideleft.jpg', 'http://localhost:8000/photos/specialjump.jpg', 'http://localhost:8000/photos/speed.jpg', 'http://localhost:8000/photos/curvy.jpg', 'http://localhost:8000/photos/backnose.jpg', 'http://localhost:8000/photos/incredible.jpg'];
+        // $images = ['http://localhost:8000/photos/styleweek.jpg','http://localhost:8000/photos/tips.jpg','http://localhost:8000/photos/backair.jpg','http://localhost:8000/photos/stalefish.jpg','http://localhost:8000/photos/redstyle.jpg', 'http://localhost:8000/photos/backgrab.jpg', 'http://localhost:8000/photos/birdy.jpg', 'http://localhost:8000/photos/elegant.jpg', 'http://localhost:8000/photos/falling.jpg', 'http://localhost:8000/photos/flying.jpg', 'http://localhost:8000/photos/halfpipe.jpg', 'http://localhost:8000/photos/header.jpg', 'http://localhost:8000/photos/indy.jpg', 'http://localhost:8000/photos/jump.jpg', 'http://localhost:8000/photos/jumpgrab.jpg', 'http://localhost:8000/photos/longrampe.jpg', 'http://localhost:8000/photos/multiple.jpg', 'http://localhost:8000/photos/mute.jpg', 'http://localhost:8000/photos/noseslide.jpg', 'http://localhost:8000/photos/onehand.jpg', 'http://localhost:8000/photos/perspective.jpg', 'http://localhost:8000/photos/rampe.jpg', 'http://localhost:8000/photos/sapins.jpg', 'http://localhost:8000/photos/slide.jpg', 'http://localhost:8000/photos/slideleft.jpg', 'http://localhost:8000/photos/specialjump.jpg', 'http://localhost:8000/photos/speed.jpg', 'http://localhost:8000/photos/curvy.jpg', 'http://localhost:8000/photos/backnose.jpg', 'http://localhost:8000/photos/incredible.jpg'];
 
         // $classifications = [];
         $classifications = ['Nouveautés', 'Créations', 'Grabs', 'Rotations', 'Flips', 'Slides', 'One Foot', 'Old School', 'Switchings',  'Improvisés', 'Flyings', 'Big Air', 'Half Pipe', 'Slopestyle', 'Bordercross', 'Street'];
 
         // $screens = [];
-        $screens = ['http://localhost:8000/backgrounds/snowExample1.jpg', 'http://localhost:8000/backgrounds/snowExample2.jpg', 'http://localhost:8000/backgrounds/snowExample3.jpg', 'UrMDH3um3CE', 's3jRiFyOijw', 'SQyTWk7OxSI'];
+        // $screens = ['http://localhost:8000/backgrounds/snowExample1.jpg', 'http://localhost:8000/backgrounds/snowExample2.jpg', 'http://localhost:8000/backgrounds/snowExample3.jpg', 'UrMDH3um3CE', 's3jRiFyOijw', 'SQyTWk7OxSI'];
+
+        $screens = ['https://www.meriski.co.uk/uploads/Images/blog/Beginners_Guide_To_Skiing/_1200/41273701930_c5a6c590f0_o.jpg', 'https://www.meriski.co.uk/uploads/Images/blog/Beginners_Guide_To_Skiing/_1200/41273701930_c5a6c590f0_o.jpg', 'https://www.meriski.co.uk/uploads/Images/blog/Beginners_Guide_To_Skiing/_1200/41273701930_c5a6c590f0_o.jpg', 'UrMDH3um3CE', 's3jRiFyOijw', 'SQyTWk7OxSI'];
+
+        // https://www.meriski.co.uk/uploads/Images/blog/Beginners_Guide_To_Skiing/_1200/41273701930_c5a6c590f0_o.jpg
 
         // $mentions = [];
 
@@ -175,13 +179,18 @@ class AppFixtures extends Fixture
             $figure = new Figure();
 
             $figure->setTitle($value2)
-                    ->setContent("Lorem ipsum sed ut perspiciatis !")
+                    ->setContent("Lorem ipsum sed ut perspiciatis..!")
                     // ->setImage('https://www.meriski.co.uk/uploads/Images/blog/Beginners_Guide_To_Skiing/_1200/41273701930_c5a6c590f0_o.jpg')
-                    ->setImage($images[$key2])
+                    ->setImage('https://coresites-cdn-adm.imgix.net/onboardfr/wp-content/uploads/2015/03/wpid-StaleSandbech_Fonna2013_FrodePhoto_MG_38581.jpg')
+
+                    ->setLabelled(strtolower(trim(preg_replace('/[^A-Za-z0-9-]+/', '-', $value2))))
+
+                    // ->setImage($images[$key2])
                     // ->setImage($faker->randomElement($images))
                     ->setCreatedAt(new \Datetime)
                     ->setClassification($classification)
                     ->setUser($member)
+                    
                     
                     ;
 
@@ -194,7 +203,7 @@ class AppFixtures extends Fixture
             // {
                 $mention = new Mention();
 
-                $mention->setContent("Lorem ipsum dolor sit amet !")
+                $mention->setContent("Lorem ipsum dolor sit amet..!")
                         // ->setContent($faker->sentences(1, true))
                         ->setCreatedAt(new \Datetime)
                         ->setFigure($figure)

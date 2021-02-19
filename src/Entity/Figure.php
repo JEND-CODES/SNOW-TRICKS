@@ -12,6 +12,11 @@ use Doctrine\ORM\Mapping as ORM;
 // -> Ajouté pour régler les conditions de validation du formulaire éditeur d'article
 use Symfony\Component\Validator\Constraints as Assert;
 
+// EXEMPLE POUR AJOUTER UNE UNIQUE ENTITY ! A AJOUTER POUR LE TITRE ET LE SLUG-LABELLED !
+// use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
+// @UniqueEntity(fields={"labelled"})
+
+
 /**
  * @ORM\Entity(repositoryClass="App\Repository\FigureRepository")
  */

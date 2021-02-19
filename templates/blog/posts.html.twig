@@ -1,5 +1,5 @@
 {% extends 'base.html.twig' %}
-{% block title %}SNOW TRICKS | Accueil{% endblock %}
+{% block title %}SNOWTRICKS • Accueil{% endblock %}
 {% block body %}
 
 <!-- Carousel taille Smartphone -->
@@ -10,7 +10,7 @@
 
     <v-carousel-item style="border:0px solid red;border-radius:0px;">
 
-        <a href="{{ path('chapter_show', {'id': figureSlide.id}) }}">
+        <a href="{{ path('chapter_show', {'id': figureSlide.id, 'labelled': figureSlide.labelled }) }}">
 
             <p class="slide-title">{{ figureSlide.title }}</p>
 
@@ -18,16 +18,18 @@
 
         <img src="{{ figureSlide.image }}" class="responsive-image" alt="Illustration" title="Illustration" />
 
-        {% if app.user %}
+        {# {% if app.user %} #}
+        <!-- Chaque membre ne peut modifier que ses articles, mis à part l'admin qui peut tout modifier -->
+        {% if (app.user.id is defined and app.user.id == figureSlide.user.id) or (app.user.id is defined and app.user.id == 1) %}
 
-        <a href="{{ path('blog_edit', {'id': figureSlide.id}) }}">
-        <p style="position:absolute; top:40px; right:30px; color:white;">
+        <a href="{{ path('blog_edit', {'id': figureSlide.id, 'labelled': figureSlide.labelled }) }}">
+        <p style="position:absolute; top:40px; right:30px; color:black;">
             <i class="fas fa-pen"></i>
         </p>
         </a>
 
         <a href="{{ path('delete_chapter', {'id': figureSlide.id}) }}" onclick="return(confirm('Validez-vous ce choix ?'));">
-        <p style="position:absolute; top:80px; right:30px; color:white;">
+        <p style="position:absolute; top:80px; right:30px; color:black;">
             <i class="far fa-trash-alt"></i>
         </p>
         </a>
@@ -48,7 +50,7 @@
 
     <v-carousel-item>
 
-        <a href="{{ path('chapter_show', {'id': figureSlide.id}) }}">
+        <a href="{{ path('chapter_show', {'id': figureSlide.id, 'labelled': figureSlide.labelled }) }}">
 
             <p class="slide-title">{{ figureSlide.title }}</p>
 
@@ -56,16 +58,18 @@
 
         <img src="{{ figureSlide.image }}" class="responsive-image" alt="{{ figureSlide.title }}" title="{{ figureSlide.title }}" />
 
-        {% if app.user %}
+        {# {% if app.user %} #}
+        <!-- Chaque membre ne peut modifier que ses articles, mis à part l'admin qui peut tout modifier -->
+        {% if (app.user.id is defined and app.user.id == figureSlide.user.id) or (app.user.id is defined and app.user.id == 1) %}
 
-        <a href="{{ path('blog_edit', {'id': figureSlide.id}) }}">
-        <p style="position:absolute; top:40px; right:30px; color:white;">
+        <a href="{{ path('blog_edit', {'id': figureSlide.id, 'labelled': figureSlide.labelled }) }}">
+        <p style="position:absolute; top:40px; right:30px; color:black;">
             <i class="fas fa-pen"></i>
         </p>
         </a>
 
-        <a href="{{ path('delete_chapter', {'id': figureSlide.id}) }}" onclick="return(confirm('Validez-vous ce choix ?'));">
-        <p style="position:absolute; top:80px; right:30px; color:white;">
+        <a href="{{ path('delete_chapter', {'id': figureSlide.id }) }}" onclick="return(confirm('Validez-vous ce choix ?'));">
+        <p style="position:absolute; top:80px; right:30px; color:black;">
             <i class="far fa-trash-alt"></i>
         </p>
         </a>
@@ -79,7 +83,7 @@
 </v-carousel>
 
 <!-- BOUTON POUR DESCENDRE AUX TRICKS -->
-<v-container>
+<v-container v-if="$vuetify.breakpoint.smAndUp">
 
     <v-btn
     id="go-to-tricks"
@@ -93,6 +97,8 @@
 </v-container>
 
 <span id="trick-section"></span>
+
+<br/>
 
 <v-container grid-list-xl text-xs-center mt-8>
 
@@ -121,7 +127,7 @@
                           >-->
                         <v-card flat class="mx-auto" max-width="600">
 
-                            <a href="{{ path('chapter_show', {'id': figure.id}) }}">
+                            <a href="{{ path('chapter_show', {'id': figure.id, 'labelled': figure.labelled }) }}">
 
                                 <v-img v-ripple="{ class: `white--text` }" class="image-wrapper" :aspect-ratio="16/9" src="{{ figure.image }}" alt="{{ figure.title }}" title="{{ figure.title }}" style="margin: 0 auto;">
                                     <!--<v-expand-transition>
@@ -139,7 +145,7 @@
 
                             <v-card-text class="pt-6" style="position: relative;">
 
-                                <a href="{{ path('chapter_show', {'id': figure.id}) }}">
+                                <a href="{{ path('chapter_show', {'id': figure.id, 'labelled': figure.labelled }) }}">
 
                                     <p class="excerpt-title mb-6">{{ figure.title }}</p>
 
@@ -149,19 +155,29 @@
 
                                     <p class="body-1 font-weight-light black--text mb-2" style="cursor: default;">{{ figure.content | striptags  | slice(0,100) | raw }}...</p>
 
+                                    {% if figure.freshDate is not null %}
+
+                                    <p class="mt-4" style="color:grey;cursor: default;">Mis à jour le {{ figure.freshDate | date('d/m/Y') }} &bull; Catégorie {{ figure.classification.title }} </p>
+
+                                    {% else %}
+
                                     <p class="mt-4" style="color:grey;cursor: default;">Publié le {{ figure.createdAt | date('d/m/Y') }} &bull; Catégorie {{ figure.classification.title }} </p>
 
-                                    <!-- Si un membre est connecté on affiche les boutons de modifications des posts en page d'accueil -->
-                                    {% if app.user %}
+                                    {% endif %}
 
-                                    <a href="{{ path('blog_edit', {'id': figure.id}) }}">
-                                    <p style="position:absolute; top:10px; right:10px; color:blueviolet;">
+                                    <!-- Si un membre est connecté on affiche les boutons de modifications des posts en page d'accueil -->
+                                    {# {% if app.user %} #}
+                                    <!-- Chaque membre ne peut modifier que ses articles, mis à part l'admin qui peut tout modifier -->
+                                    {% if (app.user.id is defined and app.user.id == figure.user.id) or (app.user.id is defined and app.user.id == 1) %}
+
+                                    <a href="{{ path('blog_edit', {'id': figure.id, 'labelled': figure.labelled }) }}">
+                                    <p style="position:absolute; top:10px; right:10px; color:black;">
                                         <i class="fas fa-pen"></i>
                                     </p>
                                     </a>
 
                                     <a href="{{ path('delete_chapter', {'id': figure.id}) }}" onclick="return(confirm('Validez-vous ce choix ?'));">
-                                    <p style="position:absolute; top:10px; right:40px; color:blueviolet;">
+                                    <p style="position:absolute; top:10px; right:40px; color:black;">
                                         <i class="far fa-trash-alt"></i>
                                     </p>
                                     </a>
@@ -209,11 +225,11 @@
 <br />
 
 <!-- BOUTON POUR REMONTER AUX TRICKS -->
-<v-container class="hidden-up-btn">
+<v-container v-if="$vuetify.breakpoint.smAndUp" class="hidden-up-btn">
 
     <v-btn
     id="up-to-tricks"
-    style="float:right;"
+    style="float:left;"
     color="primary"
     dark
     >

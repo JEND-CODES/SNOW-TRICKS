@@ -1,9 +1,10 @@
 <div id="appJEND">
     <v-app id="inspire">
 
-        
+        <!-- Logo image -->
+        <a href="{{ path('blog') }}"><img class="deco-logo" src="/backgrounds/Snow-Logo-V1.png" alt="SNOWTRICKS" title="SNOWTRICKS"/></a>
 
-        <v-app-bar fixed color="blue darken-1">
+        <v-app-bar fixed color="blue darken-1" class="navbar">
 
             <v-btn fab color="transparent" class="white--text" @click.stop="drawer = !drawer" elevation="0">
                 <v-icon>fas fa-bars</v-icon>
@@ -15,15 +16,6 @@
             <v-toolbar-title>
 
                 <v-btn rounded large elevation="0" id="the-logo" color="blue darken-1" href="{{ path('blog') }}" style="z-index:11;">SNOWTRICKS
-
-                    <!-- Voir les formes UNICODES : https://www.w3schools.com/charsets/ref_utf_geometric.asp -->
-                    <!--<span class="logo-unicodes" style="z-index:10;font-size:17px;margin-left:-14px;margin-top:20px;color:#FF5757;transform: rotate(42deg);">&#9668;</span>
-
-                    <span class="logo-unicodes" style="font-size:32px;margin-left:-7px;margin-top:18px;color:blueviolet;transform: rotate(100deg);">&#9670;</span>
-
-                    <span class="logo-unicodes" style="font-size:18px;margin-left:-11px;margin-top:12px;color:yellow;transform: rotate(110deg);">&#9679;</span>
-
-                    <span class="logo-unicodes" style="font-size:15px;margin-left:-2px;margin-top:20px;color:orange;transform: rotate(110deg);">&#9632;</span>-->
 
                 </v-btn>
 
@@ -40,6 +32,16 @@
         <!-- Vuetify sidebar Menu -->
 
         <v-navigation-drawer v-model="drawer" app temporary style="z-index:12;">
+
+            {% if app.user %}
+
+                <br />
+
+                <img style="display:block; margin-left:auto; margin-right:auto;" src="{{ asset('uploads/avatars/' ~ '/' ~ current_member.avatar) }}">
+
+                <br />
+
+            {% endif %}
 
             <v-list dense nav>
                 <v-list-item v-ripple="{ class: `white--text` }" link href="{{ path('blog') }}">
@@ -71,6 +73,15 @@
                     </v-list-item-content>
                 </v-list-item>
 
+                <v-list-item v-ripple="{ class: `white--text` }" link href="{{ path('reset_password') }}">
+                    <v-list-item-icon>
+                        <v-icon style="font-size:17px;text-indent:10px" color="#34495E">fas fa-unlock-alt</v-icon>
+                    </v-list-item-icon>
+                    <v-list-item-content>
+                        <v-list-item-title style="font-size:15px;">NEW PASSWORD</v-list-item-title>
+                    </v-list-item-content>
+                </v-list-item>
+
                 {% else %}
 
                 <v-list-item v-ripple="{ class: `white--text` }" link href="{{ path('blog_create') }}">
@@ -79,6 +90,15 @@
                     </v-list-item-icon>
                     <v-list-item-content>
                         <v-list-item-title style="font-size:15px;">NOUVEAU TRICK</v-list-item-title>
+                    </v-list-item-content>
+                </v-list-item>
+
+                <v-list-item v-ripple="{ class: `white--text` }" link href="{{ path('new_password') }}">
+                    <v-list-item-icon>
+                        <v-icon style="font-size:17px;text-indent:10px" color="#34495E">fas fa-key</v-icon>
+                    </v-list-item-icon>
+                    <v-list-item-content>
+                        <v-list-item-title style="font-size:15px;">MOT DE PASSE</v-list-item-title>
                     </v-list-item-content>
                 </v-list-item>
 
@@ -93,6 +113,7 @@
 
                 {% endif %}
 
+          
              
             </v-list>
 

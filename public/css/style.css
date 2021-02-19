@@ -10,6 +10,17 @@ body {
 }
 */
 
+/*
+@media all and (max-width:600px) {
+    .navbar {
+        position: fixed !important;
+        top:93% !important;
+    }
+}
+*/
+
+
+
 #trick-box .load-more { 
     display:none;
 }
@@ -85,29 +96,39 @@ body {
     opacity: 0.3;
 }
 
+@media all and (min-width:960px) {
+    .v-carousel .v-btn .v-btn__content .v-icon {
+        color: black;
+    }
+}
+
 .post-font-size {
     font-size: 20px !important;
 }
 
 #the-logo {
     font-family: 'Quicksand', sans-serif !important;
-    font-size: 28px !important;
+    font-size: 24px !important;
     font-weight: bold !important;
     color: white !important;
 }
 
 @media all and (max-width:600px) {
     #the-logo {
-        font-size: 22px !important;
+        display:none;
+        /*font-size: 20px !important;*/
     }
 }
 
+/*
 @media all and (max-width:380px) {
     #the-logo {
         margin-left: -5px;
     }
 }
+*/
 
+/*
 @media all and (max-width:450px) {
     #the-logo {
         margin-left: -15px;
@@ -117,6 +138,7 @@ body {
         display: none;
     }
 }
+*/
 
 a {
     text-decoration: none;
@@ -211,25 +233,26 @@ a:hover {
 /* Logo Image */
 
 .deco-logo {
-    width: 48px;
-    height: 22px;
     position: fixed;
-    top: 33px;
-    left: 212px;
+    top: 10px;
+    left: 280px;
     z-index: 10;
 }
 
 @media all and (max-width:960px) {
     .deco-logo {
-        top: 29px;
-        left: 212px;
+        width:46px;
+        height:39px;
+        top: 8px;
+        left: 280px;
         z-index: 10;
     }
 }
 
 @media all and (max-width:600px) {
     .deco-logo {
-        display: none;
+        /*display: none;*/
+        left: 80px;
     }
 }
 
@@ -471,16 +494,20 @@ select:focus {
 
 .slide-title {
     position: absolute;
-    color: #444;
-    background: linear-gradient(90deg, rgba(255, 255, 255, 0) 0%, rgba(255, 255, 255, 0.7959558823529411) 15%, rgba(255, 255, 255, 0.7959558823529411) 85%, rgba(255, 255, 255, 0) 100%);
-    padding: 5px;
-    bottom: 20%;
+    color: rgb(0, 0, 0);
+    background: linear-gradient(90deg, rgba(255, 255, 255, 0) 0%, rgba(255, 255, 255, 0.6) 40%, rgba(255, 255, 255, 0.6) 60%, rgba(255, 255, 255, 0) 100%);
+    padding-top: 20px;
+    padding-bottom: 80px;
+    bottom: -2%;
     font-family: 'Quicksand', sans-serif !important;
-    font-size: 26px;
+    font-size: 32px;
     width: 100%;
     border: 0px solid white;
     text-align: center;
     word-wrap: break-word;
+    text-transform:uppercase;
+    /*font-weight:bold;*/
+    border:1px solid white;
 }
 
 .slide-title:hover {

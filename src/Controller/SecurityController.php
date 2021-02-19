@@ -42,8 +42,22 @@ use Symfony\Component\HttpFoundation\File\Exception\FileException;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
 use Symfony\Component\String\Slugger\SluggerInterface;
 
+// IDENTIFICATION DU MEMBRE EN COURS
+// CORE\SECURITY -> UTILISÉ POUR AFFICHER LES INFORMATIONS DU MEMBRE CONNECTÉ -> ET POUR OPÉRER DES REDIRECTIONS
+// How do I get the entity that represents the current user in Symfony ?
+// https://stackoverflow.com/questions/7680917/how-do-i-get-the-entity-that-represents-the-current-user-in-symfony2
+use Symfony\Component\Security\Core\Security;
+
+
 class SecurityController extends AbstractController
 {
+    
+    private $security;
+
+    public function __construct(Security $security)
+    {
+       $this->security = $security;
+    }
     
     // FONCTION D'ENREGISTREMENT DE NOUVEAU MEMBRE
     /**
@@ -261,6 +275,16 @@ class SecurityController extends AbstractController
      */
     public function registration(Request $request, EntityManagerInterface $manager, UserPasswordEncoderInterface $encoder, \Swift_Mailer $mailer, SluggerInterface $slugger)
     {
+        // IL FAUT ÊTRE DÉCONNECTÉ POUR ACCÉDER À CETTE PAGE !
+        // Vérification si un membre est en cours de connexion
+        $current_member = $this->security->getUser();
+
+        // Si oui redirection vers Homepage
+        if(!is_null($current_member)) {
+            return $this->redirectToRoute('blog');
+        }
+
+        // ENREGISTREMENT D'UN NOUVEAU MEMBRE
         $member = new Member();
         
         $formSecurity = $this->createForm(MemberType::class, $member);
@@ -361,6 +385,7 @@ class SecurityController extends AbstractController
         }
     
         return $this->render('security/registration.html.twig', [
+            'current_member' => $current_member,
             'formSecurity' => $formSecurity->createView(),
             'member' => $member
         ]);
@@ -372,6 +397,7 @@ class SecurityController extends AbstractController
      */
     public function confirmAccount(MemberRepository $repoMember, $username, $token, EntityManagerInterface $manager)
     {
+
         $member = $repoMember->findOneByUsername($username);
 
         if($token != null && $token === $member->getToken())
@@ -405,30 +431,31 @@ class SecurityController extends AbstractController
         // How do I get the entity that represents the current user in Symfony ?
         // https://stackoverflow.com/questions/7680917/how-do-i-get-the-entity-that-represents-the-current-user-in-symfony2
 
+        // IL FAUT ÊTRE CONNECTÉ POUR ACCÉDER À CETTE PAGE !
         // La variable $user renvoie ici au membre connecté
-        $user = $this->getUser();
+        $current_member = $this->security->getUser();
 
         // Redirection en cas d'absence de membre connecté..
-        if($user === null)
+        if($current_member === null)
         {
             return $this->redirectToRoute('security_connexion');
 
         } 
   
-        $formNewpass = $this->createForm(NewpassType::class, $user);
+        $formNewpass = $this->createForm(NewpassType::class, $current_member);
         
         $formNewpass->handleRequest($request);
     
         if($formNewpass->isSubmitted() && $formNewpass->isValid())
         {
-            $hash = $encoder->encodePassword($user, $user->getNewpass());
+            $hash = $encoder->encodePassword($current_member, $current_member->getNewpass());
             
-            $user->setPassword($hash);
+            $current_member->setPassword($hash);
 
-            // $user->setNewpass("EMPTY");
-            $user->setNewpass($hash);
+            // $current_member->setNewpass("EMPTY");
+            $current_member->setNewpass($hash);
             
-            $manager->persist($user);
+            $manager->persist($current_member);
 
             $manager->flush();
             
@@ -437,7 +464,7 @@ class SecurityController extends AbstractController
     
         return $this->render('security/newpass.html.twig', [
             'formNewpass' => $formNewpass->createView(),
-            'user' => $user
+            'current_member' => $current_member
         ]);
     }
     
@@ -451,6 +478,15 @@ class SecurityController extends AbstractController
      */
     public function resetPass(Request $request, EntityManagerInterface $manager, MemberRepository $repoMember, \Swift_Mailer $mailer)
     {
+        // IL FAUT ÊTRE DÉCONNECTÉ POUR ACCÉDER À CETTE PAGE !
+        // Vérification si un membre est en cours de connexion
+        $current_member = $this->security->getUser();
+
+        // Si oui redirection vers Homepage
+        if(!is_null($current_member)) {
+            return $this->redirectToRoute('blog');
+        }
+
         // Cela définit au départ le MEMBER à NULL pour ensuite en spécifier la valeur dans le formulaire qui va permettre de filtrer les datas en BDD (-> findOneBy(...)) en fonction du nom d'utilisateur entré par l'internaute
         $member = new Member();
 
@@ -498,6 +534,7 @@ class SecurityController extends AbstractController
         }
 
         return $this->render('security/reset.html.twig', [
+            'current_member' => $current_member,
             'resetSecurity' => $resetSecurity->createView(),
             'member' => $member
         ]);
@@ -509,6 +546,15 @@ class SecurityController extends AbstractController
      */
     public function confirmReset(Request $request, MemberRepository $repoMember, UserPasswordEncoderInterface $encoder, EntityManagerInterface $manager, $username, $token)
     {
+        // IL FAUT ÊTRE DÉCONNECTÉ POUR ACCÉDER À CETTE PAGE !
+        // Vérification si un membre est en cours de connexion
+        $current_member = $this->security->getUser();
+
+        // Si oui redirection vers Homepage
+        if(!is_null($current_member)) {
+            return $this->redirectToRoute('blog');
+        }
+
         $member = $repoMember->findOneByUsername($username);
 
         // Vérification du paramètre TOKEN
@@ -556,6 +602,7 @@ class SecurityController extends AbstractController
         }
 
         return $this->render('security/forgot.html.twig', [
+            'current_member' => $current_member,
             'forgotSecurity' => $forgotSecurity->createView()
         ]); 
     }
