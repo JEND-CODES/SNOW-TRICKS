@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css?family=Quicksand:400,700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Quicksand:wght@300;400;500;600;700&display=swap');
 
 body {
     font-family: 'Quicksand', sans-serif;
@@ -19,7 +19,21 @@ body {
 }
 */
 
+.mini-spacer {
+    height: 5px;
+}
 
+.regular-spacer {
+    height: 10px;
+}
+  
+.medium-spacer {
+    height: 50px;
+}
+
+.big-spacer {
+    height: 200px;
+}
 
 #trick-box .load-more { 
     display:none;
@@ -164,71 +178,6 @@ a:hover {
     color: #2a3b4d !important;
 }
 
-.responsive-highcharts {
-    width: 100%;
-    height: 450px;
-    margin: 0 auto;
-    border: 0px solid grey;
-    margin-bottom: 30px;
-}
-
-/* Légendes des options Design des Charts en Back Office */
-
-.design-charts {
-    margin-top: 20px;
-    border: 0px solid #ccc;
-    border-radius: 20px;
-}
-
-/* Highcharts Design Radio buttons */
-
-.design-charts input[type="radio"] {
-    display: none;
-}
-
-.graphical-radio {
-    cursor: pointer;
-    background: white;
-    color: #444;
-    display: inline-block;
-    width: auto;
-    height: auto;
-    border-radius: 10px;
-    padding: 5px;
-    border: 1px solid #dcdcdc;
-    margin: 2px;
-}
-
-.design-charts input[type="radio"]:checked+.graphical-radio {
-    border: 1px solid cornflowerblue;
-    color: #456bad;
-}
-
-@media all and (max-width:960px) {
-    .design-charts {
-        margin-top: -20px;
-    }
-}
-
-@media all and (max-width:600px) {
-    .design-charts {
-        margin-top: -20px;
-    }
-}
-
-@media all and (max-width:1264px) {
-    .new-options {
-        margin-top: -10px;
-        border: 0px solid blue;
-    }
-}
-
-@media all and (min-width:1265px) {
-    .new-options {
-        margin-top: -20px;
-        border: 0px solid red;
-    }
-}
 
 /* Logo Image */
 
@@ -323,7 +272,6 @@ input[type=password] {
     transition: 0.5s;
     outline: none;
     background-color: white !important;
-    color: #555;
 }
 
 input[type=password]:focus {
@@ -384,37 +332,52 @@ textarea:focus {
 button[type=submit] {
     cursor: pointer;
     padding: 10px 13px;
-    border: 1px solid #ccc;
+    /* border: 1px solid #ccc; */
     /*border-radius: 20px;*/
     border-radius: 4px;
-    background-color: white !important;
+    background-color: #1E88E5 !important;
     margin-top: 5px;
-    color: grey;
+    color: white;
     outline-style: none;
     transition: 0.5s;
+    font-weight:bold;
 }
 
 button[type=submit]:hover {
-    border: 1px solid #555;
-    color: #555;
+    background-color: #3698ee !important;
 }
 
 input[type=submit] {
     cursor: pointer;
     padding: 8px 13px;
-    border: 1px solid #ccc;
+    /* border: 1px solid #ccc; */
     /*border-radius: 20px;*/
     border-radius: 4px;
-    background-color: white !important;
+    background-color: #1E88E5 !important;
     margin-top: 5px;
-    color: grey;
+    color: white;
     outline-style: none;
     transition: 0.5s;
+    font-weight:bold;
 }
 
 input[type=submit]:hover {
-    border: 1px solid #555;
-    color: #555;
+    background-color: #3698ee !important;
+}
+
+.special-button {
+    cursor: pointer;
+    padding: 8px 13px;
+    border-radius: 4px;
+    background-color: #1E88E5 !important;
+    color: white;
+    outline-style: none;
+    transition: 0.5s;
+    font-weight:bold;
+}
+
+.special-button:hover {
+    background-color: #3698ee !important;
 }
 
 .edit-post-button {
@@ -495,10 +458,10 @@ select:focus {
 .slide-title {
     position: absolute;
     color: rgb(0, 0, 0);
-    background: linear-gradient(90deg, rgba(255, 255, 255, 0) 0%, rgba(255, 255, 255, 0.6) 40%, rgba(255, 255, 255, 0.6) 60%, rgba(255, 255, 255, 0) 100%);
+    background: linear-gradient(90deg, rgba(255, 255, 255, 0) 0%, rgba(255, 255, 255, 0.5) 0%, rgba(255, 255, 255, 0.5) 100%, rgba(255, 255, 255, 0) 100%);
     padding-top: 20px;
     padding-bottom: 80px;
-    bottom: -2%;
+    bottom: -3%;
     font-family: 'Quicksand', sans-serif !important;
     font-size: 32px;
     width: 100%;
@@ -507,7 +470,7 @@ select:focus {
     word-wrap: break-word;
     text-transform:uppercase;
     /*font-weight:bold;*/
-    border:1px solid white;
+    /*border:1px solid white;*/
 }
 
 .slide-title:hover {
@@ -516,86 +479,14 @@ select:focus {
 
 @media all and (max-width:600px) {
     .slide-title {
-        bottom: 12%;
+        bottom: -5%;
         font-size: 22px;
-        padding-left: 10px;
-        padding-right: 10px;
-        background: rgba(255, 255, 255, 0.85);
+        padding-top: 8px;
+        padding-bottom: 42px;
+        background: linear-gradient(90deg, rgba(255, 255, 255, 0) 0%, rgba(255, 255, 255, 0.5) 0%, rgba(255, 255, 255, 0.5) 100%, rgba(255, 255, 255, 0) 100%);
     }
 }
 
-/* Paginator Styles */
-
-.current {
-    padding: 0 7px;
-    font-size: 38px !important;
-}
-
-.page {
-    padding: 0 7px;
-    font-size: 26px !important;
-}
-
-.next {
-    padding: 0 7px;
-    font-size: 26px !important;
-}
-
-.last {
-    padding: 0 7px;
-    font-size: 26px !important;
-}
-
-.first {
-    padding: 0 7px;
-    font-size: 26px !important;
-}
-
-.previous {
-    padding: 0 7px;
-    font-size: 26px !important;
-}
-
-/* Leaflet Map CO2 World */
-#map {
-    z-index: 0 !important;
-    position: relative !important;
-    height: 500px !important;
-    width: 100% !important;
-}
-
-/*Easy way to custom Leaflet Markers*/
-.leaflet-marker-icon {
-    content: url('/snow_tricks_v2/public/icons/marker-icon-red.png');
-    height: 37px !important;
-    width: 21px !important;
-}
-
-/* Comments Pagination on Posts */
-.pagination {
-    display: block;
-    width: 75%;
-    margin: 1em auto;
-    text-align: center;
-    font-size: 26px;
-    color: white;
-}
-
-.pagination:after {
-    content: '';
-    clear: both;
-}
-
-.pagination-button {
-    display: inline-block;
-    padding: 0 14px;
-    color: white;
-    cursor: pointer;
-}
-
-.pagination-button:hover {
-    color: black;
-}
 
 /* Image Zoom-in effect */
 .image-wrapper {
@@ -606,62 +497,14 @@ select:focus {
     transform: scale(1.05);
 }
 
-/* Vue Flip Cards styles */
-
-.flip-image {
-    width: 370px;
-    height: 240px;
-    border: 1px solid #cccccc;
-}
-
-@media all and (max-width:1264px) {
-    .flip-image {
-        width: 270px;
-        height: 200px;
-    }
-}
-
-@media all and (max-width:960px) {
-    .flip-image {
-        width: 310px;
-        height: 200px;
-    }
-}
-
-.flip-card {
-    height: 250px;
-    display: flex;
-    justify-content: center;
-}
-
-.flip-card-2 {
-    border: 0px solid #555;
-    text-align: center;
-}
-
-.flip-form {
-    cursor: pointer;
-    width: 100%;
-    height: auto;
-    justify-content: center;
-    align-items: center;
-}
-
-.flip-footer {
-    text-align: right;
-}
-
-.flip-card-enter,
-.flip-card-leave-to {
-    opacity: 0;
-    transform: rotateY(90deg);
-}
-
-.flip-card-enter-active,
-.flip-card-leave-active {
-    transition: all 0.4s;
-}
-
 .v-window__next, .v-window__prev {
     background: transparent !important;
+}
+
+.special-chevron {
+  position: absolute;
+  color: white;
+  /*pointer-events: none;*/
+  margin-left: -20px;
+  margin-top: 7px;
 }

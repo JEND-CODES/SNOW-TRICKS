@@ -12,13 +12,17 @@ use Doctrine\ORM\Mapping as ORM;
 // -> Ajouté pour régler les conditions de validation du formulaire éditeur d'article
 use Symfony\Component\Validator\Constraints as Assert;
 
-// EXEMPLE POUR AJOUTER UNE UNIQUE ENTITY ! A AJOUTER POUR LE TITRE ET LE SLUG-LABELLED !
-// use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
-// @UniqueEntity(fields={"labelled"})
+// DÉPENDANCE POUR AJOUTER UNE UNIQUE ENTITY !
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
+// ex : @UniqueEntity("labelled")
 
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\FigureRepository")
+ * @UniqueEntity(
+ *      fields={"title"},
+ *      message="Ce titre est déjà pris"
+ * )
  */
 class Figure
 {
@@ -30,20 +34,27 @@ class Figure
     private $id;
 
     /**
-     * @ORM\Column(type="string", length=255)
-     * @Assert\Length(min=10, max=255, minMessage="Titre trop court")
+     * @ORM\Column(type="string", length=50, unique=true)
+     * @Assert\Length(
+     *      min=4, 
+     *      max=50, 
+     *      minMessage="Titre trop court", 
+     *      maxMessage = "Titre trop long"
+     * )
      */
     private $title;
 
     /**
      * @ORM\Column(type="text", nullable=true)
-     * @Assert\Length(min=10)
      */
     private $content;
 
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
-     * @Assert\Url()
+     * @Assert\Url(
+     *      protocols = {"http", "https"},
+     *      message = "URL non conforme"
+     * )
      */
     private $image;
 
@@ -58,7 +69,7 @@ class Figure
     private $freshDate;
 
     /**
-     * @ORM\Column(type="string", length=255, nullable=true)
+     * @ORM\Column(type="string", length=80, nullable=true)
      */
     private $labelled;
 
@@ -82,10 +93,10 @@ class Figure
 
     // 1er février -> j'ai ajouté la mention " cascade={"persist"} " car je me retrouvais avec le message d'erreur suivant : "A new entity was found through the relationship 'App\Entity\Figure#screens' that was not configured to cascade persist operations for entity. To solve this issue: Either explicitly call EntityManager#persist() on this unknown entity or configure cascade persist this association in the mapping for example @ManyToOne(..,cascade={"persist"}). If you cannot find out which entity causes the problem implement 'App\Entity\Screen#__toString()' to get a clue."
 
-    // Mettre plutôt ? " cascade={"persist", "remove"} " ???
+    // Mettre plutôt ? " cascade={"persist"} " ???
 
     /**
-     * @ORM\OneToMany(targetEntity="App\Entity\Screen", mappedBy="figure", orphanRemoval=true, cascade={"persist"})
+     * @ORM\OneToMany(targetEntity="App\Entity\Screen", mappedBy="figure", orphanRemoval=true, cascade={"persist", "remove"})
      */
     private $screens;
 

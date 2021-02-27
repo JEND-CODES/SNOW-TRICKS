@@ -1,4 +1,5 @@
 <?php
+// 0. Création BDD : php bin/console doctrine:database:create
 // 1.Créer un Controller -> php bin/console make:controller
 // 2. Si la BDD a déjà été créée -> Créer une nouvelle Entity : php bin/console make:entity
 // 3. Renseigner les colonnes voulues pour la table SQL et faire une migration -> php bin/console make:migration (le nouveau fichier Entity est alors mis à jour)
@@ -57,6 +58,11 @@ namespace App\Controller;
     // On utilise le formulaire de Symfony pour la gestion des erreurs -> voir les modifications effectuées dans ce fichier :
     use App\Form\FigureType;
 
+    // 23 février : révision du formatage des SLUGS
+    use Symfony\Component\String\Slugger\SluggerInterface;
+
+    use App\Form\MentionType;
+
 
 class BlogController extends AbstractController
 {
@@ -95,7 +101,7 @@ class BlogController extends AbstractController
     /**
     * @Route("/blog/new", name="blog_create")
     */
-    public function createFigure(Figure $figure = null, Request $request, EntityManagerInterface $manager)
+    public function createFigure(Figure $figure = null, Request $request, EntityManagerInterface $manager, SluggerInterface $slugger)
     {
         $current_member = $this->security->getUser();
         //if(!$figure)
@@ -248,7 +254,9 @@ class BlogController extends AbstractController
                 // trim() — Supprime les espaces (ou d'autres caractères) en début et fin de chaîne
                 // preg_replace() — Rechercher et remplacer par expression rationnelle standard
 
-                $figure->setLabelled(strtolower(trim(preg_replace('/[^A-Za-z0-9-]+/', '-', $figure->getTitle() ))));
+                // $figure->setLabelled(strtolower(trim(preg_replace('/[^A-Za-z0-9-]+/', '-', $figure->getTitle() ))));
+
+                $figure->setLabelled($slugger->slug($figure->getTitle()));
 
                 $figure->setUser($this->getUser());
             }
@@ -282,7 +290,7 @@ class BlogController extends AbstractController
     /**
     * @Route("/blog/{id}/edit", name="blog_edit")
     */
-    public function updateFigure(Figure $figure, Request $request, EntityManagerInterface $manager)
+    public function updateFigure(Figure $figure, Request $request, EntityManagerInterface $manager, SluggerInterface $slugger)
     {
         $current_member = $this->security->getUser();
         /*
@@ -321,7 +329,9 @@ class BlogController extends AbstractController
             // trim() — Supprime les espaces (ou d'autres caractères) en début et fin de chaîne
             // preg_replace() — Rechercher et remplacer par expression rationnelle standard
 
-            $figure->setLabelled(strtolower(trim(preg_replace('/[^A-Za-z0-9-]+/', '-', $figure->getTitle() ))));
+            // $figure->setLabelled(strtolower(trim(preg_replace('/[^A-Za-z0-9-]+/', '-', $figure->getTitle() ))));
+
+            $figure->setLabelled($slugger->slug($figure->getTitle()));
             
             $manager->persist($figure);
 
@@ -378,22 +388,28 @@ class BlogController extends AbstractController
 
         // ENREGISTREMENTS DES COMMENTAIRES
         $mention = new Mention();
-            
+
+        $formMention = $this->createForm(MentionType::class, $mention);
+        
+        $formMention->handleRequest($request);
+        
+        /*
         $formMention = $this->createFormBuilder($mention)
                 
                 // ->add('author')
                 ->add('content')
 
                 // 3 février -> On peut simplement mettre un "Button type Submit" au coeur du formulaire pour l'activer (ici j'ai désactivé le bouton, j'en ai placé un dans le fichier TWIG et j'ai désactivé la dépendance en haut de BlogController -> use..\SubmitType)
-                /*  
-                ->add('save', SubmitType::class, array(
-                    'label' => 'Publier'        
-                ))
-                */
+                 
+                // ->add('save', SubmitType::class, array(
+                    // 'label' => 'Publier'        
+                // ))
+                
                 
                 ->getForm();
             
         $formMention->handleRequest($request);
+        */
             
         if($formMention->isSubmitted() && $formMention->isValid()) 
         {

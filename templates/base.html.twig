@@ -13,7 +13,7 @@
     <meta content='width=device-width, initial-scale=1.0' name='viewport' />
 
     <!-- Favicon -->
-    <link rel="shortcut icon" type="image/x-icon" href="/backgrounds/icon-graph-2.png" />
+    <link rel="shortcut icon" type="image/x-icon" href="/backgrounds/faviconSnowTricks.png" />
 
     {#
     {% if app.request.get('_route') == 'leafletMap' %}
@@ -34,8 +34,10 @@
     <!--Fontawesome Icons-->
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css" integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf" crossorigin="anonymous">
 
+    <!--<link href="vendor/components/font-awesome/css/all.css" rel="stylesheet" type="text/css">-->
+
     <!-- Polices du site -->
-    <link href="https://fonts.googleapis.com/css?family=Quicksand:400,700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 
     <link rel="stylesheet" href="/css/style.css" />
 
@@ -142,17 +144,16 @@
     <!-- jQuery Events -->
     <script src="/js/event.js"></script>
 
-    <!-- TinyMCE -->
-    <!--<script src="https://cdn.tiny.cloud/1/5k258xz8b8894li1zboryqoh74ms5pwkns3ket7ysg708h1g/tinymce/5/tinymce.min.js"></script>-->
-    <script src="/js/tinymce.min.js"></script>
+    
 
-    <!-- TinyMCE init function -->
-    <script src="/js/tinyInit.js"></script>
+    
 
-    <!--Chargement Langage Fr TinyMCE-->
-    <script src="/js/langs/fr_FR.js"></script>
-
-    {% block javascripts %}{% endblock %}
+    {% block javascripts %}
+    {# <script src="{{ asset('vendor/tinymce/tinymce/tinymce.min.js') }}"></script>
+    <script src="{{ asset('vendor/tinymce/tinymce/jquery.tinymce.min.js') }}"></script>
+    <script src="{{ asset('/js/tinyInit.js') }}"></script>
+    <script src="{{ asset('/js/langs/fr_FR.js') }}"></script> #}
+    {% endblock %}
 
 </body>
 

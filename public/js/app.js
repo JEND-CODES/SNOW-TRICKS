@@ -14,7 +14,7 @@ new Vue({
             dialog: false,
 
             // Button Navbar PopUp Search Bar
-            dialog2: false,
+            searching: false,
 
             // Modals on posts medias Flex Grid items
             modal_screen_1: false,

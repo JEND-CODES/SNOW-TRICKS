@@ -16,7 +16,15 @@
 
         </a>
 
-        <img src="{{ figureSlide.image }}" class="responsive-image" alt="Illustration" title="Illustration" />
+        {% if figureSlide.image is not null %}
+
+            <img src="{{ figureSlide.image }}" class="responsive-image" alt="{{ figureSlide.title }}" title="{{ figureSlide.title }}" />
+
+        {% else %}
+
+            <img src="/backgrounds/default_picture.jpg" class="responsive-image" alt="Image par défaut" title="Image par défaut" />
+
+        {% endif %}
 
         {# {% if app.user %} #}
         <!-- Chaque membre ne peut modifier que ses articles, mis à part l'admin qui peut tout modifier -->
@@ -56,7 +64,16 @@
 
         </a>
 
-        <img src="{{ figureSlide.image }}" class="responsive-image" alt="{{ figureSlide.title }}" title="{{ figureSlide.title }}" />
+        {% if figureSlide.image is not null %}
+
+            <img src="{{ figureSlide.image }}" class="responsive-image" alt="{{ figureSlide.title }}" title="{{ figureSlide.title }}" />
+
+        {% else %}
+
+            <img src="/backgrounds/default_picture.jpg" class="responsive-image" alt="Image par défaut" title="Image par défaut" />
+
+        {% endif %}
+        
 
         {# {% if app.user %} #}
         <!-- Chaque membre ne peut modifier que ses articles, mis à part l'admin qui peut tout modifier -->
@@ -130,7 +147,7 @@
                             <a href="{{ path('chapter_show', {'id': figure.id, 'labelled': figure.labelled }) }}">
 
                                 <v-img v-ripple="{ class: `white--text` }" class="image-wrapper" :aspect-ratio="16/9" src="{{ figure.image }}" alt="{{ figure.title }}" title="{{ figure.title }}" style="margin: 0 auto;">
-                                    <!--<v-expand-transition>
+                                   {#  <v-expand-transition>
                                     <div
                                       v-if="hover"
                                       class="d-flex transition-fast-in-fast-out grey lighten-2 v-card--reveal display-3 white--text"
@@ -138,7 +155,7 @@
                                     >
                                       <p class="body-1 font-weight-light black--text mb-2 pa-5">{{ figure.content | striptags | raw | slice(0,100) }} ...</p>
                                     </div>
-                                  </v-expand-transition>-->
+                                  </v-expand-transition> #}
                                 </v-img>
 
                             </a>
@@ -147,7 +164,7 @@
 
                                 <a href="{{ path('chapter_show', {'id': figure.id, 'labelled': figure.labelled }) }}">
 
-                                    <p class="excerpt-title mb-6">{{ figure.title }}</p>
+                                    <p class="excerpt-title mb-6">{{ figure.title|upper }}</p>
 
                                 </a>
 

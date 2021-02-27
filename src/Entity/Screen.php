@@ -23,7 +23,8 @@ class Screen
      */
     private $id;
 
-    // On peut ici mettre un ASSERT qui vérifie le type de champ (image, vidéo..)
+    // On peut ici mettre un ASSERT qui vérifie le type de champ (image, vidéo..) ??
+    // Le traitement des formats vidéos ou images est paramétré en javascript
     /**
      * @ORM\Column(type="text", nullable=true)
      */

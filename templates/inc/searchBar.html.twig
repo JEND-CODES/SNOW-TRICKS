@@ -1,19 +1,29 @@
 <!-- Bouton PopUp search Bar -->
 
-<v-btn fab elevation="0" color="rgba(255,255,255,0)" fixed @click="dialog2 = !dialog2" class="btn-magnify white--text" alt="Rechercher" title="Rechercher">
+<v-btn fab elevation="0" color="rgba(255,255,255,0)" fixed @click="searching = !searching" class="btn-magnify white--text" alt="Rechercher" title="Rechercher">
+
     <v-icon>fas fa-search</v-icon>
+
 </v-btn>
 
 <!-- PopUp Search Form -->
 
-<v-dialog v-model="dialog2" max-width="500px">
+<v-dialog v-model="searching" max-width="500px">
     
     <v-card class="pa-2" color="rgba(255,255,255,0.85)">
+
         <v-card-text class="mt-4">
 
-            <p>PATH QUEST À REMETTRE</p>
+            <form method="GET" action="{{ path('search') }}">
+
+                <input type="search" name="query" placeholder="Rechercher..." />
+
+                <input style="background-color:#1E88E5;" type="submit" value="Valider" />
+
+            </form>
 
         </v-card-text>
 
     </v-card>
+
 </v-dialog>

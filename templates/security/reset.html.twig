@@ -8,7 +8,7 @@
 <!-- V-card Background-color -->
 <v-card flat outlined style="z-index:-1;position:fixed;top:0;left:0;height:100%;width:100%;background-color:#85C1E9;"></v-card>
 
-{% if member.username is empty %}
+{# {% if member.username is empty %} #}
 
 <v-container fluid class="mt-n3">
     <v-row>
@@ -30,7 +30,7 @@
 
                             {{ form_row(resetSecurity.username, {'label': ' ', 'attr': {'placeholder': 'Nom d\'utilisateur'}}) }}
 
-                            <button type="submit">Demande de réinitialisation</button>
+                            <button type="submit">Confirmer</button>
 
                             {{ form_end(resetSecurity) }}
 
@@ -47,9 +47,10 @@
     </v-row>
 </v-container>
 
-{% endif %}
+{# {% endif %} #}
 
 
+{# 
 {% if member.username is not empty %}
 
     <v-container fluid class="mt-n3">
@@ -97,16 +98,6 @@
 
                     <a href="{{ path('confirm_reset', { username : member.username , token : member.token }) }}" class="button">ACCÉDER À LA PAGE DE RÉINITIALISATION DE VOTRE MOT DE PASSE<a>
 
-                    {#
-
-                    path() - Generates a [relative] URL path given a route name and parameters.
-
-                    url() - Generates an absolute URL given a route name and parameters.
-
-                    <a href="{{ url('confirm_reset', { username : member.username , token : member.token }) }}" class="button">ACCÉDER À LA PAGE DE RÉINITIALISATION DE VOTRE MOT DE PASSE<a>
-
-                    #}
-
                 </v-card>
                 
             </v-col>
@@ -115,7 +106,8 @@
 
     </v-container>
 
-{% endif %}
+{% endif %} 
+#}
 
 
 

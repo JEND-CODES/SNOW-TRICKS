@@ -31,9 +31,12 @@ use Doctrine\ORM\EntityManagerInterface;
 
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 
-// 5 février -> Tests du mailer service de Symfony
-// use Symfony\Component\Mailer\MailerInterface;
+// 23 février -> Nouveau test du mailer service de Symfony
+use Symfony\Component\Mailer\MailerInterface;
 // use Symfony\Component\Mime\Email;
+// CF. https://symfony.com/doc/current/mailer.html
+use Symfony\Bridge\Twig\Mime\TemplatedEmail;
+use Symfony\Component\Mime\Address;
 
 // 5 février -> Tests du Bundle Swift Mailer
 
@@ -47,6 +50,8 @@ use Symfony\Component\String\Slugger\SluggerInterface;
 // How do I get the entity that represents the current user in Symfony ?
 // https://stackoverflow.com/questions/7680917/how-do-i-get-the-entity-that-represents-the-current-user-in-symfony2
 use Symfony\Component\Security\Core\Security;
+
+use Symfony\Component\Security\Http\Authentication\AuthenticationUtils;
 
 
 class SecurityController extends AbstractController
@@ -273,7 +278,7 @@ class SecurityController extends AbstractController
     /**
      * @Route("/inscription", name="security_registration")
      */
-    public function registration(Request $request, EntityManagerInterface $manager, UserPasswordEncoderInterface $encoder, \Swift_Mailer $mailer, SluggerInterface $slugger)
+    public function registration(Request $request, EntityManagerInterface $manager, UserPasswordEncoderInterface $encoder, /*\Swift_Mailer $mailer,*/ MailerInterface $mailer, SluggerInterface $slugger)
     {
         // IL FAUT ÊTRE DÉCONNECTÉ POUR ACCÉDER À CETTE PAGE !
         // Vérification si un membre est en cours de connexion
@@ -345,7 +350,8 @@ class SecurityController extends AbstractController
                     // ->setValidation('0')
                     ->setValidation(false)
                     // Integer pour définir le rôle membre
-                    ->setStatus('0');
+                    //->setStatus('0')
+                    ;
 
             $manager->persist($member);
 
@@ -353,6 +359,7 @@ class SecurityController extends AbstractController
 
 
             // TEST DE SWIFT MAILER DU 6 FÉVRIER
+            /*
             $message = (new \Swift_Message('Votre inscription est enregistrée'))
             ->setFrom('noreply@planetcode.fr')
             ->setTo($member->getEmail())
@@ -369,6 +376,7 @@ class SecurityController extends AbstractController
             ;
             
             $mailer->send($message);
+            */
             // var_dump($message);
             // print_r($message);
 
@@ -379,9 +387,29 @@ class SecurityController extends AbstractController
 
             // FIN DE TEST DE SWIFT MAILER
 
+            // 23 FÉVRIER -> TESTS DU MAILER SERVICE DE SYMFONY
+            $email = (new TemplatedEmail())
+                ->from('noreply@snowtricks.com')
+                ->to(new Address($member->getEmail()))
+                ->subject('Demande de confirmation de votre nouveau compte SNOWTRICKS')
+                ->htmlTemplate('emails/validation.html.twig')
+                ->context([
+                    'member' => $member
+                ])
+    
+                ;
 
-            // return $this->redirectToRoute('security_connexion');
-            // return $this->redirectToRoute('security_registration');
+            $mailer->send($email);
+
+            // FIN DE TEST MAILER
+
+            // REDIRECTION VERS HOMEPAGE AVEC UN MESSAGE FLASH
+            $this->addFlash(
+                'notice',
+                'Un email vous a été adressé pour confirmer votre compte'
+            );
+            return $this->redirectToRoute('blog');
+            
         }
     
         return $this->render('security/registration.html.twig', [
@@ -404,13 +432,19 @@ class SecurityController extends AbstractController
         {
             // $member->setValidation('1');
             $member->setValidation(true)
-                    ->setStatus('1');
+                    // ->setStatus('1')
+                    ;
                     // On vide la colonne Token ?
                     // ->setToken('');
 
             $manager->persist($member);
 
             $manager->flush();
+
+            $this->addFlash(
+                'notice',
+                'COMPTE VALIDÉ'
+            );
 
         } 
         else
@@ -458,6 +492,11 @@ class SecurityController extends AbstractController
             $manager->persist($current_member);
 
             $manager->flush();
+
+            $this->addFlash(
+                'notice',
+                'NOUVEAU PASSWORD ENREGISTRÉ'
+            );
             
             return $this->redirectToRoute('blog');
         }
@@ -476,7 +515,7 @@ class SecurityController extends AbstractController
     /**
      * @Route("/resetpass", name="reset_password")
      */
-    public function resetPass(Request $request, EntityManagerInterface $manager, MemberRepository $repoMember, \Swift_Mailer $mailer)
+    public function resetPass(Request $request, EntityManagerInterface $manager, MemberRepository $repoMember, /*\Swift_Mailer $mailer*/ MailerInterface $mailer)
     {
         // IL FAUT ÊTRE DÉCONNECTÉ POUR ACCÉDER À CETTE PAGE !
         // Vérification si un membre est en cours de connexion
@@ -502,6 +541,18 @@ class SecurityController extends AbstractController
             // Attention !! Veiller ici à appeler le getter "$username->getUsername()" de la classe MEMBER (sinon indiquer uniquement $username, ça ne marchera pas !!)
             $member = $repoMember->findOneBy(array('username' => $username->getUsername()));
 
+            // SI LE PSEUDO MEMBRE N'EST PAS RECONNU, MESSAGE D'ERREUR !
+            if(!$member){
+                
+                $this->addFlash(
+                    'warning',
+                    'PSEUDO NON RECONNU'
+                );
+
+                return $this->redirectToRoute('reset_password');
+            }
+
+            // SI LE PSEUDO EXISTE
             if($member !== null)
             {
                 // On génère un nouveau Token
@@ -512,6 +563,7 @@ class SecurityController extends AbstractController
                 $manager->flush();
 
                 // Message SWIFT MAILER
+                /*
                 $message = (new \Swift_Message('Demande de réinitialisation de votre mot passe Snow Tricks'))
                 ->setFrom('noreply@planetcode.fr')
                 ->setTo($member->getEmail())
@@ -528,7 +580,31 @@ class SecurityController extends AbstractController
                 ;
                 
                 $mailer->send($message);
+                */
 
+                 // 23 FÉVRIER -> TESTS DU MAILER SERVICE DE SYMFONY
+                $email = (new TemplatedEmail())
+                    ->from('noreply@snowtricks.com')
+                    ->to(new Address($member->getEmail()))
+                    ->subject('Demande de réinitialisation de votre mot passe SNOWTRICKS')
+                    ->htmlTemplate('emails/diepass.html.twig')
+                    ->context([
+                        'member' => $member
+                    ])
+          
+                    ;
+
+                $mailer->send($email);
+
+                // FIN DE TEST MAILER
+
+                // REDIRECTION VERS HOMEPAGE AVEC UN MESSAGE FLASH
+                $this->addFlash(
+                    'notice',
+                    'Un email vous a été adressé pour procéder à la création d\'un nouveau mot de passe'
+                );
+                return $this->redirectToRoute('blog');
+                
             }
            
         }
@@ -563,13 +639,12 @@ class SecurityController extends AbstractController
         $token = $getToken['token'];
         // var_dump($token);
         
-        /*
+        // VÉRIFICATION DE LA CONFORMITÉ DU TOKEN POUR L'ACCÈS À CETTE ROUTE
         if($member->getToken() != $token)
         {
-            return $this->redirectToRoute('security_registration');
+            return $this->redirectToRoute('blog');
         }
-        */
-
+        
         // Attention à bien mettre le paramètre $member : " createForm(ForgotType::class, $member) "
         $forgotSecurity = $this->createForm(ForgotType::class, $member);
 
@@ -579,6 +654,7 @@ class SecurityController extends AbstractController
         {
             // Veiller à sécuriser l'accès à cette page avec notamment une vérification du TOKEN
             // http://localhost:8000/confirm_reset/paolo/fed334e2c0f745798e17b2539f116be94dfb5333bad6464504a1c26cdf53c56e
+            // VÉRIFICATION DE LA CONFORMITÉ DU TOKEN LORS DE LA CONFIRMATION DU NOUVEAU MOT DE PASSE
             if($member->getToken() === $token)
             {
                 $hash = $encoder->encodePassword($member, $member->getPassword());
@@ -590,6 +666,11 @@ class SecurityController extends AbstractController
                 $manager->persist($member);
     
                 $manager->flush();
+
+                $this->addFlash(
+                    'notice',
+                    'NOUVEAU PASSWORD ENREGISTRÉ'
+                );
                 
                 return $this->redirectToRoute('blog');
 
@@ -611,9 +692,23 @@ class SecurityController extends AbstractController
     /**
      * @Route("/connexion", name="security_connexion")
      */
-    public function connexion()
+    public function connexion(AuthenticationUtils $utils)
     {
-        return $this->render('security/connexion.html.twig');
+        $current_member = $this->security->getUser();
+
+        // IL FAUT ÊTRE DÉCONNECTÉ POUR ACCÉDER À CETTE PAGE !
+        if(!is_null($current_member)) {
+            return $this->redirectToRoute('blog');
+        }
+
+        // RAPPORT D'ERREURS LORS DE L'AUTHENTIFICATION
+        // https://symfony.com/doc/current/security/form_login_setup.html
+        $error = $utils->getLastAuthenticationError();
+
+        return $this->render('security/connexion.html.twig', [
+            'error' => $error,
+            'current_member' => $current_member
+        ]);
     }
     
     /**

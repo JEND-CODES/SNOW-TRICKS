@@ -108,7 +108,7 @@
                 md="2"
                 >
                     
-                    <v-img src="/backgrounds/default_picture_2.jpg" class="flip-image-bis" alt="Illustration" title="Illustration">
+                    <v-img src="/backgrounds/default_picture_2.jpg" alt="Illustration" title="Illustration">
                     </v-img>
 
                     {{ form_row(screen.thumbnail, {'label': ' ', 'attr': {'class': "screen_class",'placeholder': "URL IMAGE OU VIDÉO YOUTUBE"}}) }}
@@ -160,7 +160,7 @@
                 >
 
                     <select id="change_screen_format" style="text:align:center !important;">
-                        <option disabled selected value> Changer le format de l'article </option>
+                        <option disabled selected value> Changer le format du post </option>
                         <option value="{{ path('blog_create') }}?selected_screen=6">6 images ou vidéos</option>
                         <option value="{{ path('blog_create') }}?selected_screen=7">7 images ou vidéos</option>
                         <option value="{{ path('blog_create') }}?selected_screen=8">8 images ou vidéos</option>
@@ -180,39 +180,34 @@
 
                 </v-col>
                 
-                <br />
-                <br />
-
+                <div class="medium-spacer"></div>
+                
                 <!-- BOUTON DE RESTAURATION DES URLS YOUTUBE PUIS VÉRIFICATIONS D'URL SCREENS -->
                 <!--<a onclick="return(confirm('Validez-vous ce choix ?'));">-->
                 <a>
-                <p id="check_screen" style="color:blueviolet;right:26px;position:absolute;margin-top:0px;">
+                <p class="special-button" id="check_screen" style="right:34px;position:absolute;padding:10px;">
                 Confirmer&nbsp;&nbsp;<i class="fas fa-pen"></i>
                 </p>
                 </a>
 
-                <br />
-                <br />
+                <div class="medium-spacer"></div>
 
                 <!-- BOUTON POUR RECOMMENCER LES SAISIES -->
                 <!--<a onclick="return(confirm('Validez-vous ce choix ?'));">-->
                 <a>
-                <p id="update_screen" style="color:blueviolet;right:26px;position:absolute;margin-top:0px;">
+                <p class="special-button" id="update_screen" style="right:34px;position:absolute;margin-top:-20px;padding:10px;">
                 Recommencer&nbsp;&nbsp;<i class="fas fa-redo"></i>
                 </p>
                 </a>
 
-                <br />
-                <br />
+                <div class="regular-spacer"></div>
 
-                <button id="save_post" type="submit" class="edit-post-button" style="background-color:teal !important;color:white !important;margin-top:10px;margin-left:10px;float:right;">
+                <button id="save_post" type="submit" class="edit-post-button" style="margin-top:28px;margin-right:12px;float:right;">
                 Ajouter&nbsp;&nbsp;<i class="fas fa-pen"></i>
                 </button>
 
-                <br />
-                <br />
-                <br />
-                <br />
+                <div class="medium-spacer"></div>
+                <div class="medium-spacer"></div>
             
             {{ form_end(createFigure) }}
 
@@ -234,7 +229,7 @@
 
             <v-card class="white--text text-center pa-5" outlined color="rgba(255,255,255,0)"> 
 
-                <p>Connexion nécessaire</p>
+                <p class="font-weight-bold">CONNEXION NÉCESSAIRE</p>
 
             </v-card>
 
@@ -244,27 +239,24 @@
     
 </v-container>
     
-<br />
-<br />
-<br />
-<br />
-<br />
-<br />
-<br />
-<br />
-<br />
-<br />
-<br />
-<br />
-<br />
-<br />
-<br />
+<div class="big-spacer"></div>
+<div class="big-spacer"></div>
 
 {% endif %}
 
 {% endblock %}
 
 {% block javascripts %}
+
+<!-- TinyMCE -->
+<!--<script src="https://cdn.tiny.cloud/1/5k258xz8b8894li1zboryqoh74ms5pwkns3ket7ysg708h1g/tinymce/5/tinymce.min.js"></script>-->
+<script src="/js/tinymce.min.js"></script>
+
+<!-- TinyMCE init function -->
+<script src="/js/tinyInit.js"></script>
+
+<!--Chargement Langage Fr TinyMCE-->
+<script src="/js/langs/fr_FR.js"></script>
 
 <script>
 
@@ -276,7 +268,8 @@ document.getElementById("change_screen_format").onchange = function() {
     }        
 };
 
-$("#save_post").css('opacity', '0.2');
+// $("#save_post").css('opacity', '0.2');
+$("#save_post").hide();
 
 $("#update_screen").hide();
 
@@ -294,7 +287,8 @@ $("#update_screen").click(function () {
         $(".screen_class").css('opacity', '1');
 
         // On cache le bouton de sauvegarde de l'article
-        $("#save_post").css('opacity', '0.2');
+        // $("#save_post").css('opacity', '0.2');
+        $("#save_post").hide();
 
         
         // + Restauration de l'URL youtube
@@ -347,8 +341,8 @@ $("#check_screen").click(function () {
     // ITÉRATIONS DE VÉRIFICATIONS ET GÉNÉRATIONS D'ERREURS EN FONCTION DES CAS RENCONTRÉS
     for(var i = 0; i < inputs.length; i++){
 
-         alert($(inputs[i]).val());
-         alert($(inputs[i]).val().length);
+         // alert($(inputs[i]).val());
+         // alert($(inputs[i]).val().length);
 
         inputs_results = $(inputs[i]).val();
 
@@ -359,6 +353,7 @@ $("#check_screen").click(function () {
         // https://youtu.be/NKHYEOAbFyM
         // https://www.youtube.com/embed/NKHYEOAbFyM
 
+        /*
         if ($(inputs[i]).val().length == 43) {
             alert("Une Url contient bien 43 caractères")
         }
@@ -374,33 +369,34 @@ $("#check_screen").click(function () {
         if ($(inputs[i]).val().length == 41) {
             alert("Une Url contient bien 41 caractères")
         }
+        */
 
         // On vérifie que l'input contient bien l'url youtube et qu'elle soit pourvue de 43 caractères
         if (inputs_results.indexOf('https://www.youtube.com/watch?v=') > -1 && $(inputs[i]).val().length == 43 ) {
         //if (inputs_results.indexOf('https://www.youtube.com/watch?v=') > -1 ) {
 
-            alert( "YOUTUBE URL VALIDE");
+            // alert( "YOUTUBE URL VALIDE");
             error++;
 
         // On vérifie que l'input contient bien l'url youtube et qu'elle soit pourvue de 60 caractères (au cas où le param get " &feature=youtu.be " ou " &feature=emb_logo " est présent)
         } else if (inputs_results.indexOf('https://www.youtube.com/watch?v=') > -1 && $(inputs[i]).val().length == 60 ) {
 
-            alert( "YOUTUBE URL VALIDE");
+            // alert( "YOUTUBE URL VALIDE");
             error++;
 
         } else if (inputs_results.indexOf('https://youtu.be/') > -1 && $(inputs[i]).val().length == 28 ) {
 
-            alert( "YOUTUBE URL VALIDE");
+            // alert( "YOUTUBE URL VALIDE");
             error++;
 
         } else if (inputs_results.indexOf('https://www.youtube.com/embed/') > -1 && $(inputs[i]).val().length == 41 ) {
 
-            alert( "YOUTUBE URL VALIDE");
+            // alert( "YOUTUBE URL VALIDE");
             error++;
 
         } else if (inputs_results == '' ) {
 
-            alert( "CHAMP VIDE AUTORISÉ");
+            // alert( "CHAMP VIDE AUTORISÉ");
             error++;
 
         } else {
@@ -419,6 +415,8 @@ $("#check_screen").click(function () {
             // On s'assure de supprimer tous les paramètres GET indésirables (comme par exemple dans cette URL : http://meow.com/kitten.png?somehorribleparameter=1)
             uri = uri.split('?')[0];
 
+            
+
             // Ensuite vérification de l'extension de l'image
             var parts = uri.split('.');
 
@@ -428,8 +426,17 @@ $("#check_screen").click(function () {
 
             if(imageTypes.indexOf(extension) !== -1) {
 
-                return true;   
-
+                // Parmi les inputs qui contiennent des liens avec des extensions images, on vérifie aussi la présence de http ou https :
+                if(uri.indexOf("http") == 0 || uri.indexOf("https") == 0) {
+                    // alert("HTTP OU HTTPS PRÉSENT");
+                    // alert(uri);
+                    return true;
+                } else {
+                    // alert("HTTP OU HTTPS MANQUANT");
+                    // alert(uri);
+                    return false;
+                }
+            
             }
 
         }
@@ -456,7 +463,7 @@ $("#check_screen").click(function () {
 
     // BILAN -> S'il n'y a que 3 erreurs pour un seul formulaire, c'est qu'il contient soit une URL d'image valide, soit une URL de vidéo valide
 
-    alert(error);
+    // alert(error);
 
     // On divise le nombre d'erreurs comptabilisées par 3 ...
     var total = error / 3;
@@ -464,7 +471,7 @@ $("#check_screen").click(function () {
     // ... pour vérifier ensuite que le résultat de la division est équivalent au nombre d'input dédiés à l'édition des images ou des vidéos ...
     if(total == inputs.length) {
         // .. Et dans ce cas on autorise la publication de l'article !
-        alert('OK POUR PUBLICATION');
+        alert('MÉDIAS CONFORMES. OK POUR PUBLICATION');
 
         // On cache le bouton de vérification des URLS
         $("#check_screen").hide();
@@ -477,7 +484,8 @@ $("#check_screen").click(function () {
         $(".screen_class").css('opacity', '0.2');
 
         // On montre le bouton d'ajout d'un article
-        $("#save_post").css('opacity', '1');
+        // $("#save_post").css('opacity', '1');
+        $("#save_post").show();
         
     } else {
 

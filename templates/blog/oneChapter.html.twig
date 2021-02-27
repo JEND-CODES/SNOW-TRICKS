@@ -19,7 +19,7 @@
 
         <v-col class="white--text text-center" cols="12" >
 
-            <p class="post-title">{{ figure.title }}</p>
+            <p class="post-title">{{ figure.title|upper }}</p>
 
                 <br />
 
@@ -99,7 +99,7 @@
 
                         <div class="post-details-content">
 
-                            <v-img src="https://img.youtube.com/vi/{{ screen.thumbnail }}/hqdefault.jpg" class="flip-image-bis" alt="Illustration" title="Illustration"></v-img>
+                            <v-img src="https://img.youtube.com/vi/{{ screen.thumbnail }}/hqdefault.jpg" alt="Illustration" title="Illustration"></v-img>
 
                         </div>
 
@@ -159,7 +159,7 @@
 
                         <div class="post-details-content">
 
-                            <v-img src="{{ screen.thumbnail }}" class="flip-image-bis" alt="Illustration" title="Illustration"></v-img>
+                            <v-img src="{{ screen.thumbnail }}" alt="Illustration" title="Illustration"></v-img>
 
                         </div>
 
@@ -190,7 +190,7 @@
 
                                 <v-card width="600" height="auto">
 
-                                    <v-img src="{{ screen.thumbnail }}" class="flip-image-bis" alt="Illustration" title="Illustration"></v-img>
+                                    <v-img src="{{ screen.thumbnail }}" alt="Illustration" title="Illustration"></v-img>
 
                                 </v-card>
 
@@ -232,6 +232,8 @@
 
                     <p class="post-font-size mb-12" style="color:#444444;">{{ figure.content | raw }}</p>
 
+                    <p class="font-weight-light grey--text body-2 mb-2">Auteur : {{ figure.user.username|capitalize }}</p>
+
                     <p class="font-weight-light grey--text body-2 mb-2">Publié le {{ figure.createdAt | date('d/m/Y') }} à {{ figure.createdAt | date ('H:i') }} &bull; Catégorie {{ figure.classification.title }}</p>
 
                     {% if figure.freshDate is not null %}
@@ -245,11 +247,13 @@
                     <!--  rajouter "ou si l'admin = 1" -->
                     {% if (app.user.id is defined and app.user.id == figure.user.id) or (app.user.id is defined and app.user.id == 1) %}
 
-                        <a href="{{ path('blog_edit', {'id': figure.id}) }}">
-                            <p class="text-right body-2" style="font-weight:bold;">
-                                <i class="fas fa-pen"></i>&nbsp;&nbsp;MODIFIER CET ARTICLE
-                            </p>
+                        <a href="{{ path('blog_edit', {'id': figure.id, 'labelled': figure.labelled}) }}">
+                            <p class="special-button" style="float:right;">MODIFIER&nbsp;&nbsp;<i class="fas fa-pen"></i></p>
                         </a>
+
+                        <div class="regular-spacer"></div>
+                        <div class="regular-spacer"></div>
+                        <div class="regular-spacer"></div>
                         
                     {% endif %}
 
@@ -289,7 +293,7 @@
 
                         {{ form_row(formMention.content, {'label': ' ', 'attr': {'placeholder': 'Commentaire'}}) }}
 
-                        <button type="submit" class="edit-post-button" style="background-color:teal !important;color:white !important;margin-top:10px;margin-left:10px;float:right;">
+                        <button type="submit" class="edit-post-button" style="margin-top:10px;margin-left:10px;float:right;">
                         Publier
                         </button>
 
@@ -321,7 +325,7 @@
 
             <v-card color="rgba(255,255,255,0)" outlined> 
 
-                <p class="text-center white--text">Connectez-vous pour commenter cet article</p> 
+                <p class="text-center white--text font-weight-bold">Connectez-vous pour commenter cet article</p> 
 
             </v-card>
 
@@ -340,13 +344,13 @@
 
     {% if figure.mentions | length == '1' %}
 
-         <p class="white--text">&nbsp;&nbsp;&nbsp;&nbsp;{{ figure.mentions | length }} commentaire</p>   
+         <p class="white--text text-center font-weight-bold">{{ figure.mentions | length }}&nbsp;&nbsp;commentaire</p>   
 
     {% endif %} 
                     
     {% if figure.mentions | length > '1' %}
 
-        <p class="white--text">&nbsp;&nbsp;&nbsp;&nbsp;{{ figure.mentions | length }} commentaires</p>             
+        <p class="white--text text-center font-weight-bold">{{ figure.mentions | length }}&nbsp;&nbsp;commentaires</p>             
 
     {% endif %} 
 
@@ -354,7 +358,7 @@
 
         <v-row class="justify-center">
             <!-- SLICE DE PAGINATION DES COMMENTAIRES -->
-            {% for mention in figure.mentions | slice(start, limit) %}
+            {% for mention in figure.mentions|slice(start, limit) %}
 
                 <v-col
                 class="comments-loop"
@@ -390,7 +394,7 @@
     <!-- BOUTONS DE PAGINATION DES COMMENTAIRES -->
 
 
-    <a href="{{ path('chapter_show', {'id': figure.id, 'labelled': figure.labelled } ) }}#commentaries">0</a>
+    {# <a href="{{ path('chapter_show', {'id': figure.id, 'labelled': figure.labelled } ) }}#commentaries">0</a> #}
     
 {#
 
@@ -401,7 +405,9 @@
 #}
 
     <!-- BOUTONS DE PAGINATION DES COMMENTAIRES -->
-    <v-container id="mention_links" style="text-align:center;"></v-container>
+    
+    <v-container id="mention_links" style="text-align:center;"> 
+    </v-container>
 
 {#
     <section id="comments">
@@ -530,11 +536,19 @@ var nbr_links = Math.ceil(count / 5);
 
 // alert(nbr_links);
 
-for(var i = 0; i < nbr_links; i++){
+if(count > 5) {
 
-        $("#mention_links").append('<a style="padding:8px;color:white;font-size:20px;" href="{{ path('chapter_show', {'id': figure.id, 'labelled': figure.labelled } ) }}?show_mentions=' + i * 5 + '#commentaries">' + i + '</a>');
+    $("#mention_links").append('<a href="{{ path('chapter_show', {'id': figure.id, 'labelled': figure.labelled } ) }}#commentaries"><i class="fas fa-chevron-left special-chevron"></i></a>');
 
 }
+
+for(var i = 1; i < nbr_links; i++){
+
+    $("#mention_links").append('<a class="font-weight-bold" style="padding:8px;color:white;font-size:20px;" href="{{ path('chapter_show', {'id': figure.id, 'labelled': figure.labelled } ) }}?show_mentions=' + i * 5 + '#commentaries">' + i + '</a>');
+
+}
+
+
 
 </script>
 

@@ -1,0 +1,118 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Rechercher{% endblock %}
+
+{% block body %}
+
+<!-- V-card Background-color -->
+<v-card flat outlined style="z-index:-1;position:fixed;top:0;left:0;height:100%;width:100%;background-color:#85C1E9;"></v-card>
+
+<!-- Container des résultats de recherche -->
+<v-container fluid class="mt-n3">
+
+    <v-row>
+
+        <v-col cols="12">
+
+            <v-card class="pa-5" color="rgba(255,255,255,0)" outlined>
+
+                <v-row>
+
+                    <v-col cols="12" md="4"></v-col>
+
+                        <v-col cols="12" md="4">
+
+                            <v-card class="pa-5" outlined style="border-color:rgb(255,255,255,0);" color="rgba(255,255,255,0.2)">
+
+                                <form method="GET">
+
+                                    <input type="search" name="query" placeholder="Rechercher..." />
+
+                                    <input type="submit" value="Valider" />
+
+                                </form>
+
+                                <p class="text-center">{{ nothing }}</p>
+
+                            </v-card>
+                            
+                        </v-col>
+
+                    <v-col cols="12" md="4"></v-col>
+
+                </v-row>
+
+            </v-card>
+            
+        </v-col>
+
+        <v-col cols="12" class="mt-n12">
+
+            <v-card class="pa-5" color="rgba(255,255,255,0)" outlined>
+
+                <v-row class="justify-center">
+
+                    {% for post in posts %}
+
+                        <v-col cols="12" md="4">
+
+                            <v-card class="pa-5" outlined style="border-color:rgb(255,255,255,0);" color="rgba(255,255,255,1)">
+
+                                <a href="{{ path('chapter_show', {'id': post.id, 'labelled': post.labelled }) }}">
+                                    <p class="searching-title">{{ post.title|upper|raw }}</p>
+                                
+
+                                {% if post.image is not null %}
+
+                                    <v-img
+                                    :aspect-ratio="16/9"
+                                    src="{{ post.image }}"
+                                    alt="{{ post.title|raw }}"
+                                    title="{{ post.title|raw }}"
+                                    >
+                                    </v-img>
+
+                                {% else %}
+
+                                    <v-img
+                                    :aspect-ratio="16/9"
+                                    src="/backgrounds/default_picture.jpg"
+                                    alt="Image par défaut"
+                                    title="Image par défaut"
+                                    >
+                                    </v-img>
+
+                                {% endif %}
+
+                                </a>
+
+                                {#<p>{{ post.content|striptags|raw|slice(0,400) }} ...</p>#}
+
+                            </v-card>
+
+                        </v-col>
+
+                    {% endfor %}
+
+                </v-row>
+
+            </v-card>
+
+        </v-col>
+
+    </v-row>
+
+</v-container>
+
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+
+{% endblock %}

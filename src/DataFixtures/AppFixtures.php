@@ -58,13 +58,13 @@ class AppFixtures extends Fixture
         // $faker = \Faker\Factory::create('FR-fr');
 
         // $members = [];
-        $members = ['jean', 'billy', 'vincent', 'marion', 'nicolas', 'michel', 'paolo'];
+        $members = ['jean', 'julie', 'vincent', 'billy', 'marion', 'michel', 'paolo'];
 
         // $figures = [];
         // 30 figures
-        $figures = ['Mute', 'Style Week', 'Indy', 'Stalefish', 'Tail grab', 'Nose Grab', 'Japan Air', 'Seat Belt', 'Truck driver', 'Big foot', 'Slide', 'Modulo', 'Flip', 'Method Air', 'Back flip', 'Misty', 'Tail slide', 'Backside air', 'Gutter Ball', 'Flip 900', 'Rotation 180', 'Rotation 360', 'Rotation 720', 'Switch 270', 'Front flip', 'Mac Twist', 'Rodeo', 'Backside Air', 'Nose slide', 'Rocket Air'];
+        $figures = ['Mute', 'Style Week', 'Indy', 'Stalefish', 'Tail grab', 'Nose Grab', 'Japan Air', 'Seat Belt', 'Truck driver', 'Big foot', 'Slide', 'Modulo', 'Flip', 'Method Air', 'Back flip', 'Misty', 'Tail slide', 'Big air', 'Gutter Ball', 'Flip 900', 'Rotation 180', 'Rotation 360', 'Rotation 720', 'Switch 270', 'Front flip', 'Mac Twist', 'Rodeo', 'Backside Air', 'Nose slide', 'Rocket Air'];
 
-        // $images = ['http://localhost:8000/photos/styleweek.jpg','http://localhost:8000/photos/tips.jpg','http://localhost:8000/photos/backair.jpg','http://localhost:8000/photos/stalefish.jpg','http://localhost:8000/photos/redstyle.jpg', 'http://localhost:8000/photos/backgrab.jpg', 'http://localhost:8000/photos/birdy.jpg', 'http://localhost:8000/photos/elegant.jpg', 'http://localhost:8000/photos/falling.jpg', 'http://localhost:8000/photos/flying.jpg', 'http://localhost:8000/photos/halfpipe.jpg', 'http://localhost:8000/photos/header.jpg', 'http://localhost:8000/photos/indy.jpg', 'http://localhost:8000/photos/jump.jpg', 'http://localhost:8000/photos/jumpgrab.jpg', 'http://localhost:8000/photos/longrampe.jpg', 'http://localhost:8000/photos/multiple.jpg', 'http://localhost:8000/photos/mute.jpg', 'http://localhost:8000/photos/noseslide.jpg', 'http://localhost:8000/photos/onehand.jpg', 'http://localhost:8000/photos/perspective.jpg', 'http://localhost:8000/photos/rampe.jpg', 'http://localhost:8000/photos/sapins.jpg', 'http://localhost:8000/photos/slide.jpg', 'http://localhost:8000/photos/slideleft.jpg', 'http://localhost:8000/photos/specialjump.jpg', 'http://localhost:8000/photos/speed.jpg', 'http://localhost:8000/photos/curvy.jpg', 'http://localhost:8000/photos/backnose.jpg', 'http://localhost:8000/photos/incredible.jpg'];
+        // $images = ['http://localhost:8000/photos/styleweek.jpg','http://localhost:8000/photos/tips.jpg','http://localhost:8000/photos/backair.jpg','http://localhost:8000/photos/stalefish.jpg','http://localhost:8000/photos/redstyle.jpg', 'http://localhost:8000/photos/backgrab.jpg', 'http://localhost:8000/photos/birdy.jpg', 'http://localhost:8000/photos/elegant.jpg', 'http://localhost:8000/photos/falling.jpg', 'http://localhost:8000/photos/flying.jpg', 'http://localhost:8000/photos/halfpipe.jpg', 'http://localhost:8000/photos/header.jpg', 'http://localhost:8000/photos/indy.jpg', 'http://localhost:8000/photos/curvy.jpg', 'http://localhost:8000/photos/jumpgrab.jpg', 'http://localhost:8000/photos/longrampe.jpg', 'http://localhost:8000/photos/multiple.jpg', 'http://localhost:8000/photos/jump.jpg', 'http://localhost:8000/photos/noseslide.jpg', 'http://localhost:8000/photos/onehand.jpg', 'http://localhost:8000/photos/perspective.jpg', 'http://localhost:8000/photos/rampe.jpg', 'http://localhost:8000/photos/sapins.jpg', 'http://localhost:8000/photos/slide.jpg', 'http://localhost:8000/photos/slideleft.jpg', 'http://localhost:8000/photos/specialjump.jpg', 'http://localhost:8000/photos/speed.jpg', 'http://localhost:8000/photos/mute.jpg', 'http://localhost:8000/photos/backnose.jpg', 'http://localhost:8000/photos/incredible.jpg'];
 
         // $classifications = [];
         $classifications = ['Nouveautés', 'Créations', 'Grabs', 'Rotations', 'Flips', 'Slides', 'One Foot', 'Old School', 'Switchings',  'Improvisés', 'Flyings', 'Big Air', 'Half Pipe', 'Slopestyle', 'Bordercross', 'Street'];
@@ -145,7 +145,7 @@ class AppFixtures extends Fixture
                     ->setCreatedAt(new \DateTime)
                     // ->setToken(hash('sha256', random_bytes(10)))
                     ->setValidation(true)
-                    ->setStatus('1')
+                    // ->setStatus('1')
                     ->setAvatar('snowAvatar'. $i .'.jpg')
                     // ->setAvatar('snowAvatar'. $i .'-6025b9fc9bcc'. $i .'.png')
     

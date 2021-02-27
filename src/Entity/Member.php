@@ -19,6 +19,10 @@ use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
  *  fields= {"email"},
  *  message= "Cet email est déjà utilisé"
  * )
+ * @UniqueEntity(
+ *  fields={"username"},
+ *  message="Ce pseudo est déjà pris"
+ * )
  */
 class Member implements UserInterface
 {
@@ -30,13 +34,17 @@ class Member implements UserInterface
     private $id;
 
     /**
-     * @ORM\Column(type="string", length=255)
+     * @ORM\Column(type="string", length=80, unique=true)
      * @Assert\Email()
      */
     private $email;
 
     /**
-     * @ORM\Column(type="string", length=255)
+     * @ORM\Column(type="string", length=50, unique=true)
+     * @Assert\Length(
+     *      max=50, 
+     *      maxMessage="Pseudo trop long. Maximum 50 caractères"
+     * )
      */
     private $username;
 
@@ -46,8 +54,13 @@ class Member implements UserInterface
     private $avatar;
 
     /**
-     * @ORM\Column(type="string", length=255)
-     * @Assert\Length(min=8, minMessage="Votre mot de passe doit avoir au moins 8 caractères")
+     * @ORM\Column(type="string", length=80)
+     * @Assert\Length(
+     *      min=8,
+     *      max=80,
+     *      minMessage="Votre mot de passe doit comporter au moins 8 caractères",
+     *      maxMessage="Votre mot de passe ne doit pas excéder 80 caractères"
+     * )
      */
     private $password;
     
@@ -57,8 +70,13 @@ class Member implements UserInterface
     public $confirm_password;
 
     /**
-     * @ORM\Column(type="string", length=255, nullable=true)
-     * @Assert\Length(min=8, minMessage="Votre nouveau mot de passe doit avoir au moins 8 caractères")
+     * @ORM\Column(type="string", length=80, nullable=true)
+     * @Assert\Length(
+     *      min=8,
+     *      max=80,
+     *      minMessage="Votre nouveau mot de passe doit comporter au moins 8 caractères",
+     *      maxMessage="Votre nouveau mot de passe ne doit pas excéder 80 caractères"
+     * )
      */
     private $newpass;
 
@@ -81,11 +99,6 @@ class Member implements UserInterface
      * @ORM\Column(type="boolean")
      */
     private $validation;
-
-    /**
-     * @ORM\Column(type="integer", nullable=true)
-     */
-    private $status;
 
      /**
      * @ORM\OneToMany(targetEntity="App\Entity\Mention", mappedBy="user", orphanRemoval=true)
@@ -205,20 +218,6 @@ class Member implements UserInterface
 
         return $this;
     }
-
-    public function getStatus(): ?int
-    {
-        return $this->status;
-    }
-
-    public function setStatus($status): self
-    {
-        $this->status = $status;
- 
-        return $this;
-    }
-
-   
 
     public function eraseCredentials() {}
     

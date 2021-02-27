@@ -7,6 +7,8 @@
 <!-- V-card Background-color -->
 <v-card flat outlined style="z-index:-1;position:fixed;top:0;left:0;height:100%;width:100%;background-color:#85C1E9;"></v-card>
 
+
+
 <v-container fluid class="mt-n3">
     <v-row>
 
@@ -20,6 +22,12 @@
 
                     <v-col cols="12" md="4">
                         <v-card class="pa-5" outlined style="border-color:rgb(255,255,255,0);" color="rgba(255,255,255,0.2)">
+
+                            {% if error %}
+
+                                <p>{{ error.messageKey|trans(error.messageData, 'security') }}</p>
+                                
+                            {% endif %}
 
                             <form action="{{ path('security_connexion')}}" method="post">
 

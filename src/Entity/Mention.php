@@ -25,12 +25,10 @@ class Mention
     private $id;
 
     /**
-     * @ORM\Column(type="string", length=255, nullable=true)
-     */
-    private $author;
-
-    /**
      * @ORM\Column(type="text")
+     * @Assert\NotBlank(
+     *      message="Commentaire manquant"
+     * )
      */
     private $content;
 
@@ -54,18 +52,6 @@ class Mention
     public function getId(): ?int
     {
         return $this->id;
-    }
-
-    public function getAuthor(): ?string
-    {
-        return $this->author;
-    }
-
-    public function setAuthor(string $author): self
-    {
-        $this->author = $author;
-
-        return $this;
     }
 
     public function getContent(): ?string
