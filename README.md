@@ -2,7 +2,21 @@
 
 [![Codacy Badge](https://app.codacy.com/project/badge/Grade/304f528b398a466fbe59f9d97595f1a4)](https://www.codacy.com/gh/JEND-CODES/SNOW-TRICKS/dashboard?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=JEND-CODES/SNOW-TRICKS&amp;utm_campaign=Badge_Grade)
 
-## 4ème démo (ENV=prod) => http://symfony1.planetcode.fr
+## Démo => http://symfony1.planetcode.fr
+
+### Diagrammes
+
+![SNOWTRICKS](https://raw.githubusercontent.com/JEND-CODES/SNOW-TRICKS/main/diagrammes/Cas_Gestion_Tricks_P6_V1-Page-1.png)
+
+![SNOWTRICKS](https://raw.githubusercontent.com/JEND-CODES/SNOW-TRICKS/main/diagrammes/S%C3%A9quence_Inscription_P6_V1.png)
+
+![SNOWTRICKS](https://raw.githubusercontent.com/JEND-CODES/SNOW-TRICKS/main/diagrammes/S%C3%A9quence_New_Password_P6_V1-Page-1.png)
+
+![SNOWTRICKS](https://raw.githubusercontent.com/JEND-CODES/SNOW-TRICKS/main/diagrammes/Diagramme_de_Classes_P6_V1.png)
+
+![SNOWTRICKS](https://raw.githubusercontent.com/JEND-CODES/SNOW-TRICKS/main/diagrammes/Mod%C3%A8le_de_donn%C3%A9es_P6_V1.png)
+
+![SNOWTRICKS](https://raw.githubusercontent.com/JEND-CODES/SNOW-TRICKS/main/diagrammes/Concepteur_BDD_SnowTricks_v4.JPG)
 
 ### Avancées
 ``` bash
@@ -42,7 +56,15 @@
 
 * Révisions multiples Entités, Controllers, Fixtures
 
-* Tests de Mise en PROD fonctionnels
-```
+* Révision Slugs avec SluggerInterface
 
-![SNOWTRICKS](https://raw.githubusercontent.com/JEND-CODES/SNOW-TRICKS/main/diagrammes/Concepteur_BDD_SnowTricks_v3.JPG)
+* RepositoryFigure : recherche d'articles par mots clés
+
+* UserChecker : vérification du statut membre
+
+* Asserts Unicity sur l'Entité Member (email & username)
+
+* Symfony Mailer fonctionnel (désactivation Swift Mailer)
+
+* Elaboration des diagrammes : cas, séquences, classes
+```
