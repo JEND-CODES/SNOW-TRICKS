@@ -36,7 +36,7 @@ $(document).ready(function () {
 
         for (var y = 0; y < restoreForms.length; y++) {
 
-            videosUrl = $(restoreForms[y]).val();
+            var videosUrl = $(restoreForms[y]).val();
 
             // alert(videosUrl.length);
 
@@ -60,7 +60,7 @@ $(document).ready(function () {
 
         for (var y = 0; y < updateForms.length; y++) {
 
-            videosIds = $(updateForms[y]).val();
+            var videosIds = $(updateForms[y]).val();
 
             // alert(videosIds.length);
 
@@ -84,7 +84,7 @@ $(document).ready(function () {
             // alert($(inputs[i]).val());
             // alert($(inputs[i]).val().length);
 
-            inputsResults = $(inputs[i]).val();
+            var inputsResults = $(inputs[i]).val();
 
             // Formats identifiés des URL youtube
             // https://www.youtube.com/watch?v=NKHYEOAbFyM
@@ -239,7 +239,7 @@ $(document).ready(function () {
 
         for (var z = 0; z < forms.length; z++) {
 
-            formsResults = $(forms[z]).val();
+            var formsResults = $(forms[z]).val();
 
             if (formsResults.indexOf("https://www.youtube.com/watch?v=") > -1 || formsResults.indexOf("https://youtu.be/") > -1 || formsResults.indexOf("https://www.youtube.com/embed/") > -1) {
 
