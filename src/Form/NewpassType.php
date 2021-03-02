@@ -16,8 +16,9 @@ class NewpassType extends AbstractType
     {
         $builder
             ->add('password', PasswordType::class)
-            ->add('newpass', PasswordType::class)
-            ->add('confirm_newpass', PasswordType::class)
+            ->add('confirm_password', PasswordType::class)
+            // ->add('newpass', PasswordType::class)
+            // ->add('confirm_newpass', PasswordType::class)
         ;
     }
 

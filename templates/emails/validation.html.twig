@@ -1,13 +1,9 @@
 
-<h3>MAIL ENVOYÉ POUR CONFIRMER LE COMPTE</h3>
-                    
-<br />
-
+<h3>DEMANDE DE CONFIRMATION DE VOTRE NOUVEAU COMPTE SNOWTRICKS</h3>
+  
 <h4>" Cher {{ member.username|capitalize }}, cliquez sur ce lien pour confirmer votre compte Snow Tricks "</h4>
 
-<br />
-
-<a href="{{ url('confirm_account', { username : member.username , token : member.token }) }}" class="button">VALIDER LE NOUVEAU COMPTE<a>
+<a href="{{ url('confirm_account', { username : member.username , token : member.token }) }}" class="button">CONFIRMER MON COMPTE<a>
 
 {#
 

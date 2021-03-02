@@ -70,22 +70,6 @@ class Member implements UserInterface
     public $confirm_password;
 
     /**
-     * @ORM\Column(type="string", length=80, nullable=true)
-     * @Assert\Length(
-     *      min=8,
-     *      max=80,
-     *      minMessage="Votre nouveau mot de passe doit comporter au moins 8 caractères",
-     *      maxMessage="Votre nouveau mot de passe ne doit pas excéder 80 caractères"
-     * )
-     */
-    private $newpass;
-
-    /**
-     * @Assert\EqualTo(propertyPath="newpass", message="Erreur de confirmation du nouveau mot de passe")
-     */
-    public $confirm_newpass;
-
-    /**
      * @ORM\Column(type="datetime", nullable=true)
      */
     private $createdAt;
@@ -99,6 +83,11 @@ class Member implements UserInterface
      * @ORM\Column(type="boolean")
      */
     private $validation;
+
+    /**
+     * @ORM\Column(type="string", length=255)
+     */
+    private $role;
 
      /**
      * @ORM\OneToMany(targetEntity="App\Entity\Mention", mappedBy="user", orphanRemoval=true)
@@ -171,18 +160,6 @@ class Member implements UserInterface
         return $this;
     }
 
-    public function getNewpass(): ?string
-    {
-        return $this->newpass;
-    }
-
-    public function setNewpass(string $newpass): self
-    {
-        $this->newpass = $newpass;
-
-        return $this;
-    }
-
     public function getCreatedAt(): ?\DateTimeInterface
     {
         return $this->createdAt;
@@ -217,15 +194,6 @@ class Member implements UserInterface
         $this->validation = $validation;
 
         return $this;
-    }
-
-    public function eraseCredentials() {}
-    
-    public function getSalt() {}
-    
-    public function getRoles() 
-    {
-        return ['ROLE_USER'];
     }
 
     /**
@@ -288,6 +256,28 @@ class Member implements UserInterface
         return $this;
     }
 
+    public function getRole(): ?string
+    {
+        return $this->role;
+    }
+
+    public function setRole(string $role): self
+    {
+        $this->role = $role;
+
+        return $this;
+    }
+
+    public function eraseCredentials() {}
+    
+    public function getSalt() {}
+    
+    public function getRoles() 
+    {
+        // return ['ROLE_USER'];
+        // On récupère le rôle ADMIN ou USER défini en BDD
+        return [$this->getRole()];
+    }
 
     
 }

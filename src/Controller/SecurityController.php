@@ -351,6 +351,7 @@ class SecurityController extends AbstractController
                     ->setValidation(false)
                     // Integer pour définir le rôle membre
                     //->setStatus('0')
+                    ->setRole('ROLE_USER')
                     ;
 
             $manager->persist($member);
@@ -391,7 +392,7 @@ class SecurityController extends AbstractController
             $email = (new TemplatedEmail())
                 ->from('noreply@snowtricks.com')
                 ->to(new Address($member->getEmail()))
-                ->subject('Demande de confirmation de votre nouveau compte SNOWTRICKS')
+                ->subject('CONFIRMATION DE VOTRE COMPTE SNOWTRICKS')
                 ->htmlTemplate('emails/validation.html.twig')
                 ->context([
                     'member' => $member
@@ -475,6 +476,9 @@ class SecurityController extends AbstractController
             return $this->redirectToRoute('security_connexion');
 
         } 
+
+        // $showPass = $current_member->getPassword();
+        // dd($showPass);
   
         $formNewpass = $this->createForm(NewpassType::class, $current_member);
         
@@ -482,21 +486,23 @@ class SecurityController extends AbstractController
     
         if($formNewpass->isSubmitted() && $formNewpass->isValid())
         {
-            $hash = $encoder->encodePassword($current_member, $current_member->getNewpass());
-            
-            $current_member->setPassword($hash);
+          
+                $hash = $encoder->encodePassword($current_member, $current_member->getPassword());
+                
+                $current_member->setPassword($hash);
 
-            // $current_member->setNewpass("EMPTY");
-            $current_member->setNewpass($hash);
-            
-            $manager->persist($current_member);
+                // $current_member->setNewpass("EMPTY");
+                // $current_member->setNewpass($hash);
+                
+                $manager->persist($current_member);
 
-            $manager->flush();
+                $manager->flush();
 
-            $this->addFlash(
-                'notice',
-                'NOUVEAU PASSWORD ENREGISTRÉ'
-            );
+                $this->addFlash(
+                    'notice',
+                    'NOUVEAU PASSWORD ENREGISTRÉ'
+                );
+
             
             return $this->redirectToRoute('blog');
         }
@@ -586,7 +592,7 @@ class SecurityController extends AbstractController
                 $email = (new TemplatedEmail())
                     ->from('noreply@snowtricks.com')
                     ->to(new Address($member->getEmail()))
-                    ->subject('Demande de réinitialisation de votre mot passe SNOWTRICKS')
+                    ->subject('RÉINITIALISATION DE VOTRE MOT PASSE SNOWTRICKS')
                     ->htmlTemplate('emails/diepass.html.twig')
                     ->context([
                         'member' => $member

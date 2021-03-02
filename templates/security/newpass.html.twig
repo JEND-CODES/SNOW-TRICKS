@@ -23,15 +23,17 @@
                     <v-col cols="12" md="4">
                         <v-card class="pa-5" outlined style="border-color:rgb(255,255,255,0);" color="rgba(255,255,255,0.2)">
 
-                            <p>Nouveau mot de passe</p>
+                            {# <p>Nouveau mot de passe</p> #}
 
                             {{ form_start(formNewpass) }}
 
-                            {{ form_row(formNewpass.password, {'label': ' ', 'attr': {'placeholder': 'Password actuel'}}) }}
+                            {{ form_row(formNewpass.password, {'label': ' ', 'attr': {'placeholder': 'Nouveau mot de passe'}}) }}
 
-                            {{ form_row(formNewpass.newpass, {'label': ' ', 'attr': {'placeholder': 'Nouveau password'}}) }}
+                            {{ form_row(formNewpass.confirm_password, {'label': ' ', 'attr': {'placeholder': 'Confirmation'}}) }}
 
-                            {{ form_row(formNewpass.confirm_newpass, {'label': ' ', 'attr': {'placeholder': 'Confirmation'}}) }}
+                            {# {{ form_row(formNewpass.newpass, {'label': ' ', 'attr': {'placeholder': 'Nouveau password'}}) }}
+
+                            {{ form_row(formNewpass.confirm_newpass, {'label': ' ', 'attr': {'placeholder': 'Confirmation'}}) }} #}
 
                             <button type="submit">Modifier</button>
 

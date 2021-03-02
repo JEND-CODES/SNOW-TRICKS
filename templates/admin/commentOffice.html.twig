@@ -1,0 +1,73 @@
+{% extends 'base.html.twig' %}
+{% block title %}SNOWTRICKS • Commentaires{% endblock %}
+{% block body %}
+
+<!-- V-card Background-color -->
+<v-card flat outlined style="z-index:-1;position:fixed;top:0;left:0;height:100%;width:100%;background-color:#85C1E9;"></v-card>
+
+<v-layout justify-center>
+
+    <v-flex xs12 sm12 md9 lg6>
+
+            <v-container fluid grid-list-lg>
+
+                <v-layout row wrap>
+
+                    <v-flex id="trick-box">
+                        
+                        {% for comment in comments %}
+
+                        <v-card class="ma-4 load-more">
+
+                            <v-container fill-height fluid pa-2>
+
+                                <v-flex>
+
+                                    <img src="{{ asset('uploads/avatars/' ~ '/' ~ comment.user.avatar) }}">
+
+                                    <p style="color:grey;">TRICK {{ comment.figure.title|upper }} &nbsp;&bull;&nbsp; PAR {{ comment.user.username|upper }} LE {{ comment.createdAt | date('d/m/Y') }}</p>
+
+                                    <hr class="simple-line mt-n2">
+
+                                    <p class="mt-2">" {{ comment.content|striptags|raw }} "</p>
+
+                                   <v-btn small outlined color="blue lighten-1" href="{{ path('delete_comment', {'id': comment.id}) }}" style="float:right;" onclick="return(confirm('Validez-vous ce choix ?'));"><i class="far fa-trash-alt"></i></v-btn>
+
+                                </v-flex>
+
+                            </v-container>
+
+                        </v-card>
+
+                        {% endfor %}
+
+                    </v-flex>
+
+                </v-layout>
+
+            </v-container>
+
+    </v-flex>
+
+</v-layout>
+
+<!-- BOUTON POUR AFFICHER PLUS DE COMMENTAIRES -->
+<v-container class="text-center">
+
+    <v-btn
+    id="more-btn"
+    color="primary"
+    dark
+    >
+    <i class="fas fa-plus"></i>
+    </v-btn>
+
+</v-container>
+
+{% endblock %}
+
+{% block javascripts %}
+
+<script src="{{ asset('js/events/backoff.js') }}"></script>
+
+{% endblock %}

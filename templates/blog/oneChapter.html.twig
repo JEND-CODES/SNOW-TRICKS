@@ -21,8 +21,6 @@
 
             <p class="post-title">{{ figure.title|upper }}</p>
 
-                <br />
-
                 {% if figure.image is not null %}
 
                     <v-img
@@ -354,7 +352,7 @@
 
     {% endif %} 
 
-    <v-container fluid>
+    <v-container fluid class="comments-box">
 
         <v-row class="justify-center">
             <!-- SLICE DE PAGINATION DES COMMENTAIRES -->
@@ -363,7 +361,7 @@
                 <v-col
                 class="comments-loop"
                 cols="12"
-                md="3"
+                md="4"
                 >
 
                     <v-card class="pa-2">   
@@ -372,9 +370,9 @@
 
                             <img src="{{ asset('uploads/avatars/' ~ '/' ~ mention.user.avatar) }}">
 
-                            <p class="body-1" style="color:dimgrey;">Par {{ mention.user.username|upper }} le {{ mention.createdAt | date('d/m/Y à H:i') }}</p>
+                            <p class="body-2" style="color:dimgrey;">PAR {{ mention.user.username|upper }} LE {{ mention.createdAt | date('d/m/Y À H:i') }}</p>
                             
-                            <p class="body-1" style="color:dimgrey;">{{ mention.content | striptags | raw }}</p>
+                            <p class="body-1" style="color:black;">{{ mention.content | striptags | raw }}</p>
                            
 
 
@@ -528,15 +526,15 @@
 
 <script>
 
-// ATTENTION !! PENSER À PAGINER 10 PAR PAGE !!
+// PAGINATION 10 PAR PAGE
 
 var count = {{ figure.mentions | length }};
 
-var nbr_links = Math.ceil(count / 5);
+var nbr_links = Math.ceil(count / 10);
 
 // alert(nbr_links);
 
-if(count > 5) {
+if(count > 10) {
 
     $("#mention_links").append('<a href="{{ path('chapter_show', {'id': figure.id, 'labelled': figure.labelled } ) }}#commentaries"><i class="fas fa-chevron-left special-chevron"></i></a>');
 
@@ -544,11 +542,9 @@ if(count > 5) {
 
 for(var i = 1; i < nbr_links; i++){
 
-    $("#mention_links").append('<a class="font-weight-bold" style="padding:8px;color:white;font-size:20px;" href="{{ path('chapter_show', {'id': figure.id, 'labelled': figure.labelled } ) }}?show_mentions=' + i * 5 + '#commentaries">' + i + '</a>');
+    $("#mention_links").append('<a class="font-weight-bold" style="padding:8px;color:white;font-size:20px;" href="{{ path('chapter_show', {'id': figure.id, 'labelled': figure.labelled } ) }}?show_mentions=' + i * 10 + '#commentaries">' + i + '</a>');
 
 }
-
-
 
 </script>
 
@@ -637,13 +633,10 @@ $(document).ready(function () {
 
 
 
-    
-
 </script>
+
 <!-- ***** Script de pagination jQuery ***** -->
 <!--<script src="/js/paginate.js"></script>-->
-
-
 
 #}
 

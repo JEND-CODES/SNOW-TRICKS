@@ -44,6 +44,7 @@
             {% endif %}
 
             <v-list dense nav>
+
                 <v-list-item v-ripple="{ class: `white--text` }" link href="{{ path('blog') }}">
                     <v-list-item-icon>
                         <v-icon style="font-size:17px;text-indent:10px" color="#34495E">fas fa-home</v-icon>
@@ -52,6 +53,28 @@
                         <v-list-item-title style="font-size:15px;">ACCUEIL</v-list-item-title>
                     </v-list-item-content>
                 </v-list-item>
+
+                {% if app.user.id is defined and app.user.id == 1 %}
+
+                <v-list-item v-ripple="{ class: `white--text` }" link href="{{ path('admin_backoff') }}">
+                    <v-list-item-icon>
+                        <v-icon style="font-size:17px;text-indent:10px" color="#34495E">fas fa-desktop</v-icon>
+                    </v-list-item-icon>
+                    <v-list-item-content>
+                        <v-list-item-title style="font-size:15px;">BACK OFFICE</v-list-item-title>
+                    </v-list-item-content>
+                </v-list-item>
+
+                <v-list-item v-ripple="{ class: `white--text` }" link href="{{ path('admin_backcom') }}">
+                    <v-list-item-icon>
+                        <v-icon style="font-size:15px;text-indent:10px" color="#34495E">far fa-comments</v-icon>
+                    </v-list-item-icon>
+                    <v-list-item-content>
+                        <v-list-item-title style="font-size:15px;">COMMENTAIRES</v-list-item-title>
+                    </v-list-item-content>
+                </v-list-item>
+
+                {% endif %}
 
                 {% if not app.user %}
 
@@ -113,8 +136,6 @@
 
                 {% endif %}
 
-          
-             
             </v-list>
 
         </v-navigation-drawer>
