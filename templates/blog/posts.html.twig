@@ -31,13 +31,13 @@
         {% if (app.user.id is defined and app.user.id == figureSlide.user.id) or (app.user.id is defined and app.user.id == 1) %}
 
         <a href="{{ path('blog_edit', {'id': figureSlide.id, 'labelled': figureSlide.labelled }) }}">
-        <p style="position:absolute; top:40px; right:30px; color:black;">
+        <p style="position:absolute; top:40px; right:30px; color:#1e88e5;">
             <i class="fas fa-pen"></i>
         </p>
         </a>
 
         <a href="{{ path('delete_chapter', {'id': figureSlide.id}) }}" onclick="return(confirm('Validez-vous ce choix ?'));">
-        <p style="position:absolute; top:80px; right:30px; color:black;">
+        <p style="position:absolute; top:80px; right:30px; color:#1e88e5;">
             <i class="far fa-trash-alt"></i>
         </p>
         </a>
@@ -80,13 +80,13 @@
         {% if (app.user.id is defined and app.user.id == figureSlide.user.id) or (app.user.id is defined and app.user.id == 1) %}
 
         <a href="{{ path('blog_edit', {'id': figureSlide.id, 'labelled': figureSlide.labelled }) }}">
-        <p style="position:absolute; top:40px; right:30px; color:black;">
+        <p style="position:absolute; top:40px; right:30px; color:#1e88e5;">
             <i class="fas fa-pen"></i>
         </p>
         </a>
 
         <a href="{{ path('delete_chapter', {'id': figureSlide.id }) }}" onclick="return(confirm('Validez-vous ce choix ?'));">
-        <p style="position:absolute; top:80px; right:30px; color:black;">
+        <p style="position:absolute; top:80px; right:30px; color:#1e88e5;">
             <i class="far fa-trash-alt"></i>
         </p>
         </a>
@@ -204,6 +204,7 @@
                                 </div>
 
                             </v-card-text>
+
                         </v-card>
 
                         <!--</v-hover>-->
@@ -225,7 +226,7 @@
 <!--<div id="more-btn">Load more</div>-->
 <!--<div id="less-btn">Show less</div>-->
 
-<!-- BOUTONS POUR AFFICHER LES MÉDIAS EN VERSION SMARTHPONE -->
+<!-- BOUTON POUR AFFICHER PLUS DE POSTS -->
 <v-container class="text-center">
 
     <v-btn
@@ -238,8 +239,7 @@
 
 </v-container>
 
-<br />
-<br />
+{# <div class="medium-spacer"></div> #}
 
 <!-- BOUTON POUR REMONTER AUX TRICKS -->
 <v-container v-if="$vuetify.breakpoint.smAndUp" class="hidden-up-btn">
@@ -261,72 +261,6 @@
 
 {% block javascripts %}
 
-<script>
-
-// https://jsfiddle.net/cse_tushar/6FzSb/
-
-$(document).ready(function () {
-
-    var totalTricks = $("#trick-box > .load-more").length;
-    // alert(totalTricks);
-
-    var x = 6;
-
-    $(".hidden-up-btn").hide();
-
-    $('#trick-box .load-more:lt('+x+')').show();
-
-        $('#more-btn').click(function () {
-
-        x = (x + 3 <= totalTricks) ? x + 3 : totalTricks;
-
-        $('#trick-box .load-more:lt('+x+')').slideDown();
-
-        // alert(x);
-
-        // A ne montrer que si il y a plus de 15 tricks affichés
-        if (x > 9) {
-            $(".hidden-up-btn").show();
-        }
-
-    });
-
-    /*
-    $('#less-btn').click(function () {
-
-        x = (x - 6 < 6) ? 6 : x - 6;
-
-        // $('#trick-box .load-more').not(':lt('+x+')').hide();
-        $('#trick-box .load-more').not(':lt('+x+')').slideUp();
-
-    });
-    */
-
-    // JQUERY SCROLL TO TRICKS SECTION
-    $("#go-to-tricks").click(function() { 
-
-        $('html, body').animate({
-
-            scrollTop: $("#trick-section").offset().top 
-
-        }, 500); 
-
-    });
-
-    // Ce bouton pour remonter en haut ne s'affiche qu'à condition où plus de 15 tricks sont affichés
-    $("#up-to-tricks").click(function() { 
-
-        $('html, body').animate({
-
-            scrollTop: $("#trick-section").offset().top 
-
-        }, 800); 
-
-    });
-
-
-});
-
-</script>
+<script src="{{ asset('js/events/home.js') }}"></script>
 
 {% endblock %}

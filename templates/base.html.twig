@@ -12,9 +12,6 @@
 
     <meta content='width=device-width, initial-scale=1.0' name='viewport' />
 
-    <!-- Favicon -->
-    <link rel="shortcut icon" type="image/x-icon" href="/backgrounds/faviconSnowTricks.png" />
-
     {#
     {% if app.request.get('_route') == 'leafletMap' %}
         {% endif %}
@@ -22,24 +19,39 @@
     
     {% block stylesheets %}
 
-    <link rel="stylesheet" href="/css/vuetify.min.css" />
+    <!-- Favicon -->
+    {# <link rel="shortcut icon" type="image/x-icon" href="/backgrounds/faviconSnowTricks.png" /> #}
+    <link rel="shortcut icon" type="image/x-icon" href="{{ asset('backgrounds/faviconSnowTricks.png') }}">
+
+    {# <link rel="stylesheet" href="/css/vuetify.min.css" /> #}
+    <link rel="stylesheet" href="{{ asset('css/vuetify.min.css') }}">
     <!--<link href="https://cdn.jsdelivr.net/npm/vuetify@2.x/dist/vuetify.min.css" rel="stylesheet">-->
 
     <!-- https://materialdesignicons.com/ Utiliser le préfixe "mdi-" pour ajouter ces icons -->
 
     <!-- Pourquoi ce lien vers mon folder /css n'active pas les icons ?? -->
     <!--<link rel="stylesheet" href="/css/materialdesignicons.min.css" />-->
+   {#  <link rel="stylesheet" href="{{ asset('css/materialdesignicons.min.css') }}"> #}
     <link href="https://cdn.jsdelivr.net/npm/@mdi/font@4.x/css/materialdesignicons.min.css" rel="stylesheet">
+    
 
     <!--Fontawesome Icons-->
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css" integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf" crossorigin="anonymous">
 
-    <!--<link href="vendor/components/font-awesome/css/all.css" rel="stylesheet" type="text/css">-->
+    {# <link rel="stylesheet" href="{{ asset('/css/all.css') }}"> #}
+
+    {# <link href="vendor/components/font-awesome/css/all.css" rel="stylesheet" type="text/css"> #}
+
+    {# <link rel="stylesheet" href="{{ asset('vendor/components/font-awesome/css/fontawesome.min.css') }}"> #}
+
+    {# <link href="{{ asset('font-awesome/css/all.css') }}" rel="stylesheet" type="text/css"> #}
+    
 
     <!-- Polices du site -->
     <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 
-    <link rel="stylesheet" href="/css/style.css" />
+    {# <link rel="stylesheet" href="/css/style.css" /> #}
+    <link rel="stylesheet" href="{{ asset('css/style.css') }}">
 
     <!--<style>
         
@@ -120,14 +132,16 @@
 
     <!-- jQuery 3.4.1 -->
     <!--<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>-->
-    <script src="/js/jquery.min.js"></script>
+    {# <script src="/js/jquery.min.js"></script> #}
+    <script src="{{ asset('js/jquery/jquery.min.js') }}"></script>
 
     <!-- Vue.JS -->
 
     <!--<script src="https://cdn.jsdelivr.net/npm/vue@2.x/dist/vue.min.js"></script>-->
     
     <!--Chargement de vue.min.js depuis le dossier public JS - éviter les CDN pour éviter les effets de Loading trop importants sur le site -->
-    <script src="/js/vue.min.js"></script>
+    {# <script src="/js/vue.min.js"></script> #}
+    <script src="{{ asset('js/vue/vue.min.js') }}"></script>
 
     <!-- Vuetify -->
 
@@ -136,13 +150,16 @@
     <!--<script src="https://cdn.jsdelivr.net/npm/vuetify@2.x/dist/vuetify.js"></script>-->
     
     <!--Chargement de vuetify.js depuis le dossier public JS - éviter les CDN afin d'éviter les effets de Loading trop importants sur le site -->
-    <script src="/js/vuetify.js"></script>
+    {# <script src="/js/vuetify.js"></script> #}
+    <script src="{{ asset('js/vue/vuetify.js') }}"></script>
 
     <!-- Vue & Vuetify APP -->
-    <script src="/js/app.js"></script>
+    {# <script src="/js/app.js"></script> #}
+    <script src="{{ asset('js/vue/app.js') }}"></script>
 
     <!-- jQuery Events -->
-    <script src="/js/event.js"></script>
+    {# <script src="/js/event.js"></script> #}
+    <script src="{{ asset('js/events/event.js') }}"></script>
 
     
 
