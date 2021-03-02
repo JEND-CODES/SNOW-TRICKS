@@ -23,8 +23,8 @@ $(document).ready(function () {
         $("#update_screen").hide();
 
         // On retire la propriété readonly sur les inputs
-        $('.screen_class').prop('readonly', false);
-        $(".screen_class").css('opacity', '1');
+        $(".screen_class").prop("readonly", false);
+        $(".screen_class").css("opacity", "1");
 
         // On cache le bouton de sauvegarde de l'article
         // $("#save_post").css('opacity', '0.2');
@@ -32,17 +32,17 @@ $(document).ready(function () {
 
 
         // + Restauration de l'URL youtube
-        var restore_forms = $(".screen_class");
+        var restoreForms = $(".screen_class");
 
-        for (var y = 0; y < restore_forms.length; y++) {
+        for (var y = 0; y < restoreForms.length; y++) {
 
-            videos_url = $(restore_forms[y]).val();
+            videosUrl = $(restoreForms[y]).val();
 
-            // alert(videos_url.length);
+            // alert(videosUrl.length);
 
-            if (videos_url.length == 11) {
+            if (videosUrl.length === 11) {
 
-                $(restore_forms[y]).val('https://www.youtube.com/watch?v=' + $(restore_forms[y]).val());
+                $(restoreForms[y]).val("https://www.youtube.com/watch?v=" + $(restoreForms[y]).val());
 
             }
 
@@ -56,17 +56,17 @@ $(document).ready(function () {
 
         //**** ÉTAPE PRÉLIMINAIRE : RESTAURATION DE L'URL YOUTUBE DES VIDÉOS EN CONCATÉNANT L'URL (https://www.youtube.com/watch?v=) À L'ID DÉJÀ ENREGISTRÉ EN BDD ****//
 
-        var update_forms = $(".screen_class");
+        var updateForms = $(".screen_class");
 
-        for (var y = 0; y < update_forms.length; y++) {
+        for (var y = 0; y < updateForms.length; y++) {
 
-            videos_ids = $(update_forms[y]).val();
+            videosIds = $(updateForms[y]).val();
 
-            // alert(videos_ids.length);
+            // alert(videosIds.length);
 
-            if (videos_ids.length == 11) {
+            if (videosIds.length === 11) {
 
-                $(update_forms[y]).val('https://www.youtube.com/watch?v=' + $(update_forms[y]).val());
+                $(updateForms[y]).val("https://www.youtube.com/watch?v=" + $(updateForms[y]).val());
 
             }
 
@@ -84,7 +84,7 @@ $(document).ready(function () {
             // alert($(inputs[i]).val());
             // alert($(inputs[i]).val().length);
 
-            inputs_results = $(inputs[i]).val();
+            inputsResults = $(inputs[i]).val();
 
             // Formats identifiés des URL youtube
             // https://www.youtube.com/watch?v=NKHYEOAbFyM
@@ -112,29 +112,29 @@ $(document).ready(function () {
             */
 
             // On vérifie que l'input contient bien l'url youtube et qu'elle soit pourvue de 43 caractères
-            if (inputs_results.indexOf('https://www.youtube.com/watch?v=') > -1 && $(inputs[i]).val().length == 43) {
-                //if (inputs_results.indexOf('https://www.youtube.com/watch?v=') > -1 ) {
+            if (inputsResults.indexOf("https://www.youtube.com/watch?v=") > -1 && $(inputs[i]).val().length === 43) {
+                //if (inputsResults.indexOf("https://www.youtube.com/watch?v=") > -1 ) {
 
                 // alert( "YOUTUBE URL VALIDE");
                 error++;
 
                 // On vérifie que l'input contient bien l'url youtube et qu'elle soit pourvue de 60 caractères (au cas où le param get " &feature=youtu.be " ou " &feature=emb_logo " est présent)
-            } else if (inputs_results.indexOf('https://www.youtube.com/watch?v=') > -1 && $(inputs[i]).val().length == 60) {
+            } else if (inputsResults.indexOf("https://www.youtube.com/watch?v=") > -1 && $(inputs[i]).val().length === 60) {
 
                 // alert( "YOUTUBE URL VALIDE");
                 error++;
 
-            } else if (inputs_results.indexOf('https://youtu.be/') > -1 && $(inputs[i]).val().length == 28) {
+            } else if (inputsResults.indexOf('https://youtu.be/') > -1 && $(inputs[i]).val().length === 28) {
 
                 // alert( "YOUTUBE URL VALIDE");
                 error++;
 
-            } else if (inputs_results.indexOf('https://www.youtube.com/embed/') > -1 && $(inputs[i]).val().length == 41) {
+            } else if (inputsResults.indexOf('https://www.youtube.com/embed/') > -1 && $(inputs[i]).val().length === 41) {
 
                 // alert( "YOUTUBE URL VALIDE");
                 error++;
 
-            } else if (inputs_results == '') {
+            } else if (inputsResults === '') {
 
                 // alert( "CHAMP VIDE AUTORISÉ");
                 error++;
@@ -167,7 +167,7 @@ $(document).ready(function () {
                 if (imageTypes.indexOf(extension) !== -1) {
 
                     // Parmi les inputs qui contiennent des liens avec des extensions images, on vérifie aussi la présence de http ou https :
-                    if (uri.indexOf("http") == 0 || uri.indexOf("https") == 0) {
+                    if (uri.indexOf("http") === 0 || uri.indexOf("https") === 0) {
                         // alert("HTTP OU HTTPS PRÉSENT");
                         // alert(uri);
                         return true;
@@ -182,7 +182,7 @@ $(document).ready(function () {
             }
 
             // ON GÉNÈRE DES ERREURS EN FONCTION DES CAS RENCONTRÉS
-            var result = isUriImage(inputs_results);
+            var result = isUriImage(inputsResults);
 
             if (result) {
 
@@ -220,8 +220,8 @@ $(document).ready(function () {
             $("#update_screen").show();
 
             // On passe les inputs en readonly
-            $('.screen_class').prop('readonly', true);
-            $(".screen_class").css('opacity', '0.2');
+            $(".screen_class").prop("readonly", true);
+            $(".screen_class").css("opacity", "0.2");
 
             // On montre le bouton d'ajout d'un article
             // $("#save_post").css('opacity', '1');
@@ -239,9 +239,9 @@ $(document).ready(function () {
 
         for (var z = 0; z < forms.length; z++) {
 
-            forms_results = $(forms[z]).val();
+            formsResults = $(forms[z]).val();
 
-            if (forms_results.indexOf('https://www.youtube.com/watch?v=') > -1 || forms_results.indexOf('https://youtu.be/') > -1 || forms_results.indexOf('https://www.youtube.com/embed/') > -1) {
+            if (formsResults.indexOf("https://www.youtube.com/watch?v=") > -1 || formsResults.indexOf("https://youtu.be/") > -1 || formsResults.indexOf("https://www.youtube.com/embed/") > -1) {
 
                 // alert( "YOUTUBE URL VALID");
 
@@ -254,9 +254,9 @@ $(document).ready(function () {
 
                 var regExp = /^.*(youtu\.be\/|v\/|u\/\w\/|embed\/|watch\?v=|\&v=)([^#\&\?]*).*/;
 
-                var match = forms_results.match(regExp);
+                var match = formsResults.match(regExp);
 
-                if (match && match[2].length == 11) {
+                if (match && match[2].length === 11) {
                     // alert(match[2]);
 
                     // On ne garde que l'ID de la vidéo isolé du reste et on l'injecte en remplacement de l'URL rentrée au départ par l'internaute
