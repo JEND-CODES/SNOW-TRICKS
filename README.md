@@ -6,17 +6,17 @@
 
 ### DIAGRAMMES
 
-![SNOWTRICKS](https://raw.githubusercontent.com/JEND-CODES/SNOW-TRICKS/main/diagrammes/Cas_Gestion_Tricks_P6_V1-Page-1.png)
+![SNOWTRICKS](https://raw.githubusercontent.com/JEND-CODES/SNOW-TRICKS/main/diagrammes/Cas_Gestion_Tricks_P6_V1.png)
 
 ![SNOWTRICKS](https://raw.githubusercontent.com/JEND-CODES/SNOW-TRICKS/main/diagrammes/S%C3%A9quence_Inscription_P6_V1.png)
 
-![SNOWTRICKS](https://raw.githubusercontent.com/JEND-CODES/SNOW-TRICKS/main/diagrammes/S%C3%A9quence_New_Password_P6_V1-Page-1.png)
+![SNOWTRICKS](https://raw.githubusercontent.com/JEND-CODES/SNOW-TRICKS/main/diagrammes/S%C3%A9quence_New_Password_P6_V1.png)
 
-![SNOWTRICKS](https://raw.githubusercontent.com/JEND-CODES/SNOW-TRICKS/main/diagrammes/Diagramme_de_Classes_P6_V1.png)
+![SNOWTRICKS](https://raw.githubusercontent.com/JEND-CODES/SNOW-TRICKS/main/diagrammes/Diagramme_de_Classes_P6_V3.png)
 
-![SNOWTRICKS](https://raw.githubusercontent.com/JEND-CODES/SNOW-TRICKS/main/diagrammes/Mod%C3%A8le_de_donn%C3%A9es_P6_V1.png)
+![SNOWTRICKS](https://raw.githubusercontent.com/JEND-CODES/SNOW-TRICKS/main/diagrammes/Mod%C3%A8le_de_donn%C3%A9es_P6_V2.png)
 
-![SNOWTRICKS](https://raw.githubusercontent.com/JEND-CODES/SNOW-TRICKS/main/diagrammes/Concepteur_BDD_SnowTricks_v4.JPG)
+![SNOWTRICKS](https://raw.githubusercontent.com/JEND-CODES/SNOW-TRICKS/main/diagrammes/Concepteur_BDD_SnowTricks_v5.JPG)
 
 ### INSTRUCTIONS D'INSTALLATION
 ``` bash
