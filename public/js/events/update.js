@@ -74,7 +74,7 @@ $(document).ready(function () {
 
             // alert(videosIds.length);
 
-            if (videosIds.length == 11) {
+            if (videosIds.length === 11) {
 
                 $(updateForms[y]).val("https://www.youtube.com/watch?v=" + $(updateForms[y]).val());
 
@@ -175,7 +175,7 @@ $(document).ready(function () {
                 if (imageTypes.indexOf(extension) !== -1) {
 
                     // Parmi les inputs qui contiennent des liens avec des extensions images, on vérifie aussi la présence de http ou https :
-                    if (uri.indexOf("http") == 0 || uri.indexOf("https") == 0) {
+                    if (uri.indexOf("http") === 0 || uri.indexOf("https") === 0) {
                         // alert("HTTP OU HTTPS PRÉSENT");
                         // alert(uri);
                         return true;
