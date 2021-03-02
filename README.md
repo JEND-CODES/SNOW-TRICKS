@@ -10,9 +10,11 @@
 
 * INSTALLEZ LES DÉPENDANCES AVEC COMPOSER : composer install
 
-* IMPORTEZ LE FICHIER DE DÉMONSTRATION DANS VOTRE BASE DE DONNÉES : snowtricks.sql
+* CRÉEZ LA BASE DE DONNÉES (FICHIER .ENV) : doctrine:database:create
 
-* INDIQUEZ VOTRE SMTP DANS LE FICHIER .ENV : MAILER_DSN=smtp://user:pass@smtp.example.com:port
+* GÉNÉREZ LES FIXTURES : doctrine:fixtures:load
+
+* INDIQUEZ VOTRE SMTP (FICHIER .ENV) : MAILER_DSN=smtp://user:pass@smtp.example.com:port
 
 * LANCEZ VOTRE SERVEUR LOCAL POUR VISUALISER LE SITE
 ```
