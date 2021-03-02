@@ -7,13 +7,13 @@ $(document).ready(function () {
 
     $(".hidden-up-btn").hide();
 
-    $('#trick-box .load-more:lt('+x+')').show();
+    $("#trick-box .load-more:lt("+x+")").show();
 
-        $('#more-btn').click(function () {
+        $("#more-btn").click(function () {
 
         x = (x + 3 <= totalTricks) ? x + 3 : totalTricks;
 
-        $('#trick-box .load-more:lt('+x+')').slideDown();
+        $("#trick-box .load-more:lt("+x+")").slideDown();
 
         // alert(x);
 
@@ -25,12 +25,12 @@ $(document).ready(function () {
     });
 
     /*
-    $('#less-btn').click(function () {
+    $("#less-btn").click(function () {
 
         x = (x - 6 < 6) ? 6 : x - 6;
 
-        // $('#trick-box .load-more').not(':lt('+x+')').hide();
-        $('#trick-box .load-more').not(':lt('+x+')').slideUp();
+        // $("#trick-box .load-more").not(":lt("+x+")").hide();
+        $("#trick-box .load-more").not(":lt("+x+")").slideUp();
 
     });
     */
@@ -38,7 +38,7 @@ $(document).ready(function () {
     // JQUERY SCROLL TO TRICKS SECTION
     $("#go-to-tricks").click(function() { 
 
-        $('html, body').animate({
+        $("html, body").animate({
 
             scrollTop: $("#trick-section").offset().top 
 
@@ -46,10 +46,10 @@ $(document).ready(function () {
 
     });
 
-    // Ce bouton pour remonter en haut ne s'affiche qu'à condition où plus de 15 tricks sont affichés
+    // Ce bouton pour remonter en haut ne s"affiche qu"à condition où plus de 15 tricks sont affichés
     $("#up-to-tricks").click(function() { 
 
-        $('html, body').animate({
+        $("html, body").animate({
 
             scrollTop: $("#trick-section").offset().top 
 
