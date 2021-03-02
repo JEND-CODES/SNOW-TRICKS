@@ -124,17 +124,17 @@ $(document).ready(function () {
                 // alert( "YOUTUBE URL VALIDE");
                 error++;
 
-            } else if (inputsResults.indexOf('https://youtu.be/') > -1 && $(inputs[i]).val().length === 28) {
+            } else if (inputsResults.indexOf("https://youtu.be/") > -1 && $(inputs[i]).val().length === 28) {
 
                 // alert( "YOUTUBE URL VALIDE");
                 error++;
 
-            } else if (inputsResults.indexOf('https://www.youtube.com/embed/') > -1 && $(inputs[i]).val().length === 41) {
+            } else if (inputsResults.indexOf("https://www.youtube.com/embed/") > -1 && $(inputs[i]).val().length === 41) {
 
                 // alert( "YOUTUBE URL VALIDE");
                 error++;
 
-            } else if (inputsResults === '') {
+            } else if (inputsResults === "") {
 
                 // alert( "CHAMP VIDE AUTORISÉ");
                 error++;
@@ -153,16 +153,16 @@ $(document).ready(function () {
             var isUriImage = function (uri) {
 
                 // On s'assure de supprimer tous les paramètres GET indésirables (comme par exemple dans cette URL : http://meow.com/kitten.png?somehorribleparameter=1)
-                uri = uri.split('?')[0];
+                uri = uri.split("?")[0];
 
 
 
-                // Ensuite vérification de l'extension de l'image
-                var parts = uri.split('.');
+                // Ensuite vérification de l"extension de l"image
+                var parts = uri.split(".");
 
                 var extension = parts[parts.length - 1];
 
-                var imageTypes = ['jpg', 'jpeg', 'tiff', 'png', 'gif', 'bmp'];
+                var imageTypes = ["jpg", "jpeg", "tiff", "png", "gif", "bmp"];
 
                 if (imageTypes.indexOf(extension) !== -1) {
 
@@ -211,7 +211,7 @@ $(document).ready(function () {
         // ... pour vérifier ensuite que le résultat de la division est équivalent au nombre d'input dédiés à l'édition des images ou des vidéos ...
         if (total == inputs.length) {
             // .. Et dans ce cas on autorise la publication de l'article !
-            alert('MÉDIAS CONFORMES. OK POUR PUBLICATION');
+            alert("MÉDIAS CONFORMES. OK POUR PUBLICATION");
 
             // On cache le bouton de vérification des URLS
             $("#check_screen").hide();
@@ -229,7 +229,7 @@ $(document).ready(function () {
 
         } else {
 
-            alert('ERREURS : URLS INVALIDES DANS LES MÉDIAS. VÉRIFIEZ LA VALIDITÉ DES EXTENSIONS DES IMAGES ET/OU LA VALIDITÉ DES URLS DES VIDÉOS');
+            alert("ERREURS : URLS INVALIDES DANS LES MÉDIAS. VÉRIFIEZ LA VALIDITÉ DES EXTENSIONS DES IMAGES ET/OU LA VALIDITÉ DES URLS DES VIDÉOS");
 
         }
 
