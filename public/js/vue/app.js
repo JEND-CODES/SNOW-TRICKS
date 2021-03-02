@@ -1,14 +1,15 @@
 new Vue({
     el: '#appJEND',
-    //Changement des délimiteurs pour l'interpolation des variables (cause conflits avec TWIG)
+    // Changement des délimiteurs pour l'interpolation des variables (cause conflits avec TWIG)
     delimiters: ['[+[', ']+]'],
+    
     vuetify: new Vuetify(),
 
     data() {
 
         return {
 
-            page: 1,
+            // page: 1,
 
             // Button Navbar PopUp Login Logout
             dialog: false,
@@ -60,53 +61,53 @@ new Vue({
             modal_update_19: false,
             modal_update_20: false,
 
-            modal_1: false,
-            modal_2: false,
-            modal_3: false,
-            modal_4: false,
-            modal_5: false,
-            modal_6: false,
-            modal_7: false,
+            // modal_1: false,
+            // modal_2: false,
+            // modal_3: false,
+            // modal_4: false,
+            // modal_5: false,
+            // modal_6: false,
+            // modal_7: false,
 
             // Button scroll to top
             fab: false,
 
             // Dropdown Nav Links
-            navlinks: [{
-                    title: 'Login'
-                },
-                {
-                    title: 'Back Office'
-                },
-                {
-                    title: 'Click Me 3'
-                },
-                {
-                    title: 'Click Me 4'
-                },
-            ],
+            // navlinks: [{
+            //         title: 'Login'
+            //     },
+            //     {
+            //         title: 'Back Office'
+            //     },
+            //     {
+            //         title: 'Click Me 3'
+            //     },
+            //     {
+            //         title: 'Click Me 4'
+            //     },
+            // ],
 
-            colors: [
-                'indigo lighten-3',
-                'indigo lighten-2',
-                'indigo lighten-1',
-                'deep-purple lighten-3',
-                'deep-purple lighten-2',
-            ],
+            // colors: [
+            //     'indigo lighten-3',
+            //     'indigo lighten-2',
+            //     'indigo lighten-1',
+            //     'deep-purple lighten-3',
+            //     'deep-purple lighten-2',
+            // ],
             // Slideshow titles test
-            slides: [
-                '1er',
-                '2ème',
-                '3ème',
-                '4ème',
-                '5ème',
-            ],
+            // slides: [
+            //     '1er',
+            //     '2ème',
+            //     '3ème',
+            //     '4ème',
+            //     '5ème',
+            // ],
             // Messages d'alertes
-            info: 'INFO1',
-            info2: 'INFO2',
-            info3: 'INFO3',
-            info4: 'INFO4',
-            link: 'http://planetcode.fr',
+            // info: 'INFO1',
+            // info2: 'INFO2',
+            // info3: 'INFO3',
+            // info4: 'INFO4',
+            // link: 'http://planetcode.fr',
 
             // Navigation drawer component :
             drawer: null,
@@ -116,13 +117,13 @@ new Vue({
             // Placement d'un v-else qui s'affiche ou se masque en fonction de la valeur true/false de "successful
 
             // Utilisation d'un v-for pour afficher la liste d'un array qui crée autant de <li> qu'il y a de noms dans l'array :
-            persons: [
-                'Marie',
-                'Marion',
-                'Michel',
-                'Olivier',
-                'Jean',
-            ]
+            // persons: [
+            //     'Marie',
+            //     'Marion',
+            //     'Michel',
+            //     'Olivier',
+            //     'Jean',
+            // ]
         }
     },
 
@@ -148,27 +149,27 @@ new Vue({
         },
 
         // V-bind exemple https://codepen.io/minamo173/pen/aEdYpp?editors=1010 : Il suffit ensuite d'ajouter par exemple :v-bind:style="setColor('orange')" à un component...
-        setColor(color) {
-            let style
-            switch (color) {
-                case 'red':
-                    style = {
-                        "background-color": "#f44336"
-                    }
-                    break
-                case 'blue':
-                    style = {
-                        "background-color": "#3f51b5"
-                    }
-                    break
-                case 'orange':
-                    style = {
-                        "background-color": "#ff9800"
-                    }
-                    break
-            }
-            return style
-        },
+        // setColor(color) {
+        //     let style
+        //     switch (color) {
+        //         case 'red':
+        //             style = {
+        //                 "background-color": "#f44336"
+        //             }
+        //             break
+        //         case 'blue':
+        //             style = {
+        //                 "background-color": "#3f51b5"
+        //             }
+        //             break
+        //         case 'orange':
+        //             style = {
+        //                 "background-color": "#ff9800"
+        //             }
+        //             break
+        //     }
+        //     return style
+        // },
 
     }
 });

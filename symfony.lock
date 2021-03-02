@@ -1,7 +1,4 @@
 {
-    "components/font-awesome": {
-        "version": "5.15.1"
-    },
     "composer/package-versions-deprecated": {
         "version": "1.11.99.1"
     },
@@ -551,9 +548,6 @@
     },
     "symfony/yaml": {
         "version": "v5.2.3"
-    },
-    "tinymce/tinymce": {
-        "version": "5.7.0"
     },
     "twig/extra-bundle": {
         "version": "v3.2.1"
