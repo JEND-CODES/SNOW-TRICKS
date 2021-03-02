@@ -197,7 +197,7 @@ $(document).ready(function () {
                 error++;
                 error++;
 
-            };
+            }
 
         }
 
@@ -209,7 +209,7 @@ $(document).ready(function () {
         var total = error / 3;
 
         // ... pour vérifier ensuite que le résultat de la division est équivalent au nombre d'input dédiés à l'édition des images ou des vidéos ...
-        if (total == inputs.length) {
+        if (total === inputs.length) {
             // .. Et dans ce cas on autorise la publication de l'article !
             alert("MÉDIAS CONFORMES. OK POUR PUBLICATION");
 
