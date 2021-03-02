@@ -31,7 +31,7 @@
 * LANCEZ VOTRE SERVEUR LOCAL POUR VISUALISER LE SITE
 ```
 
-### Avancées
+### AVANCÉES
 ``` bash
 * 5 entités
 
