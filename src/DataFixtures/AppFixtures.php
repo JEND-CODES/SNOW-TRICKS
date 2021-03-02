@@ -60,11 +60,13 @@ class AppFixtures extends Fixture
         // $members = [];
         $members = ['jean', 'julie', 'vincent', 'billy', 'marion', 'michel', 'paolo'];
 
+        $roles = ['ROLE_ADMIN', 'ROLE_USER', 'ROLE_USER', 'ROLE_USER', 'ROLE_USER', 'ROLE_USER', 'ROLE_USER'];
+
         // $figures = [];
         // 30 figures
         $figures = ['Mute', 'Style Week', 'Indy', 'Stalefish', 'Tail grab', 'Nose Grab', 'Japan Air', 'Seat Belt', 'Truck driver', 'Big foot', 'Slide', 'Modulo', 'Flip', 'Method Air', 'Back flip', 'Misty', 'Tail slide', 'Big air', 'Gutter Ball', 'Flip 900', 'Rotation 180', 'Rotation 360', 'Rotation 720', 'Switch 270', 'Front flip', 'Mac Twist', 'Rodeo', 'Backside Air', 'Nose slide', 'Rocket Air'];
 
-        // $images = ['http://localhost:8000/photos/styleweek.jpg','http://localhost:8000/photos/tips.jpg','http://localhost:8000/photos/backair.jpg','http://localhost:8000/photos/stalefish.jpg','http://localhost:8000/photos/redstyle.jpg', 'http://localhost:8000/photos/backgrab.jpg', 'http://localhost:8000/photos/birdy.jpg', 'http://localhost:8000/photos/elegant.jpg', 'http://localhost:8000/photos/falling.jpg', 'http://localhost:8000/photos/flying.jpg', 'http://localhost:8000/photos/halfpipe.jpg', 'http://localhost:8000/photos/header.jpg', 'http://localhost:8000/photos/indy.jpg', 'http://localhost:8000/photos/curvy.jpg', 'http://localhost:8000/photos/jumpgrab.jpg', 'http://localhost:8000/photos/longrampe.jpg', 'http://localhost:8000/photos/multiple.jpg', 'http://localhost:8000/photos/jump.jpg', 'http://localhost:8000/photos/noseslide.jpg', 'http://localhost:8000/photos/onehand.jpg', 'http://localhost:8000/photos/perspective.jpg', 'http://localhost:8000/photos/rampe.jpg', 'http://localhost:8000/photos/sapins.jpg', 'http://localhost:8000/photos/slide.jpg', 'http://localhost:8000/photos/slideleft.jpg', 'http://localhost:8000/photos/specialjump.jpg', 'http://localhost:8000/photos/speed.jpg', 'http://localhost:8000/photos/mute.jpg', 'http://localhost:8000/photos/backnose.jpg', 'http://localhost:8000/photos/incredible.jpg'];
+        $images = ['http://symfony1.planetcode.fr/photos/styleweek.jpg','http://symfony1.planetcode.fr/photos/tips.jpg','http://symfony1.planetcode.fr/photos/backair.jpg','http://symfony1.planetcode.fr/photos/stalefish.jpg','http://symfony1.planetcode.fr/photos/redstyle.jpg', 'http://symfony1.planetcode.fr/photos/backgrab.jpg', 'http://symfony1.planetcode.fr/photos/birdy.jpg', 'http://symfony1.planetcode.fr/photos/elegant.jpg', 'http://symfony1.planetcode.fr/photos/falling.jpg', 'http://symfony1.planetcode.fr/photos/flying.jpg', 'http://symfony1.planetcode.fr/photos/halfpipe.jpg', 'http://symfony1.planetcode.fr/photos/header.jpg', 'http://symfony1.planetcode.fr/photos/indy.jpg', 'http://symfony1.planetcode.fr/photos/curvy.jpg', 'http://symfony1.planetcode.fr/photos/jumpgrab.jpg', 'http://symfony1.planetcode.fr/photos/longrampe.jpg', 'http://symfony1.planetcode.fr/photos/multiple.jpg', 'http://symfony1.planetcode.fr/photos/jump.jpg', 'http://symfony1.planetcode.fr/photos/noseslide.jpg', 'http://symfony1.planetcode.fr/photos/onehand.jpg', 'http://symfony1.planetcode.fr/photos/perspective.jpg', 'http://symfony1.planetcode.fr/photos/rampe.jpg', 'http://symfony1.planetcode.fr/photos/sapins.jpg', 'http://symfony1.planetcode.fr/photos/slide.jpg', 'http://symfony1.planetcode.fr/photos/slideleft.jpg', 'http://symfony1.planetcode.fr/photos/specialjump.jpg', 'http://symfony1.planetcode.fr/photos/speed.jpg', 'http://symfony1.planetcode.fr/photos/mute.jpg', 'http://symfony1.planetcode.fr/photos/backnose.jpg', 'http://symfony1.planetcode.fr/photos/incredible.jpg'];
 
         // $classifications = [];
         $classifications = ['Nouveautés', 'Créations', 'Grabs', 'Rotations', 'Flips', 'Slides', 'One Foot', 'Old School', 'Switchings',  'Improvisés', 'Flyings', 'Big Air', 'Half Pipe', 'Slopestyle', 'Bordercross', 'Street'];
@@ -133,21 +135,23 @@ class AppFixtures extends Fixture
         */
 
         // CRÉATION DE 7 MEMBRES
-        for ($i=0; $i<7; $i++)
+        // for ($i=0; $i<7; $i++)
+        foreach ($members as $key => $value)
         {
             $member = new Member();
 
-            $member->setEmail(''. $members[$i] .'@gmail.com')
-                    ->setUsername($members[$i])
+            $member->setEmail(''. $members[$key] .'@gmail.com')
+                    ->setUsername($members[$key])
                     // Même mot de passe pour tous les Members générés par la Fixture
-                    ->setPassword('$2y$13$MdeK0Bpcugk25rsRO2HhiuVqCNt2YCKmimre18mQ0IHnjQtVbN6l.')
+                    ->setPassword('$2y$13$Nkxk0zZrpPkk/xI/YV1qr.TmBvlGqAx6u3x10u4KxCYarocKllkh6')
                     // ->setPassword($this->encoder->encodePassword($member, 'password'))
                     ->setCreatedAt(new \DateTime)
                     // ->setToken(hash('sha256', random_bytes(10)))
                     ->setValidation(true)
                     // ->setStatus('1')
-                    ->setAvatar('snowAvatar'. $i .'.jpg')
-                    // ->setAvatar('snowAvatar'. $i .'-6025b9fc9bcc'. $i .'.png')
+                    ->setAvatar('snowAvatar'. $key .'.jpg')
+                    // ->setAvatar('snowAvatar'. $key .'-6025b9fc9bcc'. $key .'.png')
+                    ->setRole($roles[$key])
     
                     ;
     
@@ -157,11 +161,11 @@ class AppFixtures extends Fixture
  
 
         // 16 CATÉGORIES CRÉÉES
-        foreach ($classifications as $key => $value)
+        foreach ($classifications as $key2 => $value2)
         {
             $classification = new Classification();
 
-            $classification->setTitle($value);
+            $classification->setTitle($value2);
 
             $manager->persist($classification);
 
@@ -172,20 +176,20 @@ class AppFixtures extends Fixture
         // for ($j=0; $j<30; $j++)
 
         // 30 TRICKS CRÉÉS
-        foreach ($figures as $key2 => $value2)
+        foreach ($figures as $key3 => $value3)
         {
             
 
             $figure = new Figure();
 
-            $figure->setTitle($value2)
+            $figure->setTitle($value3)
                     ->setContent("Lorem ipsum sed ut perspiciatis..!")
                     // ->setImage('https://www.meriski.co.uk/uploads/Images/blog/Beginners_Guide_To_Skiing/_1200/41273701930_c5a6c590f0_o.jpg')
-                    ->setImage('https://coresites-cdn-adm.imgix.net/onboardfr/wp-content/uploads/2015/03/wpid-StaleSandbech_Fonna2013_FrodePhoto_MG_38581.jpg')
+                    // ->setImage('https://coresites-cdn-adm.imgix.net/onboardfr/wp-content/uploads/2015/03/wpid-StaleSandbech_Fonna2013_FrodePhoto_MG_38581.jpg')
 
-                    ->setLabelled(strtolower(trim(preg_replace('/[^A-Za-z0-9-]+/', '-', $value2))))
+                    ->setLabelled(strtolower(trim(preg_replace('/[^A-Za-z0-9-]+/', '-', $value3))))
 
-                    // ->setImage($images[$key2])
+                    ->setImage($images[$key3])
                     // ->setImage($faker->randomElement($images))
                     ->setCreatedAt(new \Datetime)
                     ->setClassification($classification)
@@ -220,13 +224,13 @@ class AppFixtures extends Fixture
 
             // 6 MÉDIAS CRÉÉS 
             for ($j=0; $j<6; $j++)
-            // foreach ($screens as $key3 => $value3)
+            // foreach ($screens as $key4 => $value4)
             {
                 $screen = new Screen();
 
                 $screen->setThumbnail($screens[$j])
                         // ->setThumbnail($screens[random_int(0, 5)])
-                        // ->setThumbnail($value3)
+                        // ->setThumbnail($value4)
                         ->setFigure($figure)
 
                         ;

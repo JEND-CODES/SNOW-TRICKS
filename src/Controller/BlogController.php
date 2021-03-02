@@ -83,12 +83,14 @@ class BlogController extends AbstractController
         $current_member = $this->security->getUser();
         // $current_member = $this->getUser();
 
-        // Requête pour l'affichage des articles en dessous du Slider en page d'accueil (limite de 6, en sautant les 3 derniers articles publiés)
-        // $figures = $repoFigure->findBy(array(), array('id' => 'DESC'), 6, 3);
-        $figures = $repoFigure->findBy(array(), array('id' => 'DESC'), 100, 3);
-        
         // Requête pour l'affichage sur le slider en page d'accueil
         $figureSlides = $repoFigure->findBy(array(), array('id' => 'DESC'), 3);
+
+        // Requête pour l'affichage des articles en dessous du Slider en page d'accueil (limite de 6, en sautant les 3 derniers articles publiés)
+        // $figures = $repoFigure->findBy(array(), array('id' => 'DESC'), 6, 3);
+        // $figures = $repoFigure->findBy(array(), array('id' => 'DESC'), 100, 3);
+        // findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
+        $figures = $repoFigure->findBy(array(), array('id' => 'DESC'), null, 3);
         
         return $this->render('blog/posts.html.twig', [
             'current_member' => $current_member,
@@ -184,13 +186,13 @@ class BlogController extends AbstractController
             $nbr_screens = 6;
             // var_dump($get_screen);
 
-        }  /* elseif ($get_screen < 6 || $get_screen > 20) {
+        } elseif ($get_screen < 6 || $get_screen > 20) {
             // Condition pour ne pas éditer mille images ou vidéos par article et les envoyer BDD !!
             // Limitations du nombre minimal ou maximal de médias (au cas où l'internaute choisirait de modifier directement le Param Get de l'URL en entrant par exemple " new?selected_screen=225580 "....)
             // On rétablit alors à 6 médias par défaut (en dessous de 6 ou au dessus de 20)
             $nbr_screens = 6;
 
-        } */ else {
+        } else {
 
             // ..Sinon on choisit le nombre que l'on veut ! 
             // Exemple dans l'URL : " new?selected_screen=10 "
@@ -375,12 +377,12 @@ class BlogController extends AbstractController
         {
         
             $start = 0;
-            $limit = 5;
+            $limit = 10;
 
         } else {
 
             $start = (int) strip_tags($get_mentions);
-            $limit = 5;
+            $limit = 10;
             
         }
         // FIN DE PAGINATION
