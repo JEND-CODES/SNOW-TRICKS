@@ -164,8 +164,7 @@ $(document).ready(function () {
 
                 }
 
-            } else {
-            }
+            } 
 
         }
 
