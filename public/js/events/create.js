@@ -156,8 +156,7 @@ $(document).ready(function () {
 
                 }
 
-            } else {
-            }
+            } 
 
         }
 
