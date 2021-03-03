@@ -2,9 +2,6 @@
 
 namespace App\Entity;
 
-// Pas besoin d'appeller ça ?
-// use App\Repository\ClassificationRepository;
-
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
@@ -77,7 +74,7 @@ class Classification
     {
         if ($this->figures->contains($figure)) {
             $this->figures->removeElement($figure);
-            // set the owning side to null (unless already changed)
+            
             if ($figure->getClassification() === $this) {
                 $figure->setClassification(null);
             }

@@ -3,13 +3,3 @@
 <h4>" Cher {{ member.username|capitalize }}, cliquez sur ce lien pour accéder à la page de réinitialisation de votre mot passe sur le site SNOWTRICKS "</h4>
 
 <a href="{{ url('confirm_reset', { username : member.username , token : member.token }) }}" class="button">RÉINITIALISER MON MOT DE PASSE<a>
-
-{#
-
-path() - Generates a [relative] URL path given a route name and parameters.
-
-url() - Generates an absolute URL given a route name and parameters.
-
-<a href="{{ url('confirm_reset', { username : member.username , token : member.token }) }}" class="button">ACCÉDER À LA PAGE DE RÉINITIALISATION DE VOTRE MOT DE PASSE<a>
-
-#}

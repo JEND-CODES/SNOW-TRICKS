@@ -1,7 +1,6 @@
 $(document).ready(function () {
 
     var totalTricks = $("#trick-box > .load-more").length;
-    // alert(totalTricks);
 
     var x = 6;
 
@@ -15,27 +14,12 @@ $(document).ready(function () {
 
         $("#trick-box .load-more:lt("+x+")").slideDown();
 
-        // alert(x);
-
-        // A ne montrer que si il y a plus de 15 tricks affichés
         if (x > 9) {
             $(".hidden-up-btn").show();
         }
 
     });
 
-    /*
-    $("#less-btn").click(function () {
-
-        x = (x - 6 < 6) ? 6 : x - 6;
-
-        // $("#trick-box .load-more").not(":lt("+x+")").hide();
-        $("#trick-box .load-more").not(":lt("+x+")").slideUp();
-
-    });
-    */
-
-    // JQUERY SCROLL TO TRICKS SECTION
     $("#go-to-tricks").click(function() { 
 
         $("html, body").animate({
@@ -46,7 +30,6 @@ $(document).ready(function () {
 
     });
 
-    // Ce bouton pour remonter en haut ne s"affiche qu"à condition où plus de 15 tricks sont affichés
     $("#up-to-tricks").click(function() { 
 
         $("html, body").animate({
@@ -56,7 +39,5 @@ $(document).ready(function () {
         }, 800); 
 
     });
-
-    // https://jsfiddle.net/cse_tushar/6FzSb/
     
 });

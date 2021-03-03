@@ -8,16 +8,10 @@ use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\HttpFoundation\Request;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Doctrine\ORM\EntityManagerInterface;
-
 use Symfony\Component\Security\Core\Security;
-
-// use App\Entity\Figure;
 use App\Entity\Mention;
-
 use App\Repository\FigureRepository;
 use App\Repository\MentionRepository;
-
-
 
 class AdminController extends AbstractController
 {
@@ -28,7 +22,6 @@ class AdminController extends AbstractController
        $this->security = $security;
     }
 
-    // GESTION DES POSTS EN BACK OFFICE
     /**
      * @Route("/admin/backoff", name="admin_backoff")
      */
@@ -45,7 +38,6 @@ class AdminController extends AbstractController
 
     }
 
-    // GESTION DES COMMENTAIRES EN BACK OFFICE
     /**
      * @Route("/admin/backcom", name="admin_backcom")
      */
@@ -61,7 +53,6 @@ class AdminController extends AbstractController
         ]);
     }
     
-    // SUPPRESSION DES COMMENTAIRES EN BACK OFFICE
     /**
      * @Route("/admin/backcom/delete/{id}", name="delete_comment")
      * @Method({"DELETE"})
@@ -83,5 +74,4 @@ class AdminController extends AbstractController
         
     }
     
-
 }

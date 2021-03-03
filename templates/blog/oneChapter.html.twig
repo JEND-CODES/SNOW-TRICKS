@@ -101,7 +101,6 @@
 
                         </div>
 
-                        <!-- TWIG : " loop.index " renvoie l'index de l'itération actuelle dans la boucle (https://twig.symfony.com/doc/2.x/tags/for.html#iterating-over-keys-and-values) -->
                         <div class="text-center">
 
                             <v-dialog
@@ -161,7 +160,6 @@
 
                         </div>
 
-                        <!-- TWIG : loop.index renvoie lindex de l'itération actuelle dans la boucle (https://twig.symfony.com/doc/2.x/tags/for.html#iterating-over-keys-and-values) -->
                         <div class="text-center">
 
                             <v-dialog
@@ -240,9 +238,6 @@
 
                     {% endif %}
 
-                    {# {% if app.user %} #}
-                    <!-- Chaque membre ne peut modifier que ses articles, mis à part l'admin qui peut tout modifier -->
-                    <!--  rajouter "ou si l'admin = 1" -->
                     {% if (app.user.id is defined and app.user.id == figure.user.id) or (app.user.id is defined and app.user.id == 1) %}
 
                         <a href="{{ path('blog_edit', {'id': figure.id, 'labelled': figure.labelled}) }}">
@@ -374,8 +369,6 @@
                             
                             <p class="body-1" style="color:black;">{{ mention.content | striptags | raw }}</p>
                            
-
-
                         </v-card-text>
 
                     </v-card> 
@@ -388,256 +381,26 @@
 
     </v-container>
 
-
     <!-- BOUTONS DE PAGINATION DES COMMENTAIRES -->
-
-
-    {# <a href="{{ path('chapter_show', {'id': figure.id, 'labelled': figure.labelled } ) }}#commentaries">0</a> #}
-    
-{#
-
-    <a href="{{ path('chapter_show', {'id': figure.id} ) }}?show_mentions=5#commentaries">5</a>
-
-    <a href="{{ path('chapter_show', {'id': figure.id} ) }}?show_mentions=10#commentaries">10</a>
-
-#}
-
-    <!-- BOUTONS DE PAGINATION DES COMMENTAIRES -->
-    
     <v-container id="mention_links" style="text-align:center;"> 
     </v-container>
-
-{#
-    <section id="comments">
-
-        {% for mention in figure.mentions | slice(0,5) %}
-
-            <div class="billy" style="border:10px solid cornflowerblue; width:100%; background-color:white;">
-
-                <img src="{{ asset('uploads/avatars/' ~ '/' ~ mention.user.avatar) }}">
-
-                <p class="body-1" style="color:dimgrey;">Par {{ mention.user.username|upper }} le {{ mention.createdAt | date('d/m/Y à H:i') }}</p>
-                
-                <p class="body-1" style="color:dimgrey;">{{ mention.content | striptags | raw }}</p>
-                    
-            </div>
-                        
-        {% endfor %}
-
-    </section>
-
-    <div class="row text-center">
-        <button id="loadMoreComments" class="btn btn-primary col-md-6 col-8 mx-auto">Voir plus de commentaires</button>
-    </div>
-#}
 
 </v-card>
 
 {% endif %}
-
-
-<!-- MODAL 2 & 3 : MODAL IN MODAL EXAMPLE -->
-<!-- Modal 2 -->
-<!--<div class="text-center">
-    <v-dialog
-      v-model="modal_2"
-      transition="dialog-top-transition"
-      width="500"
-    >
-      <template v-slot:activator="{ on, attrs }">
-        <v-btn
-          color="red lighten-2"
-          dark
-          v-bind="attrs"
-          v-on="on"
-        >
-          Click Me
-        </v-btn>
-      </template>
-
-      <v-card>
-        <v-card-title class="headline grey lighten-2">
-          Privacy Policy
-        </v-card-title>
-
-        <v-card-text>
-
-            <v-dialog
-                v-model="modal_3"
-                transition="dialog-top-transition"
-                width="500"
-                >
-                <template v-slot:activator="{ on, attrs }">
-                    <v-btn
-                    color="red lighten-2"
-                    dark
-                    v-bind="attrs"
-                    v-on="on"
-                    >
-                    Click Me
-                    </v-btn>
-                </template>
-
-                <v-card>
-                    <v-card-title class="headline grey lighten-2">
-                    Privacy Policy
-                    </v-card-title>
-
-                    <v-card-text>
-                    Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
-                    </v-card-text>
-
-                    <v-divider></v-divider>
-
-                    <v-card-actions>
-                    <v-spacer></v-spacer>
-                    <v-btn
-                        color="primary"
-                        text
-                        @click="modal_3 = false"
-                    >
-                        I accept
-                    </v-btn>
-                    </v-card-actions>
-                </v-card>
-            </v-dialog>
-
-        </v-card-text>
-
-        <v-divider></v-divider>
-
-        <v-card-actions>
-          <v-spacer></v-spacer>
-          <v-btn
-            color="primary"
-            text
-            @click="modal_2 = false"
-          >
-            I accept
-          </v-btn>
-        </v-card-actions>
-      </v-card>
-    </v-dialog>
-</div>-->
-
 {% endblock %}
 
 {% block javascripts %}
-
 <script>
-
 // PAGINATION 10 PAR PAGE
-
 var count = {{ figure.mentions | length }};
-
 var nbr_links = Math.ceil(count / 10);
-
-// alert(nbr_links);
-
 if(count > 10) {
-
     $("#mention_links").append('<a href="{{ path('chapter_show', {'id': figure.id, 'labelled': figure.labelled } ) }}#commentaries"><i class="fas fa-chevron-left special-chevron"></i></a>');
-
 }
 
 for(var i = 1; i < nbr_links; i++){
-
     $("#mention_links").append('<a class="font-weight-bold" style="padding:8px;color:white;font-size:20px;" href="{{ path('chapter_show', {'id': figure.id, 'labelled': figure.labelled } ) }}?show_mentions=' + i * 10 + '#commentaries">' + i + '</a>');
-
 }
-
 </script>
-
-
-{#
-
-
-<script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.21.1/axios.min.js"></script>
-
-<script>
-/*
-$(document).ready(function () {
-
-
-});
-*/
-
-    click = 0;
-
-    function loadMoreComments(event) {
-
-        // COUNT DES BILLY (classe ajoutée aux DIV des commentaires)
-
-            // var $billies = $("#comments .billy").hide();
-
-            // var size_billies = $billies.length;
-
-            // $billies.slice(0, 5).show();
-
-            // var x = 5;
-
-            // var starting = 0;
-
-        // FIN DE COUNT DES BILLY
-
-        event.preventDefault();
-
-        click++;
-
-        var start = 5 * click;
-
-        const url = "{{ path('mention_paging', {'id': figure.id} ) }}/" + start;
-
-        // Remplacer par la méthode FETCH ????
-        axios.get(url).then(function(response) {
-
-            $("#comments").append(response.data);
-
-            // ICI ON POURRAIT SLICER LES RÉSULTATS
-
-                        // alert(start);
-
-                        // $billies.slice(5, 10).show();
-
-                        // $billies.slice(start, 10).show();
-
-                        // alert(size_billies);
-
-            // FIN DE SLICE ÉVENTUEL
-
-        }).catch(function (error) {
-
-            // VOIR COMMENT ON GÉNÈRE LES ERREURS SELON LES NORMES EN VIGUEUR !
-            alert("Erreur")
-            /*
-            if (response.status === 403) {
-
-                window.alert("Vous n'êtes pas autorisé à effectuer cette action !");
-
-            }
-            else if (response.status === 404) {
-
-                window.alert("La page appelléé n'existe pas");
-            }
-            else {
-
-                window.alert("Une erreur est survenue !");
-            }
-            */
-
-        });
-
-    }
-
-    document.getElementById("loadMoreComments").addEventListener("click", loadMoreComments);
-
-
-
-</script>
-
-<!-- ***** Script de pagination jQuery ***** -->
-<!--<script src="/js/paginate.js"></script>-->
-
-#}
-
 {% endblock %}

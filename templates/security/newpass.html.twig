@@ -1,15 +1,11 @@
 {% extends 'base.html.twig' %}
-
 {% block title %}SNOWTRICKS • New Password{% endblock %}
-
 {% block body %}
 
-
-<!-- V-card Background-color -->
 <v-card flat outlined style="z-index:-1;position:fixed;top:0;left:0;height:100%;width:100%;background-color:#85C1E9;"></v-card>
 
-
 <v-container fluid class="mt-n3">
+
     <v-row>
 
         <v-col cols="12">
@@ -21,9 +17,8 @@
                     <v-col cols="12" md="4"></v-col>
 
                     <v-col cols="12" md="4">
-                        <v-card class="pa-5" outlined style="border-color:rgb(255,255,255,0);" color="rgba(255,255,255,0.2)">
 
-                            {# <p>Nouveau mot de passe</p> #}
+                        <v-card class="pa-5" outlined style="border-color:rgb(255,255,255,0);" color="rgba(255,255,255,0.2)">
 
                             {{ form_start(formNewpass) }}
 
@@ -31,15 +26,12 @@
 
                             {{ form_row(formNewpass.confirm_password, {'label': ' ', 'attr': {'placeholder': 'Confirmation'}}) }}
 
-                            {# {{ form_row(formNewpass.newpass, {'label': ' ', 'attr': {'placeholder': 'Nouveau password'}}) }}
-
-                            {{ form_row(formNewpass.confirm_newpass, {'label': ' ', 'attr': {'placeholder': 'Confirmation'}}) }} #}
-
                             <button type="submit">Modifier</button>
 
                             {{ form_end(formNewpass) }}
 
                         </v-card>
+
                     </v-col>
 
                     <v-col cols="12" md="4"></v-col>
@@ -47,14 +39,13 @@
                 </v-row>
 
             </v-card>
+
         </v-col>
 
     </v-row>
+
 </v-container>
 
-
-
-
 <br />
 <br />
 <br />
@@ -65,6 +56,5 @@
 <br />
 <br />
 <br />
-
 
 {% endblock %}

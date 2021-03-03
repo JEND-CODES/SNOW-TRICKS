@@ -27,13 +27,10 @@ class FigureRepository extends ServiceEntityRepository
 
     public function findByQuery($query)
     {
-        // https://symfonycasts.com/screencast/doctrine-queries/and-where-or-where
         return $this->createQueryBuilder('f')
             ->andWhere('f.title LIKE :val OR f.content LIKE :val')
-            // ->orWhere('f.content LIKE :val')
             ->setParameter('val', '%'.$query.'%')
             ->orderBy('f.id', 'DESC')
-            // ->setMaxResults(10)
             ->getQuery()
             ->getResult()
         ;

@@ -2,21 +2,17 @@
 {% block title %}SNOWTRICKS • Nouveau Trick{% endblock %}
 {% block body %}
 
-<!-- V-card Background-color -->
 <v-card flat outlined style="z-index:-1;position:fixed;top:0;left:0;height:100%;width:100%;background-color:#85C1E9;"></v-card>
-{#
-{% if app.user.id is defined and app.user.id == '1' %}
-#}
+
 {% if app.user %}
 
 <v-card flat outlined style="z-index:-1;position:fixed;top:0;left:0;height:100%;width:100%;border:none;">
     <v-img src="/backgrounds/background1.jpg" style="height:100%;width:100%;"></v-img>
 </v-card>
 
-<!-- AFFICHAGES CRÉATION D'UN ARTICLE -->
+<!-- CRÉATION D'UN ARTICLE -->
 {{ form_start(createFigure) }}
 
-<!-- Définir une image par défaut -->
 <v-container mt-3 mb-n2>
 
     <v-row
@@ -25,10 +21,6 @@
     >
 
         <v-col cols="12">  
-
-                <!--<p style="color:blueviolet;text-align:right;border:0px solid white;width:99%;margin-bottom:4px;">
-                    <i class="fas fa-pen"></i> 
-                </p>-->
 
                 <v-img
                 :aspect-ratio="16/9"
@@ -101,7 +93,6 @@
             <v-row>
                 
                 {% for screen in createFigure.screens %}
-                <!-- Editions des Médias -->
 
                 <v-col
                 cols="12"
@@ -153,7 +144,7 @@
 
                 </v-col>
 
-                <!-- Ici un sélecteur du nombre d'images associées à l'article ?? -->
+                <!-- SÉLECTEUR DU NOMBRE DE MÉDIAS ASSOCIÉS À L'ARTICLE -->
                 <v-col 
                 md="4"
                 offset-md="4"
@@ -183,7 +174,6 @@
                 <div class="medium-spacer"></div>
                 
                 <!-- BOUTON DE RESTAURATION DES URLS YOUTUBE PUIS VÉRIFICATIONS D'URL SCREENS -->
-                <!--<a onclick="return(confirm('Validez-vous ce choix ?'));">-->
                 <a>
                 <p class="special-button" id="check_screen" style="right:34px;position:absolute;padding:10px;">
                 Confirmer&nbsp;&nbsp;<i class="fas fa-pen"></i>
@@ -193,7 +183,6 @@
                 <div class="medium-spacer"></div>
 
                 <!-- BOUTON POUR RECOMMENCER LES SAISIES -->
-                <!--<a onclick="return(confirm('Validez-vous ce choix ?'));">-->
                 <a>
                 <p class="special-button" id="update_screen" style="right:34px;position:absolute;margin-top:-20px;padding:10px;">
                 Recommencer&nbsp;&nbsp;<i class="fas fa-redo"></i>
@@ -247,20 +236,8 @@
 {% endblock %}
 
 {% block javascripts %}
-
-<!-- TinyMCE -->
-<!--<script src="https://cdn.tiny.cloud/1/5k258xz8b8894li1zboryqoh74ms5pwkns3ket7ysg708h1g/tinymce/5/tinymce.min.js"></script>-->
-{# <script src="/js/tinymce.min.js"></script> #}
 <script src="{{ asset('js/tinyMce/tinymce.min.js') }}"></script>
-
-<!-- TinyMCE init function -->
-{# <script src="/js/tinyInit.js"></script> #}
 <script src="{{ asset('js/tinyMce/tinyInit.js') }}"></script>
-
-<!--Chargement Langage Fr TinyMCE-->
-{# <script src="/js/langs/fr_FR.js"></script> #}
 <script src="{{ asset('js/tinyMce/langs/fr_FR.js') }}"></script>
-
 <script src="{{ asset('js/events/create.js') }}"></script>
-
 {% endblock %}

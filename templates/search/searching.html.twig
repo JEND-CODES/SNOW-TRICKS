@@ -1,13 +1,9 @@
 {% extends 'base.html.twig' %}
-
 {% block title %}Rechercher{% endblock %}
-
 {% block body %}
 
-<!-- V-card Background-color -->
 <v-card flat outlined style="z-index:-1;position:fixed;top:0;left:0;height:100%;width:100%;background-color:#85C1E9;"></v-card>
 
-<!-- Container des résultats de recherche -->
 <v-container fluid class="mt-n3">
 
     <v-row>
@@ -85,8 +81,6 @@
                                 {% endif %}
 
                                 </a>
-
-                                {#<p>{{ post.content|striptags|raw|slice(0,400) }} ...</p>#}
 
                             </v-card>
 

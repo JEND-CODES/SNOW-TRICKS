@@ -4,13 +4,9 @@ namespace App\Entity;
 
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
-// Pas besoin d'appeller ça ?
-// use App\Repository\MemberRepository;
-
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
 use Symfony\Component\Security\Core\User\UserInterface;
-
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 
 /**
@@ -104,8 +100,6 @@ class Member implements UserInterface
         $this->mentions = new ArrayCollection();
         $this->tricks = new ArrayCollection();
     }
-
- 
 
     public function getId(): ?int
     {
@@ -217,7 +211,7 @@ class Member implements UserInterface
     public function removeMention(Mention $mention): self
     {
         if ($this->mentions->removeElement($mention)) {
-            // set the owning side to null (unless already changed)
+            
             if ($mention->getMember() === $this) {
                 $mention->setMember(null);
             }
@@ -247,7 +241,7 @@ class Member implements UserInterface
     public function removeTrick(Figure $trick): self
     {
         if ($this->tricks->removeElement($trick)) {
-            // set the owning side to null (unless already changed)
+            
             if ($trick->getUser() === $this) {
                 $trick->setUser(null);
             }
@@ -274,8 +268,6 @@ class Member implements UserInterface
     
     public function getRoles() 
     {
-        // return ['ROLE_USER'];
-        // On récupère le rôle ADMIN ou USER défini en BDD
         return [$this->getRole()];
     }
 

@@ -2,14 +2,9 @@
 
 namespace App\Entity;
 
-// Pas besoin d'appeller ça ?
-// use App\Repository\MentionRepository;
-
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
-
-// -> Ajouté pour régler les conditions de validation du formulaire éditeur d'article
 use Symfony\Component\Validator\Constraints as Assert;
 
 /**
@@ -83,7 +78,6 @@ class Mention
         return $this->figure;
     }
 
-    // Cette fonction enregistre l'ID de chaque Figure (article) associée aux Mentions (commentaires). Elle est appelée dans la fonction "show" de BlogController :
     public function setFigure(?Figure $figure): self
     {
         $this->figure = $figure;

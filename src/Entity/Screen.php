@@ -2,13 +2,10 @@
 
 namespace App\Entity;
 
-// Pas besoin d'appeller ça ?
 use App\Repository\ScreenRepository;
-
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
-
 use Symfony\Component\Validator\Constraints as Assert;
 
 /**
@@ -23,15 +20,11 @@ class Screen
      */
     private $id;
 
-    // On peut ici mettre un ASSERT qui vérifie le type de champ (image, vidéo..) ??
-    // Le traitement des formats vidéos ou images est paramétré en javascript
     /**
      * @ORM\Column(type="text", nullable=true)
      */
     private $thumbnail;
 
-
-    // Mettre plutôt ? " @ORM\JoinColumn(onDelete="CASCADE") " ???
     /**
      * @ORM\ManyToOne(targetEntity="App\Entity\Figure", inversedBy="screens")
      * @ORM\JoinColumn(nullable=false)
@@ -48,8 +41,6 @@ class Screen
         return $this->thumbnail;
     }
 
-    // Attention à bien ajouter le ? avant le ?string pour autoriser la valeur NULL (il ne suffit pas d'indiquer nullable=true sur l'attribut de la classe, il faut aussi spécifier à ce niveau...)
-    // En savoir plus : https://openclassrooms.com/forum/sujet/symfony-4-erreur-suite-a-ajout-de-nullable-true
     public function setThumbnail(?string $thumbnail): self
     {
         $this->thumbnail = $thumbnail;
@@ -62,16 +53,12 @@ class Screen
         return $this->figure;
     }
 
-    // Cette fonction enregistre l'ID de chaque Figure (article) associée aux Screens (commentaires)
     public function setFigure(?Figure $figure): self
     {
         $this->figure = $figure;
 
         return $this;
     }
-
-
-
 
 
 }

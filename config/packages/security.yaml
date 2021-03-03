@@ -1,10 +1,8 @@
 security:
     encoders:
-    # mettre plutôt en algorithm auto ?? cf. https://symfony.com/doc/current/security.html
         App\Entity\Member:
             algorithm: bcrypt
-            
-    # https://symfony.com/doc/current/security.html#where-do-users-come-from-user-providers
+
     providers:
         in_memory: { memory: null }
         
@@ -30,13 +28,10 @@ security:
                 login_path: security_connexion
                 check_path: security_connexion
            
-                
             logout:
                 path: security_disconnect
                 target: blog
-        
-                
-                
+           
             # activate different ways to authenticate
             # https://symfony.com/doc/current/security.html#firewalls-authentication
 

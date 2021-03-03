@@ -3,7 +3,6 @@
 {% block body %}
 
 <!-- Carousel taille Smartphone -->
-<!--<v-carousel v-if="$vuetify.breakpoint.smAndDown" pa-0 ma-0 class="mt-n7" cycle interval="10000" height="auto" hide-delimiter-background :show-arrows="false">-->
 <v-carousel v-if="$vuetify.breakpoint.smAndDown" pa-0 ma-0 class="mt-n7" interval="10000" height="auto" hide-delimiter-background :show-arrows="false">
 
     {% for figureSlide in figureSlides %}
@@ -26,8 +25,6 @@
 
         {% endif %}
 
-        {# {% if app.user %} #}
-        <!-- Chaque membre ne peut modifier que ses articles, mis à part l'admin qui peut tout modifier -->
         {% if (app.user.id is defined and app.user.id == figureSlide.user.id) or (app.user.id is defined and app.user.id == 1) %}
 
         <a href="{{ path('blog_edit', {'id': figureSlide.id, 'labelled': figureSlide.labelled }) }}">
@@ -51,7 +48,6 @@
 </v-carousel>
 
 <!-- Carousel tailles Medium and Up -->
-<!--<v-carousel v-if="$vuetify.breakpoint.mdAndUp" cycle interval="8000" height="710" hide-delimiters hide-delimiter-background :show-arrows="true" show-arrows-on-hover class="mt-n2">-->
 <v-carousel v-if="$vuetify.breakpoint.mdAndUp" interval="8000" height="710" hide-delimiters hide-delimiter-background :show-arrows="true" show-arrows-on-hover class="mt-n2">
 
     {% for figureSlide in figureSlides %}
@@ -74,9 +70,6 @@
 
         {% endif %}
         
-
-        {# {% if app.user %} #}
-        <!-- Chaque membre ne peut modifier que ses articles, mis à part l'admin qui peut tout modifier -->
         {% if (app.user.id is defined and app.user.id == figureSlide.user.id) or (app.user.id is defined and app.user.id == 1) %}
 
         <a href="{{ path('blog_edit', {'id': figureSlide.id, 'labelled': figureSlide.labelled }) }}">
@@ -131,31 +124,11 @@
 
                     <v-col cols="12" md="4" class="load-more">
 
-                        <!-- Vuetify hover card : https://codepen.io/jmcting/pen/ExYBPVp?editors=1010 -->
-
-                        <!--<v-hover v-slot:default="{ hover }">-->
-
-                        <!--<v-card
-                            flat
-                            :elevation="hover ? 1 : 0"
-                            :class="{ 'on-hover': hover }"
-                            class="mx-auto"
-                            max-width="600"
-                          >-->
                         <v-card flat class="mx-auto" max-width="600">
 
                             <a href="{{ path('chapter_show', {'id': figure.id, 'labelled': figure.labelled }) }}">
 
                                 <v-img v-ripple="{ class: `white--text` }" class="image-wrapper" :aspect-ratio="16/9" src="{{ figure.image }}" alt="{{ figure.title }}" title="{{ figure.title }}" style="margin: 0 auto;">
-                                   {#  <v-expand-transition>
-                                    <div
-                                      v-if="hover"
-                                      class="d-flex transition-fast-in-fast-out grey lighten-2 v-card--reveal display-3 white--text"
-                                      style="height:100%; opacity:0.5;"
-                                    >
-                                      <p class="body-1 font-weight-light black--text mb-2 pa-5">{{ figure.content | striptags | raw | slice(0,100) }} ...</p>
-                                    </div>
-                                  </v-expand-transition> #}
                                 </v-img>
 
                             </a>
@@ -182,9 +155,6 @@
 
                                     {% endif %}
 
-                                    <!-- Si un membre est connecté on affiche les boutons de modifications des posts en page d'accueil -->
-                                    {# {% if app.user %} #}
-                                    <!-- Chaque membre ne peut modifier que ses articles, mis à part l'admin qui peut tout modifier -->
                                     {% if (app.user.id is defined and app.user.id == figure.user.id) or (app.user.id is defined and app.user.id == 1) %}
 
                                     <a href="{{ path('blog_edit', {'id': figure.id, 'labelled': figure.labelled }) }}">
@@ -207,8 +177,6 @@
 
                         </v-card>
 
-                        <!--</v-hover>-->
-
                     </v-col>
 
                     {% endfor %}
@@ -223,9 +191,6 @@
 
 </v-container>
 
-<!--<div id="more-btn">Load more</div>-->
-<!--<div id="less-btn">Show less</div>-->
-
 <!-- BOUTON POUR AFFICHER PLUS DE POSTS -->
 <v-container class="text-center">
 
@@ -238,8 +203,6 @@
     </v-btn>
 
 </v-container>
-
-{# <div class="medium-spacer"></div> #}
 
 <!-- BOUTON POUR REMONTER AUX TRICKS -->
 <v-container v-if="$vuetify.breakpoint.smAndUp" class="hidden-up-btn">
@@ -257,10 +220,6 @@
 
 {% endblock %}
 
-
-
 {% block javascripts %}
-
-<script src="{{ asset('js/events/home.js') }}"></script>
-
+<script src="{{ asset('js/events/slice.js') }}"></script>
 {% endblock %}

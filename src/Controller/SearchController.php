@@ -6,9 +6,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
-
 use App\Repository\FigureRepository;
-
 use Symfony\Component\Security\Core\Security;
 
 class SearchController extends AbstractController
@@ -37,8 +35,6 @@ class SearchController extends AbstractController
         if(isset($get_figure) AND !empty($get_figure)) 
         {
             $query = htmlspecialchars($get_figure);
-
-            // $posts = $bdd->query('SELECT id, title, labelled, SUBSTRING(content, 1, 200) AS content FROM figure WHERE title LIKE "%'.$q.'%" ORDER BY id DESC');
 
             $posts = $repoFigure->findByQuery($query);
 

@@ -1,17 +1,12 @@
 {% if not app.user %}
 
-<!-- Bouton PopUp formulaire Insccription ou Connexion -->
-
 <v-btn fab v-if="$vuetify.breakpoint.smAndDown" elevation="0" color="rgba(255,255,255,0)" fixed @click="dialog = !dialog" class="login-btn white--text" alt="Login" title="Login">
     <v-icon>fas fa-sign-in-alt</v-icon>
 </v-btn>
 
-<!-- V-if / V-else : Pour le rendu conditionnel voir -> https://fr.vuejs.org/v2/guide/conditional.html -->
 <v-btn fab v-else elevation="0" color="rgba(255,255,255,0)" fixed @click="dialog = !dialog" class="login-btn-2 white--text font-weight-bold px-4 py-4 mt-1" alt="Login" title="Login" width="auto" style="font-size:15px;">
     Connexion&nbsp;<v-icon>fas fa-sign-in-alt</v-icon>
 </v-btn>
-
-<!-- PopUp formulaire Insccription ou Connexion -->
 
 <v-dialog v-model="dialog" max-width="500px">
 

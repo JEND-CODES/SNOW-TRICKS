@@ -3,12 +3,10 @@
 namespace App\Form;
 
 use App\Entity\Member;
-
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\Extension\Core\Type\PasswordType;
-
 
 class NewpassType extends AbstractType
 {
@@ -17,8 +15,6 @@ class NewpassType extends AbstractType
         $builder
             ->add('password', PasswordType::class)
             ->add('confirm_password', PasswordType::class)
-            // ->add('newpass', PasswordType::class)
-            // ->add('confirm_newpass', PasswordType::class)
         ;
     }
 
@@ -28,4 +24,5 @@ class NewpassType extends AbstractType
             'data_class' => Member::class,
         ]);
     }
+
 }

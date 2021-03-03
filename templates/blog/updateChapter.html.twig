@@ -2,11 +2,8 @@
 {% block title %}SNOWTRICKS • Édition{% endblock %}
 {% block body %}
 
-<!-- V-card Background-color -->
 <v-card flat outlined style="z-index:-1;position:fixed;top:0;left:0;height:100%;width:100%;background-color:#85C1E9;"></v-card>
-{#
-{% if app.user.id is defined and app.user.id == '1' %}
-#}
+
 {% if app.user %}
 
 <v-card flat outlined style="z-index:-1;position:fixed;top:0;left:0;height:100%;width:100%;border:none;">
@@ -111,7 +108,6 @@
                 {% if not (screen.thumbnail starts with 'http') %}
 
                 <!-- Modal Screen VIDEOS -->
-                <!-- Voir tous les types de Modals Vuetify : https://vuetifyjs.com/en/components/dialogs/ -->
                 <v-col
                 cols="12"
                 md="2"
@@ -256,7 +252,6 @@
                 {% endfor %}
                 
                 {% for screen in updateFigure.screens %}
-                <!-- Editions des Médias -->
 
                 <v-col
                 cols="12"
@@ -323,7 +318,6 @@
                 <div class="medium-spacer"></div>
 
                 <!-- BOUTON DE RESTAURATION DES URLS YOUTUBE PUIS VÉRIFICATIONS D'URL SCREENS -->
-                <!--<a onclick="return(confirm('Validez-vous ce choix ?'));">-->
                 <a>
                 <p class="special-button" id="check_screen" style="right:34px;position:absolute;padding:10px;">
                     Confirmer&nbsp;&nbsp;<i class="fas fa-pen"></i>
@@ -333,7 +327,6 @@
                 <div class="regular-spacer"></div>
                 
                 <!-- BOUTON POUR RECOMMENCER LES SAISIES -->
-                <!--<a onclick="return(confirm('Validez-vous ce choix ?'));">-->
                 <a>
                 <p class="special-button" id="update_screen" style="right:34px;position:absolute;margin-top:-20px;padding:10px;">
                     Recommencer&nbsp;&nbsp;<i class="fas fa-redo"></i>
@@ -388,20 +381,8 @@
 {% endblock %}
 
 {% block javascripts %}
-
-<!-- TinyMCE -->
-<!--<script src="https://cdn.tiny.cloud/1/5k258xz8b8894li1zboryqoh74ms5pwkns3ket7ysg708h1g/tinymce/5/tinymce.min.js"></script>-->
-{# <script src="/js/tinymce.min.js"></script> #}
 <script src="{{ asset('js/tinyMce/tinymce.min.js') }}"></script>
-
-<!-- TinyMCE init function -->
-{# <script src="/js/tinyInit.js"></script> #}
 <script src="{{ asset('js/tinyMce/tinyInit.js') }}"></script>
-
-<!--Chargement Langage Fr TinyMCE-->
-{# <script src="/js/langs/fr_FR.js"></script> #}
 <script src="{{ asset('js/tinyMce/langs/fr_FR.js') }}"></script>
-
 <script src="{{ asset('js/events/update.js') }}"></script>
-
 {% endblock %}
