@@ -9,8 +9,8 @@
     <meta content='width=device-width, initial-scale=1.0' name='viewport' />
 
     {% block stylesheets %}
-    <link rel="shortcut icon" type="image/x-icon" href="{{ asset('favicon.png') }}">
-    <link rel="stylesheet" href="{{ asset('css/vuetify.min.css') }}">
+    <link rel="shortcut icon" type="image/x-icon" href="{{ asset('favicon.ico') }}">
+    <link href="https://cdn.jsdelivr.net/npm/vuetify@2.x/dist/vuetify.min.css" rel="stylesheet">
     <link href="https://cdn.jsdelivr.net/npm/@mdi/font@4.x/css/materialdesignicons.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css" integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf" crossorigin="anonymous">
     <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@300;400;500;600;700&display=swap" rel="stylesheet">
@@ -30,7 +30,7 @@
             <v-row>
                 <v-col md="4" offset-md="4" sm="6" offset-sm="3">
                     <v-alert
-                    style="background-color:white !important;"
+                    class="white"
                     color="green"
                     dense
                     elevation="2"
@@ -49,7 +49,7 @@
             <v-row>
                 <v-col md="4" offset-md="4" sm="6" offset-sm="3">
                     <v-alert
-                    style="background-color:white !important;"
+                    class="white"
                     color="red"
                     dense
                     elevation="2"
@@ -70,7 +70,7 @@
 
     <script src="{{ asset('js/jquery/jquery.min.js') }}"></script>
     <script src="{{ asset('js/vue/vue.min.js') }}"></script>
-    <script src="{{ asset('js/vue/vuetify.js') }}"></script>
+    <script src="https://cdn.jsdelivr.net/npm/vuetify@2.x/dist/vuetify.js"></script>
     <script src="{{ asset('js/vue/app.js') }}"></script>
     <script src="{{ asset('js/events/event.js') }}"></script>
 

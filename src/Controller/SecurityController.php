@@ -129,7 +129,7 @@ class SecurityController extends AbstractController
 
         $member = $repoMember->findOneByUsername($username);
 
-        if($token != null && $token === $member->getToken())
+        if($token !== null && $token === $member->getToken())
         {
             $member->setValidation(true);
 

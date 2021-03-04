@@ -3,21 +3,21 @@
 {% block body %}
 
 <!-- Carousel taille Smartphone -->
-<v-carousel v-if="$vuetify.breakpoint.smAndDown" pa-0 ma-0 class="mt-n7" interval="10000" height="auto" hide-delimiter-background :show-arrows="false">
+<v-carousel v-if="$vuetify.breakpoint.smAndDown" pa-0 ma-0 class="mt-n7" height="auto" hide-delimiter-background :show-arrows="false">
 
     {% for figureSlide in figureSlides %}
 
-    <v-carousel-item style="border:0px solid red;border-radius:0px;">
+    <v-carousel-item>
 
         <a href="{{ path('chapter_show', {'id': figureSlide.id, 'labelled': figureSlide.labelled }) }}">
 
-            <p class="slide-title">{{ figureSlide.title }}</p>
+            <p class="slide-title">{{ figureSlide.title|raw }}</p>
 
         </a>
 
         {% if figureSlide.image is not null %}
 
-            <img src="{{ figureSlide.image }}" class="responsive-image" alt="{{ figureSlide.title }}" title="{{ figureSlide.title }}" />
+            <img src="{{ figureSlide.image|raw }}" class="responsive-image" alt="{{ figureSlide.title|raw }}" title="{{ figureSlide.title|raw }}" />
 
         {% else %}
 
@@ -48,7 +48,7 @@
 </v-carousel>
 
 <!-- Carousel tailles Medium and Up -->
-<v-carousel v-if="$vuetify.breakpoint.mdAndUp" interval="8000" height="710" hide-delimiters hide-delimiter-background :show-arrows="true" show-arrows-on-hover class="mt-n2">
+<v-carousel v-if="$vuetify.breakpoint.mdAndUp" height="710" hide-delimiters hide-delimiter-background :show-arrows="true" show-arrows-on-hover class="mt-n2">
 
     {% for figureSlide in figureSlides %}
 
@@ -56,13 +56,13 @@
 
         <a href="{{ path('chapter_show', {'id': figureSlide.id, 'labelled': figureSlide.labelled }) }}">
 
-            <p class="slide-title">{{ figureSlide.title }}</p>
+            <p class="slide-title">{{ figureSlide.title|raw }}</p>
 
         </a>
 
         {% if figureSlide.image is not null %}
 
-            <img src="{{ figureSlide.image }}" class="responsive-image" alt="{{ figureSlide.title }}" title="{{ figureSlide.title }}" />
+            <img src="{{ figureSlide.image|raw }}" class="responsive-image" alt="{{ figureSlide.title|raw }}" title="{{ figureSlide.title|raw }}" />
 
         {% else %}
 
@@ -128,7 +128,7 @@
 
                             <a href="{{ path('chapter_show', {'id': figure.id, 'labelled': figure.labelled }) }}">
 
-                                <v-img v-ripple="{ class: `white--text` }" class="image-wrapper" :aspect-ratio="16/9" src="{{ figure.image }}" alt="{{ figure.title }}" title="{{ figure.title }}" style="margin: 0 auto;">
+                                <v-img v-ripple="{ class: `white--text` }" class="image-wrapper" :aspect-ratio="16/9" src="{{ figure.image|raw }}" alt="{{ figure.title|raw }}" title="{{ figure.title|raw }}">
                                 </v-img>
 
                             </a>
@@ -137,21 +137,21 @@
 
                                 <a href="{{ path('chapter_show', {'id': figure.id, 'labelled': figure.labelled }) }}">
 
-                                    <p class="excerpt-title mb-6">{{ figure.title|upper }}</p>
+                                    <p class="excerpt-title mb-6">{{ figure.title|upper|raw }}</p>
 
                                 </a>
 
-                                <div class="font-weight-light grey--text body-2 mb-2">
+                                <div class="mb-2">
 
-                                    <p class="body-1 font-weight-light black--text mb-2" style="cursor: default;">{{ figure.content | striptags  | slice(0,100) | raw }}...</p>
+                                    <p class="home-post-content black--text mb-2">{{ figure.content|striptags|slice(0,100)|raw }}...</p>
 
                                     {% if figure.freshDate is not null %}
 
-                                    <p class="mt-4" style="color:grey;cursor: default;">Mis à jour le {{ figure.freshDate | date('d/m/Y') }} &bull; Catégorie {{ figure.classification.title }} </p>
+                                    <p class="mt-4 home-post-caption">MIS À JOUR LE {{ figure.freshDate|date('d/m/Y')|raw }} &bull; CATÉGORIE {{ figure.classification.title|upper|raw }} </p>
 
                                     {% else %}
 
-                                    <p class="mt-4" style="color:grey;cursor: default;">Publié le {{ figure.createdAt | date('d/m/Y') }} &bull; Catégorie {{ figure.classification.title }} </p>
+                                    <p class="mt-4 home-post-caption">PUBLIÉ LE {{ figure.createdAt|date('d/m/Y')|raw }} &bull; CATÉGORIE {{ figure.classification.title|upper|raw }} </p>
 
                                     {% endif %}
 

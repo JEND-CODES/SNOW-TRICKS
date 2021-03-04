@@ -3,7 +3,7 @@
 {% block body %}
 
 <!-- V-card Background-color -->
-<v-card flat outlined style="z-index:-1;position:fixed;top:0;left:0;height:100%;width:100%;background-color:#85C1E9;"></v-card>
+<v-card class="special-background"></v-card>
 
 <v-container>
 
@@ -11,9 +11,9 @@
 
         <v-col cols="12">
           
-            <v-card color="rgba(255,255,255,0)" outlined> 
+            <v-card color="rgba(255,255,255,0)" flat> 
 
-                <v-container fluid style="background-color:#85C1E9;">
+                <v-container fluid>
 
                     <v-row id="trick-box">
    
@@ -28,7 +28,7 @@
                                 
                                     <a href="{{ path('chapter_show', {'id': article.id, 'labelled': article.labelled }) }}">
                                         
-                                    <p class="backoff-title">{{ article.title|upper }}</p>
+                                    <p class="backoff-title">{{ article.title|upper|raw }}</p>
                                         
                                     </a>
                                 
@@ -42,11 +42,11 @@
 
                                         {% if article.image is not null %}
 
-                                            <img style="max-width:200px;" src="{{ article.image }}" class="responsive-image" alt="{{ article.title }}" title="{{ article.title }}" />
+                                            <v-img max-width="200" src="{{ article.image|raw }}" alt="{{ article.title|raw }}" title="{{ article.title|raw }}"></v-img>
 
                                         {% else %}
 
-                                            <img src="/backgrounds/default_picture.jpg" class="responsive-image" alt="Image par défaut" title="Image par défaut" />
+                                            <v-img max-width="200" src="/backgrounds/default_picture.jpg" alt="Image par défaut" title="Image par défaut"></v-img>
 
                                         {% endif %}
 
@@ -59,11 +59,11 @@
                                         >
                                             {% if article.freshDate is null %}
 
-                                                <p class="font-weight-light grey--text body-2 mb-2">PUBLIÉ LE {{ article.createdAt|date('d/m/Y') }} &bull; CATÉGORIE {{ article.classification.title|upper }}</p>
+                                                <p class="backoff-caption mb-2">PUBLIÉ LE {{ article.createdAt|date('d/m/Y')|raw }} &bull; CATÉGORIE {{ article.classification.title|upper|raw }}</p>
 
                                             {% else %}
 
-                                                <p class="font-weight-light grey--text body-2 mb-2">MIS À JOUR LE {{ article.freshDate|date('d/m/Y') }} &bull; CATÉGORIE {{ article.classification.title|upper }}</p>
+                                                <p class="backoff-caption mb-2">MIS À JOUR LE {{ article.freshDate|date('d/m/Y')|raw }} &bull; CATÉGORIE {{ article.classification.title|upper|raw }}</p>
 
                                             {% endif %}
 
@@ -78,7 +78,7 @@
                                         <v-col
                                         v-if="$vuetify.breakpoint.smAndDown"
                                         sm="4"
-                                        style="border:0px solid black;height:0px;">
+                                        height="0">
                                         </v-col>
                                                 
                                         <v-col
@@ -87,7 +87,7 @@
                                         lg="3"
                                         sm="4"
                                         >
-                                            <v-card class="mt-2" outlined style="border:none;">
+                                            <v-card class="mt-2" flat>
                                                 
                                                 <v-btn class="mb-2" color="blue lighten-1" width="100%" href="{{ path('chapter_show', {'id': article.id, 'labelled': article.labelled }) }}"><i class="fas fa-eye"></i>&nbsp;&nbsp;Lire</v-btn>
 

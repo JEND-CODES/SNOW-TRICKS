@@ -2,7 +2,7 @@
 {% block title %}SNOWTRICKS • Commentaires{% endblock %}
 {% block body %}
 
-<v-card flat outlined style="z-index:-1;position:fixed;top:0;left:0;height:100%;width:100%;background-color:#85C1E9;"></v-card>
+<v-card class="special-background"></v-card>
 
 <v-layout justify-center>
 
@@ -22,15 +22,15 @@
 
                                 <v-flex>
 
-                                    <img src="{{ asset('uploads/avatars/' ~ '/' ~ comment.user.avatar) }}">
+                                    <img src="{{ asset('uploads/avatars/' ~ '/' ~ comment.user.avatar) }}" alt="Author" title="Author">
 
-                                    <p style="color:grey;">TRICK {{ comment.figure.title|upper }} &nbsp;&bull;&nbsp; PAR {{ comment.user.username|upper }} LE {{ comment.createdAt | date('d/m/Y') }}</p>
+                                    <p class="grey--text">TRICK {{ comment.figure.title|upper|raw }} &nbsp;&bull;&nbsp; PAR {{ comment.user.username|upper|raw }} LE {{ comment.createdAt|date('d/m/Y')|raw }}</p>
 
                                     <hr class="simple-line mt-n2">
 
                                     <p class="mt-2">" {{ comment.content|striptags|raw }} "</p>
 
-                                   <v-btn small outlined color="blue lighten-1" href="{{ path('delete_comment', {'id': comment.id}) }}" style="float:right;" onclick="return(confirm('Validez-vous ce choix ?'));"><i class="far fa-trash-alt"></i></v-btn>
+                                   <v-btn small outlined class="float-right" color="blue lighten-1" href="{{ path('delete_comment', {'id': comment.id}) }}" onclick="return(confirm('Validez-vous ce choix ?'));"><i class="far fa-trash-alt"></i></v-btn>
 
                                 </v-flex>
 

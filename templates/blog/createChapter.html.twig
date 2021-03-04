@@ -2,155 +2,112 @@
 {% block title %}SNOWTRICKS • Nouveau Trick{% endblock %}
 {% block body %}
 
-<v-card flat outlined style="z-index:-1;position:fixed;top:0;left:0;height:100%;width:100%;background-color:#85C1E9;"></v-card>
+<v-card class="special-background"></v-card>
 
 {% if app.user %}
 
-<v-card flat outlined style="z-index:-1;position:fixed;top:0;left:0;height:100%;width:100%;border:none;">
-    <v-img src="/backgrounds/background1.jpg" style="height:100%;width:100%;"></v-img>
+<v-card class="special-background">
+    <v-img src="/backgrounds/background1.jpg" height="100%" width="100%"></v-img>
 </v-card>
 
 <!-- CRÉATION D'UN ARTICLE -->
 {{ form_start(createFigure) }}
 
 <v-container mt-3 mb-n2>
-
     <v-row
     align="center"
     justify="center"
     >
-
         <v-col cols="12">  
-
                 <v-img
                 :aspect-ratio="16/9"
                 src="/backgrounds/default_picture.jpg"
                 alt="Image par défaut"
                 title="Image par défaut"
                 >
-
                 <span class="my-span-title">
                     NOUVEAU TRICK
                 </span>
-
                 </v-img>
-                    
         </v-col>
-
-        <v-col cols="12" md="6" style="margin-top:-20px;">  
+        <v-col cols="12" md="6">  
 
                 {{ form_row(createFigure.image, {'label': ' ', 'attr': {'placeholder': "URL DE L'IMAGE PRINCIPALE"}}) }}
 
                 {{ form_row(createFigure.title, {'label': ' ', 'attr': {'placeholder': "TITRE DE L'ARTICLE"}}) }}
                     
         </v-col>
-
     </v-row>
-
 </v-container>
 
 <!-- BOUTONS POUR AFFICHER LES MÉDIAS EN VERSION SMARTHPONE -->
 <v-container class="control-medias-container">
-
     <v-row
     align="center"
     justify="center"
     >
-
         <v-col class="text-center" cols="12" > 
-
             <v-btn
-            class="control-medias"
+            class="control-medias font-weight-bold"
             color="primary"
             dark
-            style="font-weight:bold;"
             >
             ÉDITER LES MÉDIAS
             </v-btn>
-
             <v-btn
-            class="control-medias-2"
+            class="control-medias-2 font-weight-bold"
             color="primary"
             dark
-            style="font-weight:bold;"
             >
             FERMER L'ONGLET
             </v-btn>
-
         </v-col>
-
     </v-row>
-
 </v-container>
 
 <!-- CHAMP D'ÉDITION DES MÉDIAS DE L'ARTICLE -->
 <v-container class="medias-grid" mt-10>
-
     <v-layout row wrap>
-
         <v-col cols="12">
-    
-            <v-row>
-                
+            <v-row>       
                 {% for screen in createFigure.screens %}
-
                 <v-col
                 cols="12"
                 md="2"
                 >
-                    
                     <v-img src="/backgrounds/default_picture_2.jpg" alt="Illustration" title="Illustration">
                     </v-img>
-
-                    {{ form_row(screen.thumbnail, {'label': ' ', 'attr': {'class': "screen_class",'placeholder': "URL IMAGE OU VIDÉO YOUTUBE"}}) }}
-                        
+                    {{ form_row(screen.thumbnail, {'label': ' ', 'attr': {'class': "screen_class",'placeholder': "URL IMAGE OU VIDÉO YOUTUBE"}}) }}       
                 </v-col>
-
                 {% endfor %}
-           
             </v-row>
-
         </v-col>
-
     </v-layout>
-    
 </v-container>
 
 <!-- EDITION DE L'ARTICLE -->
 <v-container>
-
     <v-layout row wrap>
-
         <v-col cols="12">
-    
-            <v-card flat class="pa-5" style="background-color:rgba(255, 255, 255, 0.4);">  
-
+            <v-card flat class="pa-5" color="rgba(255,255,255,0.4)">  
                 <v-col 
                 md="10"
                 offset-md="1"
                 >
-                
                 {{ form_row(createFigure.content, {'label': ' '}) }}
-
                 </v-col>
-
-
                 <v-col 
                 md="4"
                 offset-md="4"
                 >
-
                 {{ form_row(createFigure.classification, {'label': ' '}) }}
-
                 </v-col>
-
                 <!-- SÉLECTEUR DU NOMBRE DE MÉDIAS ASSOCIÉS À L'ARTICLE -->
                 <v-col 
                 md="4"
                 offset-md="4"
                 >
-
-                    <select id="change_screen_format" style="text:align:center !important;">
+                    <select id="change_screen_format">
                         <option disabled selected value> Changer le format du post </option>
                         <option value="{{ path('blog_create') }}?selected_screen=6">6 images ou vidéos</option>
                         <option value="{{ path('blog_create') }}?selected_screen=7">7 images ou vidéos</option>
@@ -168,71 +125,49 @@
                         <option value="{{ path('blog_create') }}?selected_screen=19">19 images ou vidéos</option>
                         <option value="{{ path('blog_create') }}?selected_screen=20">20 images ou vidéos</option>
                     </select>
-
                 </v-col>
-                
                 <div class="medium-spacer"></div>
-                
                 <!-- BOUTON DE RESTAURATION DES URLS YOUTUBE PUIS VÉRIFICATIONS D'URL SCREENS -->
                 <a>
                 <p class="special-button" id="check_screen" style="right:34px;position:absolute;padding:10px;">
                 Confirmer&nbsp;&nbsp;<i class="fas fa-pen"></i>
                 </p>
                 </a>
-
                 <div class="medium-spacer"></div>
-
                 <!-- BOUTON POUR RECOMMENCER LES SAISIES -->
                 <a>
                 <p class="special-button" id="update_screen" style="right:34px;position:absolute;margin-top:-20px;padding:10px;">
                 Recommencer&nbsp;&nbsp;<i class="fas fa-redo"></i>
                 </p>
                 </a>
-
                 <div class="regular-spacer"></div>
-
                 <button id="save_post" type="submit" class="edit-post-button" style="margin-top:28px;margin-right:12px;float:right;">
                 Ajouter&nbsp;&nbsp;<i class="fas fa-pen"></i>
                 </button>
-
                 <div class="medium-spacer"></div>
                 <div class="medium-spacer"></div>
-            
             {{ form_end(createFigure) }}
-
             </v-card>
-
         </v-col> 
-
     </v-layout>
-
 </v-container>
 
 {% else %}
 
 <v-container>
-
     <v-layout row wrap>
-
         <v-col cols="12">
-
             <v-card class="white--text text-center pa-5" outlined color="rgba(255,255,255,0)"> 
-
                 <p class="font-weight-bold">CONNEXION NÉCESSAIRE</p>
-
             </v-card>
-
         </v-col> 
-
     </v-layout>
-    
 </v-container>
     
 <div class="big-spacer"></div>
 <div class="big-spacer"></div>
 
 {% endif %}
-
 {% endblock %}
 
 {% block javascripts %}

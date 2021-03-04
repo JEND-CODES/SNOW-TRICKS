@@ -32,7 +32,7 @@ class SearchController extends AbstractController
 
         $get_figure = $request->query->get('query');
         
-        if(isset($get_figure) AND !empty($get_figure)) 
+        if(isset($get_figure) && !empty($get_figure)) 
         {
             $query = htmlspecialchars($get_figure);
 

@@ -2,11 +2,8 @@
 {% block title %}SNOWTRICKS • {{ figure.title }}{% endblock %}
 {% block body %}
 
-<!-- FOND D'ÉCRAN -->
-<v-card flat outlined style="z-index:-1;position:fixed;top:0;left:0;height:100%;width:100%;border:none;">
-
-    <v-img src="/backgrounds/background1.jpg" style="height:100%;width:100%;"></v-img>
-
+<v-card class="special-background" flat outlined>
+    <v-img src="/backgrounds/background1.jpg" height="100%" width="100%"></v-img>
 </v-card>
 
 <!-- TITRE ET IMAGE EN UNE -->
@@ -19,15 +16,15 @@
 
         <v-col class="white--text text-center" cols="12" >
 
-            <p class="post-title">{{ figure.title|upper }}</p>
+            <p class="post-title">{{ figure.title|upper|raw }}</p>
 
                 {% if figure.image is not null %}
 
                     <v-img
                     :aspect-ratio="16/9"
-                    src="{{ figure.image }}"
-                    alt="{{ figure.title }}"
-                    title="{{ figure.title }}"
+                    src="{{ figure.image|raw }}"
+                    alt="{{ figure.title|raw }}"
+                    title="{{ figure.title|raw }}"
                     >
                     </v-img>
 
@@ -53,19 +50,17 @@
 <v-container class="control-medias-container text-center">
 
     <v-btn
-    class="control-medias"
+    class="control-medias font-weight-bold"
     color="primary"
     dark
-    style="font-weight:bold;"
     >
     IMAGES ET VIDÉOS
     </v-btn>
 
     <v-btn
-    class="control-medias-2"
+    class="control-medias-2 font-weight-bold"
     color="primary"
     dark
-    style="font-weight:bold;"
     >
     FERMER L'ONGLET
     </v-btn>
@@ -97,7 +92,7 @@
 
                         <div class="post-details-content">
 
-                            <v-img src="https://img.youtube.com/vi/{{ screen.thumbnail }}/hqdefault.jpg" alt="Illustration" title="Illustration"></v-img>
+                            <v-img src="https://img.youtube.com/vi/{{ screen.thumbnail|raw }}/hqdefault.jpg" alt="Illustration" title="Illustration"></v-img>
 
                         </div>
 
@@ -128,7 +123,7 @@
 
                                 <v-card width="600" height="400">
 
-                                    <iframe width="100%" height="400px" src="https://www.youtube.com/embed/{{ screen.thumbnail }}" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                                    <iframe width="100%" height="400px" src="https://www.youtube.com/embed/{{ screen.thumbnail|raw }}" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 
                                 </v-card>
 
@@ -152,11 +147,11 @@
                 md="2"
                 >
                     
-                    <card class="post-details">
+                    <card>
 
-                        <div class="post-details-content">
+                        <div>
 
-                            <v-img src="{{ screen.thumbnail }}" alt="Illustration" title="Illustration"></v-img>
+                            <v-img src="{{ screen.thumbnail|raw }}" alt="Illustration" title="Illustration"></v-img>
 
                         </div>
 
@@ -186,7 +181,7 @@
 
                                 <v-card width="600" height="auto">
 
-                                    <v-img src="{{ screen.thumbnail }}" alt="Illustration" title="Illustration"></v-img>
+                                    <v-img src="{{ screen.thumbnail|raw }}" alt="Illustration" title="Illustration"></v-img>
 
                                 </v-card>
 
@@ -219,29 +214,28 @@
 
         <v-col cols="12">
 
-            <v-card flat class="pa-5" color="rgba(255,255,255,1)" style="border-radius:0px;">
+            <v-card flat class="pa-5" color="rgba(255,255,255,1)">
 
                 <v-card-text
                 class="pt-6"
-                style="position: relative;"
                 >
 
-                    <p class="post-font-size mb-12" style="color:#444444;">{{ figure.content | raw }}</p>
+                    <p class="post-font-size mb-12" style="color:#444;">{{ figure.content|raw }}</p>
 
-                    <p class="font-weight-light grey--text body-2 mb-2">Auteur : {{ figure.user.username|capitalize }}</p>
+                    <p class="home-post-caption mb-2">PAR {{ figure.user.username|upper|raw }} &bull; CATÉGORIE {{ figure.classification.title|upper|raw }}</p>
 
-                    <p class="font-weight-light grey--text body-2 mb-2">Publié le {{ figure.createdAt | date('d/m/Y') }} à {{ figure.createdAt | date ('H:i') }} &bull; Catégorie {{ figure.classification.title }}</p>
+                    <p class="home-post-caption mb-2">PUBLIÉ LE {{ figure.createdAt|date('d/m/Y')|raw }} À {{ figure.createdAt|date('H:i')|raw }}</p>
 
                     {% if figure.freshDate is not null %}
 
-                        <p class="font-weight-light grey--text body-2 mb-2">Mis à jour le {{ figure.freshDate | date('d/m/Y') }} à {{ figure.freshDate | date ('H:i') }}</p>
+                        <p class="home-post-caption mb-2">MIS À JOUR LE {{ figure.freshDate|date('d/m/Y')|raw }} À {{ figure.freshDate|date('H:i')|raw }}</p>
 
                     {% endif %}
 
                     {% if (app.user.id is defined and app.user.id == figure.user.id) or (app.user.id is defined and app.user.id == 1) %}
 
                         <a href="{{ path('blog_edit', {'id': figure.id, 'labelled': figure.labelled}) }}">
-                            <p class="special-button" style="float:right;">MODIFIER&nbsp;&nbsp;<i class="fas fa-pen"></i></p>
+                            <p class="special-button float-right">MODIFIER&nbsp;&nbsp;<i class="fas fa-pen"></i></p>
                         </a>
 
                         <div class="regular-spacer"></div>
@@ -269,7 +263,7 @@
 
         <v-col cols="12">
 
-            <v-card flat class="pa-5" color="rgba(255,255,255,0)" outlined>
+            <v-card flat class="pa-5" color="rgba(255,255,255,0)">
 
                 <v-row>
 
@@ -280,7 +274,7 @@
                     md="4"
                     >
 
-                        <v-card class="pa-5" outlined style="border-color:rgb(255,255,255,0);" color="rgba(255,255,255,0.2)">
+                        <v-card class="pa-5" outlined color="rgba(255,255,255,0.2)">
 
                         {{ form_start(formMention) }}
 
@@ -337,13 +331,13 @@
 
     {% if figure.mentions | length == '1' %}
 
-         <p class="white--text text-center font-weight-bold">{{ figure.mentions | length }}&nbsp;&nbsp;commentaire</p>   
+         <p class="white--text text-center font-weight-bold">{{ figure.mentions|length }}&nbsp;&nbsp;commentaire</p>   
 
     {% endif %} 
                     
     {% if figure.mentions | length > '1' %}
 
-        <p class="white--text text-center font-weight-bold">{{ figure.mentions | length }}&nbsp;&nbsp;commentaires</p>             
+        <p class="white--text text-center font-weight-bold">{{ figure.mentions|length }}&nbsp;&nbsp;commentaires</p>             
 
     {% endif %} 
 
@@ -363,11 +357,11 @@
 
                         <v-card-text>
 
-                            <img src="{{ asset('uploads/avatars/' ~ '/' ~ mention.user.avatar) }}">
+                            <img src="{{ asset('uploads/avatars/' ~ '/' ~ mention.user.avatar) }}" alt="Author" title="Author">
 
-                            <p class="body-2" style="color:dimgrey;">PAR {{ mention.user.username|upper }} LE {{ mention.createdAt | date('d/m/Y À H:i') }}</p>
+                            <p class="comment-post-caption">PAR {{ mention.user.username|upper|raw }} LE {{ mention.createdAt|date('d/m/Y À H:i')|raw }}</p>
                             
-                            <p class="body-1" style="color:black;">{{ mention.content | striptags | raw }}</p>
+                            <p class="comment-post-content">{{ mention.content|striptags|raw }}</p>
                            
                         </v-card-text>
 

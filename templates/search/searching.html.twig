@@ -2,7 +2,7 @@
 {% block title %}Rechercher{% endblock %}
 {% block body %}
 
-<v-card flat outlined style="z-index:-1;position:fixed;top:0;left:0;height:100%;width:100%;background-color:#85C1E9;"></v-card>
+<v-card flat class="special-background" outlined></v-card>
 
 <v-container fluid class="mt-n3">
 
@@ -18,7 +18,7 @@
 
                         <v-col cols="12" md="4">
 
-                            <v-card class="pa-5" outlined style="border-color:rgb(255,255,255,0);" color="rgba(255,255,255,0.2)">
+                            <v-card class="pa-5" outlined color="rgba(255,255,255,0.2)">
 
                                 <form method="GET">
 
@@ -52,7 +52,7 @@
 
                         <v-col cols="12" md="4">
 
-                            <v-card class="pa-5" outlined style="border-color:rgb(255,255,255,0);" color="rgba(255,255,255,1)">
+                            <v-card class="pa-5" outlined color="rgba(255,255,255,1)">
 
                                 <a href="{{ path('chapter_show', {'id': post.id, 'labelled': post.labelled }) }}">
                                     <p class="searching-title">{{ post.title|upper|raw }}</p>
@@ -98,15 +98,7 @@
 
 </v-container>
 
-<br />
-<br />
-<br />
-<br />
-<br />
-<br />
-<br />
-<br />
-<br />
-<br />
+<div class="big-spacer"></div>
+<div class="big-spacer"></div>
 
 {% endblock %}
