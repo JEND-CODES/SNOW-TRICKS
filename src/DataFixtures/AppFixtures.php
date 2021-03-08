@@ -38,7 +38,7 @@ class AppFixtures extends Fixture
 
         $figures = ['Mute', 'Style Week', 'Indy', 'Stalefish', 'Tail grab', 'Nose Grab', 'Japan Air', 'Seat Belt', 'Truck driver', 'Big foot', 'Slide', 'Modulo', 'Flip', 'Method Air', 'Back flip', 'Misty', 'Tail slide', 'Big air', 'Gutter Ball', 'Flip 900', 'Rotation 180', 'Rotation 360', 'Rotation 720', 'Switch 270', 'Front flip', 'Mac Twist', 'Rodeo', 'Backside Air', 'Nose slide', 'Rocket Air'];
 
-        $images = ['http://symfony1.planetcode.fr/photos/styleweek.jpg','http://symfony1.planetcode.fr/photos/tips.jpg','http://symfony1.planetcode.fr/photos/backair.jpg','http://symfony1.planetcode.fr/photos/stalefish.jpg','http://symfony1.planetcode.fr/photos/redstyle.jpg', 'http://symfony1.planetcode.fr/photos/backgrab.jpg', 'http://symfony1.planetcode.fr/photos/birdy.jpg', 'http://symfony1.planetcode.fr/photos/elegant.jpg', 'http://symfony1.planetcode.fr/photos/falling.jpg', 'http://symfony1.planetcode.fr/photos/flying.jpg', 'http://symfony1.planetcode.fr/photos/halfpipe.jpg', 'http://symfony1.planetcode.fr/photos/header.jpg', 'http://symfony1.planetcode.fr/photos/indy.jpg', 'http://symfony1.planetcode.fr/photos/curvy.jpg', 'http://symfony1.planetcode.fr/photos/jumpgrab.jpg', 'http://symfony1.planetcode.fr/photos/longrampe.jpg', 'http://symfony1.planetcode.fr/photos/multiple.jpg', 'http://symfony1.planetcode.fr/photos/jump.jpg', 'http://symfony1.planetcode.fr/photos/noseslide.jpg', 'http://symfony1.planetcode.fr/photos/onehand.jpg', 'http://symfony1.planetcode.fr/photos/perspective.jpg', 'http://symfony1.planetcode.fr/photos/rampe.jpg', 'http://symfony1.planetcode.fr/photos/sapins.jpg', 'http://symfony1.planetcode.fr/photos/slide.jpg', 'http://symfony1.planetcode.fr/photos/slideleft.jpg', 'http://symfony1.planetcode.fr/photos/specialjump.jpg', 'http://symfony1.planetcode.fr/photos/speed.jpg', 'http://symfony1.planetcode.fr/photos/mute.jpg', 'http://symfony1.planetcode.fr/photos/backnose.jpg', 'http://symfony1.planetcode.fr/photos/incredible.jpg'];
+        $images = ['<DOMAIN_NAME>/photos/styleweek.jpg','<DOMAIN_NAME>/photos/tips.jpg','<DOMAIN_NAME>/photos/backair.jpg','<DOMAIN_NAME>/photos/stalefish.jpg','<DOMAIN_NAME>/photos/redstyle.jpg', '<DOMAIN_NAME>/photos/backgrab.jpg', '<DOMAIN_NAME>/photos/birdy.jpg', '<DOMAIN_NAME>/photos/elegant.jpg', '<DOMAIN_NAME>/photos/falling.jpg', '<DOMAIN_NAME>/photos/flying.jpg', '<DOMAIN_NAME>/photos/halfpipe.jpg', '<DOMAIN_NAME>/photos/header.jpg', '<DOMAIN_NAME>/photos/indy.jpg', '<DOMAIN_NAME>/photos/curvy.jpg', '<DOMAIN_NAME>/photos/jumpgrab.jpg', '<DOMAIN_NAME>/photos/longrampe.jpg', '<DOMAIN_NAME>/photos/multiple.jpg', '<DOMAIN_NAME>/photos/jump.jpg', '<DOMAIN_NAME>/photos/noseslide.jpg', '<DOMAIN_NAME>/photos/onehand.jpg', '<DOMAIN_NAME>/photos/perspective.jpg', '<DOMAIN_NAME>/photos/rampe.jpg', '<DOMAIN_NAME>/photos/sapins.jpg', '<DOMAIN_NAME>/photos/slide.jpg', '<DOMAIN_NAME>/photos/slideleft.jpg', '<DOMAIN_NAME>/photos/specialjump.jpg', '<DOMAIN_NAME>/photos/speed.jpg', '<DOMAIN_NAME>/photos/mute.jpg', '<DOMAIN_NAME>/photos/backnose.jpg', '<DOMAIN_NAME>/photos/incredible.jpg'];
 
         $classifications = ['Nouveautés', 'Créations', 'Grabs', 'Rotations', 'Flips', 'Slides', 'One Foot', 'Old School', 'Switchings',  'Improvisés', 'Flyings', 'Big Air', 'Half Pipe', 'Slopestyle', 'Bordercross', 'Street'];
 
@@ -54,9 +54,9 @@ class AppFixtures extends Fixture
         {
             $member = new Member();
 
-            $member->setEmail(''. $members[$key] .'@gmail.com')
+            $member->setEmail(''. $members[$key] .'@test.com')
                     ->setUsername($members[$key])
-                    ->setPassword('$2y$13$Nkxk0zZrpPkk/xI/YV1qr.TmBvlGqAx6u3x10u4KxCYarocKllkh6')
+                    ->setPassword('<MY_PASSWORD>')
                     ->setCreatedAt(new \DateTime)
                     ->setValidation(true)
                     ->setAvatar('snowAvatar'. $key .'.jpg')
