@@ -4,97 +4,62 @@
 
 <!-- Carousel taille Smartphone -->
 <v-carousel v-if="$vuetify.breakpoint.smAndDown" pa-0 ma-0 class="mt-n7" height="auto" hide-delimiter-background :show-arrows="false">
-
     {% for figureSlide in figureSlides %}
-
     <v-carousel-item>
-
         <a href="{{ path('chapter_show', {'id': figureSlide.id, 'labelled': figureSlide.labelled }) }}">
-
             <p class="slide-title">{{ figureSlide.title|raw }}</p>
-
         </a>
-
         {% if figureSlide.image is not null %}
-
             <img src="{{ figureSlide.image|raw }}" class="responsive-image" alt="{{ figureSlide.title|raw }}" title="{{ figureSlide.title|raw }}" />
-
         {% else %}
-
             <img src="/backgrounds/default_picture.jpg" class="responsive-image" alt="Image par défaut" title="Image par défaut" />
-
         {% endif %}
-
         {% if (app.user.id is defined and app.user.id == figureSlide.user.id) or (app.user.id is defined and app.user.id == 1) %}
-
         <a href="{{ path('blog_edit', {'id': figureSlide.id, 'labelled': figureSlide.labelled }) }}">
         <p style="position:absolute; top:40px; right:30px; color:#1e88e5;">
             <i class="fas fa-pen"></i>
         </p>
         </a>
-
         <a href="{{ path('delete_chapter', {'id': figureSlide.id}) }}" onclick="return(confirm('Validez-vous ce choix ?'));">
         <p style="position:absolute; top:80px; right:30px; color:#1e88e5;">
             <i class="far fa-trash-alt"></i>
         </p>
         </a>
-
         {% endif %}
-
     </v-carousel-item>
-
     {% endfor %}
-
 </v-carousel>
 
 <!-- Carousel tailles Medium and Up -->
 <v-carousel v-if="$vuetify.breakpoint.mdAndUp" height="710" hide-delimiters hide-delimiter-background :show-arrows="true" show-arrows-on-hover class="mt-n2">
-
     {% for figureSlide in figureSlides %}
-
     <v-carousel-item>
-
         <a href="{{ path('chapter_show', {'id': figureSlide.id, 'labelled': figureSlide.labelled }) }}">
-
             <p class="slide-title">{{ figureSlide.title|raw }}</p>
-
         </a>
-
         {% if figureSlide.image is not null %}
-
             <img src="{{ figureSlide.image|raw }}" class="responsive-image" alt="{{ figureSlide.title|raw }}" title="{{ figureSlide.title|raw }}" />
-
         {% else %}
-
             <img src="/backgrounds/default_picture.jpg" class="responsive-image" alt="Image par défaut" title="Image par défaut" />
-
         {% endif %}
-        
         {% if (app.user.id is defined and app.user.id == figureSlide.user.id) or (app.user.id is defined and app.user.id == 1) %}
-
         <a href="{{ path('blog_edit', {'id': figureSlide.id, 'labelled': figureSlide.labelled }) }}">
         <p style="position:absolute; top:40px; right:30px; color:#1e88e5;">
             <i class="fas fa-pen"></i>
         </p>
         </a>
-
         <a href="{{ path('delete_chapter', {'id': figureSlide.id }) }}" onclick="return(confirm('Validez-vous ce choix ?'));">
         <p style="position:absolute; top:80px; right:30px; color:#1e88e5;">
             <i class="far fa-trash-alt"></i>
         </p>
         </a>
-
         {% endif %}
-
     </v-carousel-item>
-
     {% endfor %}
-
 </v-carousel>
 
 <!-- BOUTON POUR DESCENDRE AUX TRICKS -->
 <v-container v-if="$vuetify.breakpoint.smAndUp">
-
     <v-btn
     id="go-to-tricks"
     style="float:right;margin-top:-80px;z-index:1 !important;"
@@ -103,97 +68,58 @@
     >
     <i class="fas fa-arrow-down"></i>
     </v-btn>
-
 </v-container>
 
 <span id="trick-section"></span>
 
-<br/>
-
 <v-container grid-list-xl text-xs-center mt-8>
-
     <v-layout row wrap>
-
         <v-card flat class="pa-5" color="rgb(255, 255, 255, 0)" outlined>
-
             <v-container fluid>
-
                 <v-row id="trick-box">
-
                     {% for figure in figures %}
-
                     <v-col cols="12" md="4" class="load-more">
-
                         <v-card flat class="mx-auto" max-width="600">
-
                             <a href="{{ path('chapter_show', {'id': figure.id, 'labelled': figure.labelled }) }}">
-
                                 <v-img v-ripple="{ class: `white--text` }" class="image-wrapper" :aspect-ratio="16/9" src="{{ figure.image|raw }}" alt="{{ figure.title|raw }}" title="{{ figure.title|raw }}">
                                 </v-img>
-
                             </a>
-
                             <v-card-text class="pt-6" style="position: relative;">
-
                                 <a href="{{ path('chapter_show', {'id': figure.id, 'labelled': figure.labelled }) }}">
-
                                     <p class="excerpt-title mb-6">{{ figure.title|upper|raw }}</p>
-
                                 </a>
-
                                 <div class="mb-2">
-
                                     <p class="home-post-content black--text mb-2">{{ figure.content|striptags|slice(0,100)|raw }}...</p>
-
                                     {% if figure.freshDate is not null %}
-
                                     <p class="mt-4 home-post-caption">MIS À JOUR LE {{ figure.freshDate|date('d/m/Y')|raw }} &bull; CATÉGORIE {{ figure.classification.title|upper|raw }} </p>
-
                                     {% else %}
-
                                     <p class="mt-4 home-post-caption">PUBLIÉ LE {{ figure.createdAt|date('d/m/Y')|raw }} &bull; CATÉGORIE {{ figure.classification.title|upper|raw }} </p>
-
                                     {% endif %}
-
                                     {% if (app.user.id is defined and app.user.id == figure.user.id) or (app.user.id is defined and app.user.id == 1) %}
-
                                     <a href="{{ path('blog_edit', {'id': figure.id, 'labelled': figure.labelled }) }}">
                                     <p style="position:absolute; top:10px; right:10px; color:black;">
                                         <i class="fas fa-pen"></i>
                                     </p>
                                     </a>
-
                                     <a href="{{ path('delete_chapter', {'id': figure.id}) }}" onclick="return(confirm('Validez-vous ce choix ?'));">
                                     <p style="position:absolute; top:10px; right:40px; color:black;">
                                         <i class="far fa-trash-alt"></i>
                                     </p>
                                     </a>
-
                                     {% endif %}
-
                                 </div>
-
                             </v-card-text>
-
                         </v-card>
-
                     </v-col>
-
                     {% endfor %}
-
                 </v-row>
-
             </v-container>
-
         </v-card>
-
     </v-layout>
-
 </v-container>
 
 <!-- BOUTON POUR AFFICHER PLUS DE POSTS -->
 <v-container class="text-center">
-
     <v-btn
     id="more-btn"
     color="primary"
@@ -201,12 +127,10 @@
     >
     <i class="fas fa-plus"></i>
     </v-btn>
-
 </v-container>
 
 <!-- BOUTON POUR REMONTER AUX TRICKS -->
 <v-container v-if="$vuetify.breakpoint.smAndUp" class="hidden-up-btn">
-
     <v-btn
     id="up-to-tricks"
     style="float:left;"
@@ -215,11 +139,9 @@
     >
     <i class="fas fa-arrow-up"></i>
     </v-btn>
-
 </v-container>
 
 {% endblock %}
-
 {% block javascripts %}
 <script src="{{ asset('js/events/slice.js') }}"></script>
 {% endblock %}
