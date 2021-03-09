@@ -10,32 +10,16 @@
     <v-img src="/backgrounds/background1.jpg" height="100%" width="100%"></v-img>
 </v-card>
 
-<!-- MISE À JOUR D'UN ARTICLE -->
 {{ form_start(updateFigure) }}
                           
 <v-container mt-3 mb-n2>
-    <v-row
-    align="center"
-    justify="center"
-    >
+    <v-row align="center" justify="center">
         <v-col class="white--text text-center" cols="12">  
             <p class="post-title">{{ figure.title|upper|raw }}</p>
                 {% if figure.image is not null %}
-                    <v-img
-                    :aspect-ratio="16/9"
-                    src="{{ figure.image|raw }}"
-                    alt="{{ figure.title|raw }}"
-                    title="{{ figure.title|raw }}"
-                    >
-                    </v-img>
+                    <v-img :aspect-ratio="16/9" src="{{ figure.image|raw }}" alt="{{ figure.title|raw }}"title="{{ figure.title|raw }}"></v-img>
                 {% else %}
-                    <v-img
-                    :aspect-ratio="16/9"
-                    src="/backgrounds/default_picture.jpg"
-                    alt="Image par défaut"
-                    title="Image par défaut"
-                    >
-                    </v-img>
+                    <v-img :aspect-ratio="16/9" src="/backgrounds/default_picture.jpg" alt="Image par défaut" title="Image par défaut"></v-img>
                 {% endif %}
         </v-col>
         <v-col cols="12" md="6">  
@@ -45,43 +29,22 @@
     </v-row>
 </v-container>
 
-<!-- BOUTONS POUR AFFICHER LES MÉDIAS EN VERSION SMARTHPONE -->
 <v-container class="control-medias-container">
-    <v-row
-    align="center"
-    justify="center"
-    >
+    <v-row align="center" justify="center">
         <v-col class="text-center" cols="12" > 
-            <v-btn
-            class="control-medias font-weight-bold"
-            color="primary"
-            dark
-            >
-            ÉDITER LES MÉDIAS
-            </v-btn>
-            <v-btn
-            class="control-medias-2 font-weight-bold"
-            color="primary"
-            dark
-            >
-            FERMER L'ONGLET
-            </v-btn>
+            <v-btn class="control-medias font-weight-bold" color="primary" dark>ÉDITER LES MÉDIAS</v-btn>
+            <v-btn class="control-medias-2 font-weight-bold" color="primary" dark>FERMER L'ONGLET</v-btn>
         </v-col>
     </v-row>
 </v-container>
 
-<!-- CHAMP D'ÉDITION DES MÉDIAS DE L'ARTICLE -->
 <v-container class="medias-grid" mt-10>
     <v-layout row wrap>
         <v-col cols="12">
             <v-row>
                 {% for screen in figure.screens %}
                 {% if not (screen.thumbnail starts with 'http') %}
-                <!-- Modal Screen VIDEOS -->
-                <v-col
-                cols="12"
-                md="2"
-                >  
+                <v-col cols="12" md="2">  
                     <card>
                         <div>
                         {% if screen.thumbnail is not null %}
@@ -91,22 +54,9 @@
                         {% endif %}
                         </div>
                         <div class="text-center">
-                            <v-dialog
-                            v-model="modalUpdate{{ loop.index }}"
-                            transition="dialog-bottom-transition"
-                            width="600"
-                            >   
+                            <v-dialog v-model="modalUpdate{{ loop.index }}" transition="dialog-bottom-transition" width="600">   
                                 <template v-slot:activator="{ on, attrs }">
-                                    <v-btn
-                                    style="margin-top:-40px;"
-                                    fab
-                                    depressed
-                                    color="primary"
-                                    dark
-                                    small
-                                    v-bind="attrs"
-                                    v-on="on"
-                                    >
+                                    <v-btn style="margin-top:-40px;" fab depressed color="primary" dark small v-bind="attrs" v-on="on">
                                     <i class="fas fa-play"></i>
                                     </v-btn>
                                 </template>
@@ -122,11 +72,7 @@
                     </card>    
                 </v-col>
                 {% else %}
-                <!-- Modal Screen IMAGES -->
-                <v-col
-                cols="12"
-                md="2"
-                >  
+                <v-col cols="12" md="2">  
                     <card>
                         <div>
                             {% if screen.thumbnail is not null %}
@@ -136,22 +82,9 @@
                             {% endif %}
                         </div>
                         <div class="text-center">
-                            <v-dialog
-                            v-model="modalUpdate{{ loop.index }}"
-                            transition="dialog-bottom-transition"
-                            width="600"
-                            >   
+                            <v-dialog v-model="modalUpdate{{ loop.index }}" transition="dialog-bottom-transition" width="600">   
                                 <template v-slot:activator="{ on, attrs }">
-                                    <v-btn
-                                    style="margin-top:-40px;"
-                                    fab
-                                    depressed
-                                    color="primary"
-                                    dark
-                                    small
-                                    v-bind="attrs"
-                                    v-on="on"
-                                    >
+                                    <v-btn style="margin-top:-40px;" fab depressed color="primary" dark small v-bind="attrs" v-on="on">
                                     <i class="fas fa-plus"></i>
                                     </v-btn>
                                 </template>
@@ -170,10 +103,7 @@
                 {% endfor %}
                 
                 {% for screen in updateFigure.screens %}
-                <v-col
-                cols="12"
-                md="2"
-                >          
+                <v-col cols="12" md="2">          
                     <card>
                         <div>
                            {{ form_row(screen.thumbnail, {'label': ' ', 'attr': {'class': "screen_class",'placeholder': "URL IMAGE OU VIDÉO YOUTUBE"}}) }}                  
@@ -186,46 +116,35 @@
     </v-layout>
 </v-container>
 
-<!-- EDITION DE L'ARTICLE -->
 <v-container>
     <v-layout row wrap>
         <v-col cols="12">
             <v-card flat class="pa-5" color="rgba(255, 255, 255, 0.4)"> 
-                <v-col 
-                md="10"
-                offset-md="1"
-                >
+                <v-col md="10" offset-md="1">
                 {{ form_row(updateFigure.content, {'label': ' '}) }}
                 </v-col>
-                <v-col 
-                md="4"
-                offset-md="4"
-                >
+                <v-col md="4" offset-md="4">
                 {{ form_row(updateFigure.classification, {'label': ' '}) }}
                 </v-col>
                 <div class="medium-spacer"></div>
-                <!-- BOUTON DE SUPPRESSION -->
                 <a href="{{ path('delete_chapter', {'id': figure.id}) }}" onclick="return(confirm('Validez-vous ce choix ?'));">
                 <p class="special-button" style="right:34px;position:absolute;margin-top:-20px;padding:10px;">
                     Supprimer&nbsp;&nbsp;<i class="far fa-trash-alt"></i>
                 </p>
                 </a>
                 <div class="medium-spacer"></div>
-                <!-- BOUTON DE RESTAURATION DES URLS YOUTUBE PUIS VÉRIFICATIONS D'URL SCREENS -->
                 <a>
                 <p class="special-button" id="check_screen" style="right:34px;position:absolute;padding:10px;">
                     Confirmer&nbsp;&nbsp;<i class="fas fa-pen"></i>
                 </p>
                 </a>
                 <div class="regular-spacer"></div>   
-                <!-- BOUTON POUR RECOMMENCER LES SAISIES -->
                 <a>
                 <p class="special-button" id="update_screen" style="right:34px;position:absolute;margin-top:-20px;padding:10px;">
                     Recommencer&nbsp;&nbsp;<i class="fas fa-redo"></i>
                 </p>
                 </a>
                 <div class="regular-spacer"></div>
-                <!-- BOUTON DE SAUVEGARDE -->
                 <button id="save_post" type="submit" class="edit-post-button" style="margin-top:28px;margin-right:12px;float:right;">
                     Sauvegarder
                 </button>
@@ -256,7 +175,6 @@
 
 {% endif %}
 {% endblock %}
-
 {% block javascripts %}
 <script src="{{ asset('js/tinyMce/tinymce.min.js') }}"></script>
 <script src="{{ asset('js/tinyMce/tinyInit.js') }}"></script>
