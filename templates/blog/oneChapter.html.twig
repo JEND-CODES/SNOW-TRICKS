@@ -6,393 +6,178 @@
     <v-img src="/backgrounds/background1.jpg" height="100%" width="100%"></v-img>
 </v-card>
 
-<!-- TITRE ET IMAGE EN UNE -->
 <v-container mt-3 mb-n2>
-
-    <v-row
-    align="center"
-    justify="center"
-    >
-
+    <v-row align="center" justify="center">
         <v-col class="white--text text-center" cols="12" >
-
             <p class="post-title">{{ figure.title|upper|raw }}</p>
-
                 {% if figure.image is not null %}
-
-                    <v-img
-                    :aspect-ratio="16/9"
-                    src="{{ figure.image|raw }}"
-                    alt="{{ figure.title|raw }}"
-                    title="{{ figure.title|raw }}"
-                    >
-                    </v-img>
-
+                    <v-img :aspect-ratio="16/9" src="{{ figure.image|raw }}" alt="{{ figure.title|raw }}" title="{{ figure.title|raw }}"></v-img>
                 {% else %}
-
-                    <v-img
-                    :aspect-ratio="16/9"
-                    src="/backgrounds/default_picture.jpg"
-                    alt="Image par défaut"
-                    title="Image par défaut"
-                    >
-                    </v-img>
-
+                    <v-img :aspect-ratio="16/9" src="/backgrounds/default_picture.jpg" alt="Image par défaut" title="Image par défaut"></v-img>
                 {% endif %}
-
         </v-col>
-
     </v-row>
-
 </v-container>
 
-<!-- BOUTONS POUR AFFICHER LES MÉDIAS EN VERSION SMARTHPONE -->
 <v-container class="control-medias-container text-center">
-
-    <v-btn
-    class="control-medias font-weight-bold"
-    color="primary"
-    dark
-    >
-    IMAGES ET VIDÉOS
-    </v-btn>
-
-    <v-btn
-    class="control-medias-2 font-weight-bold"
-    color="primary"
-    dark
-    >
-    FERMER L'ONGLET
-    </v-btn>
-
+    <v-btn class="control-medias font-weight-bold" color="primary" dark>IMAGES ET VIDÉOS</v-btn>
+    <v-btn class="control-medias-2 font-weight-bold" color="primary" dark>FERMER L'ONGLET</v-btn>
 </v-container>
 
-<!-- GRILLE D'IMAGES ET DE VIDÉOS ASSOCIÉES -->
 <v-container class="medias-grid">
-
     <v-layout row wrap>
-
         <v-col cols="12">
-    
             <v-row>
-
                 {% for screen in figure.screens %}
-
                 {% if not (screen.thumbnail starts with 'http') %}
-
                 {% if screen.thumbnail is not null %}
-
-                <!-- Modal Screen VIDEOS -->
-                <v-col
-                cols="12"
-                md="2"
-                >
-                    
+                <v-col cols="12" md="2">
                     <card class="post-details">
-
                         <div class="post-details-content">
-
                             <v-img src="https://img.youtube.com/vi/{{ screen.thumbnail|raw }}/hqdefault.jpg" alt="Illustration" title="Illustration"></v-img>
-
                         </div>
-
                         <div class="text-center">
-
-                            <v-dialog
-                            v-model="modalScreen{{ loop.index }}"
-                            transition="dialog-bottom-transition"
-                            width="600"
-                            >   
-
+                            <v-dialog v-model="modalScreen{{ loop.index }}" transition="dialog-bottom-transition" width="600">   
                                 <template v-slot:activator="{ on, attrs }">
-
-                                    <v-btn
-                                    style="margin-top:-40px;"
-                                    fab
-                                    depressed
-                                    color="primary"
-                                    dark
-                                    small
-                                    v-bind="attrs"
-                                    v-on="on"
-                                    >
+                                    <v-btn style="margin-top:-40px;" fab depressed color="primary" dark small v-bind="attrs" v-on="on">
                                     <i class="fas fa-play"></i>
                                     </v-btn>
-
                                 </template>
-
                                 <v-card width="600" height="400">
-
                                     <iframe width="100%" height="400px" src="https://www.youtube.com/embed/{{ screen.thumbnail|raw }}" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-
                                 </v-card>
-
                             </v-dialog>
-
                         </div>
-                      
                     </card>
-                    
                 </v-col>
-
                 {% endif %}
-
                 {% else %}
-
                 {% if screen.thumbnail is not null %}
-
-                <!-- Modal Screen IMAGES -->
-                <v-col
-                cols="12"
-                md="2"
-                >
-                    
+                <v-col cols="12" md="2">
                     <card>
-
                         <div>
-
                             <v-img src="{{ screen.thumbnail|raw }}" alt="Illustration" title="Illustration"></v-img>
-
                         </div>
-
                         <div class="text-center">
-
-                            <v-dialog
-                            v-model="modalScreen{{ loop.index }}"
-                            transition="dialog-bottom-transition"
-                            width="600"
-                            >   
-
+                            <v-dialog v-model="modalScreen{{ loop.index }}" transition="dialog-bottom-transition" width="600">   
                                 <template v-slot:activator="{ on, attrs }">
-                                    <v-btn
-                                    style="margin-top:-40px;"
-                                    fab
-                                    depressed
-                                    color="primary"
-                                    dark
-                                    small
-                                    v-bind="attrs"
-                                    v-on="on"
-                                    >
+                                    <v-btn style="margin-top:-40px;" fab depressed color="primary" dark small v-bind="attrs" v-on="on">
                                     <i class="fas fa-plus"></i>
                                     </v-btn>
-
                                 </template>
-
                                 <v-card width="600" height="auto">
-
                                     <v-img src="{{ screen.thumbnail|raw }}" alt="Illustration" title="Illustration"></v-img>
-
                                 </v-card>
-
                             </v-dialog>
-
                         </div>
-                      
                     </card>
-                    
                 </v-col>
-
                 {% endif %}
-
                 {% endif %}
-
                 {% endfor %}
-
             </v-row>
-
         </v-col>
-
     </v-layout>
-    
 </v-container>
 
-<!-- CONTENU TEXTE ET DATES -->
 <v-container mt-n3>
-
       <v-layout row wrap>
-
         <v-col cols="12">
-
             <v-card flat class="pa-5" color="rgba(255,255,255,1)">
-
-                <v-card-text
-                class="pt-6"
-                >
-
+                <v-card-text class="pt-6">
                     <p class="post-font-size mb-12" style="color:#444;">{{ figure.content|raw }}</p>
-
                     <p class="home-post-caption mb-2">PAR {{ figure.user.username|upper|raw }} &bull; CATÉGORIE {{ figure.classification.title|upper|raw }}</p>
-
                     <p class="home-post-caption mb-2">PUBLIÉ LE {{ figure.createdAt|date('d/m/Y')|raw }} À {{ figure.createdAt|date('H:i')|raw }}</p>
-
                     {% if figure.freshDate is not null %}
-
                         <p class="home-post-caption mb-2">MIS À JOUR LE {{ figure.freshDate|date('d/m/Y')|raw }} À {{ figure.freshDate|date('H:i')|raw }}</p>
-
                     {% endif %}
-
                     {% if (app.user.id is defined and app.user.id == figure.user.id) or (app.user.id is defined and app.user.id == 1) %}
-
                         <a href="{{ path('blog_edit', {'id': figure.id, 'labelled': figure.labelled}) }}">
                             <p class="special-button float-right">MODIFIER&nbsp;&nbsp;<i class="fas fa-pen"></i></p>
                         </a>
-
                         <div class="regular-spacer"></div>
                         <div class="regular-spacer"></div>
                         <div class="regular-spacer"></div>
-                        
                     {% endif %}
-
                 </v-card-text>
-
             </v-card>
-
         </v-col>
-
     </v-layout>
-
 </v-container>
 
-<!-- COMMENTAIRES -->
 {% if app.user %}
-
 <v-container fluid class="mt-n3">
-
     <v-row>    
-
         <v-col cols="12">
-
             <v-card flat class="pa-5" color="rgba(255,255,255,0)">
-
                 <v-row>
-
                     <v-col cols="12" md="4"></v-col>
-
-                    <v-col
-                    cols="12"
-                    md="4"
-                    >
-
+                    <v-col cols="12" md="4">
                         <v-card class="pa-5" outlined color="rgba(255,255,255,0.2)">
-
                         {{ form_start(formMention) }}
-
                         {{ form_row(formMention.content, {'label': ' ', 'attr': {'placeholder': 'Commentaire'}}) }}
-
                         <button type="submit" class="edit-post-button" style="margin-top:10px;margin-left:10px;float:right;">
                         Publier
                         </button>
-
                         {{ form_end(formMention) }}  
-
                         </v-card>
-
                     </v-col>       
-
                     <v-col cols="12" md="4"></v-col>
-
                 </v-row>   
-
             </v-card>
-
         </v-col>
-
     </v-row>
-
 </v-container>
 
 {% else %}
-
 <v-container>
-
     <v-layout row wrap>
-
         <v-col cols="12">
-
             <v-card color="rgba(255,255,255,0)" outlined> 
-
                 <p class="text-center white--text font-weight-bold">Connectez-vous pour commenter cet article</p> 
-
             </v-card>
-
         </v-col>  
-
     </v-layout>
-    
 </v-container>
-
 {% endif %}
 
 {% if figure.mentions is empty %}    
 {% else %}
-
 <v-card color="rgb(240, 240, 240, 0)" class="pa-5 mt-3" outlined id="commentaries"> 
-
     {% if figure.mentions | length == '1' %}
-
          <p class="white--text text-center font-weight-bold">{{ figure.mentions|length }}&nbsp;&nbsp;commentaire</p>   
-
-    {% endif %} 
-                    
+    {% endif %}                 
     {% if figure.mentions | length > '1' %}
-
         <p class="white--text text-center font-weight-bold">{{ figure.mentions|length }}&nbsp;&nbsp;commentaires</p>             
-
     {% endif %} 
-
     <v-container fluid class="comments-box">
-
         <v-row class="justify-center">
-            <!-- SLICE DE PAGINATION DES COMMENTAIRES -->
             {% for mention in figure.mentions|slice(start, limit) %}
-
-                <v-col
-                class="comments-loop"
-                cols="12"
-                md="4"
-                >
-
+                <v-col class="comments-loop" cols="12" md="4">
                     <v-card class="pa-2">   
-
                         <v-card-text>
-
                             <img src="{{ asset('uploads/avatars/' ~ '/' ~ mention.user.avatar) }}" alt="Author" title="Author">
-
                             <p class="comment-post-caption">PAR {{ mention.user.username|upper|raw }} LE {{ mention.createdAt|date('d/m/Y À H:i')|raw }}</p>
-                            
                             <p class="comment-post-content">{{ mention.content|striptags|raw }}</p>
-                           
                         </v-card-text>
-
                     </v-card> 
-
                 </v-col>
-
             {% endfor %}
-
         </v-row>
-
     </v-container>
-
-    <!-- BOUTONS DE PAGINATION DES COMMENTAIRES -->
     <v-container id="mention_links" style="text-align:center;"> 
     </v-container>
-
 </v-card>
 
 {% endif %}
 {% endblock %}
-
 {% block javascripts %}
 <script>
-// PAGINATION 10 PAR PAGE
 var count = {{ figure.mentions | length }};
 var nbr_links = Math.ceil(count / 10);
 if(count > 10) {
     $("#mention_links").append('<a href="{{ path('chapter_show', {'id': figure.id, 'labelled': figure.labelled } ) }}#commentaries"><i class="fas fa-chevron-left special-chevron"></i></a>');
 }
-
 for(var i = 1; i < nbr_links; i++){
     $("#mention_links").append('<a class="font-weight-bold" style="padding:8px;color:white;font-size:20px;" href="{{ path('chapter_show', {'id': figure.id, 'labelled': figure.labelled } ) }}?show_mentions=' + i * 10 + '#commentaries">' + i + '</a>');
 }
