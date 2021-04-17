@@ -10,87 +10,189 @@
     <v-img src="/backgrounds/background1.jpg" height="100%" width="100%"></v-img>
 </v-card>
 
+<!-- CRÉATION D'UN ARTICLE -->
 {{ form_start(createFigure) }}
 
 <v-container mt-3 mb-n2>
-    <v-row align="center" justify="center">
-        <v-col cols="12">  
-                <v-img :aspect-ratio="16/9" src="/backgrounds/default_picture.jpg" alt="Image par défaut" title="Image par défaut">
-                <span class="my-span-title">
-                    NOUVEAU TRICK
+    <v-row
+    align="center"
+    justify="center"
+    class="new-trick-box"
+    >
+        <v-col class="white--text text-center create-col-1" cols="12">
+
+            <p class="new-post-title">NOUVEAU TRICK</p>
+
+            <p class="create-chapter-btn-box">
+
+                <span class="mini-background-2">
+
+                    <a class="feature_arrow_btn">
+                        <i class="interactive_btn fas fa-arrow-up"></i>
+                    </a>
+
+                    <a class="feature_pen_btn">
+                        <i class="interactive_btn fas fa-pen"></i>
+                    </a>
+
+                    <a class="feature_trash_btn">
+                        <i class="interactive_btn far fa-trash-alt"></i>
+                    </a>
+
                 </span>
+
+            </p>
+
+        </v-col>
+
+        <!-- EDITION DE L'IMAGE EN UNE AVEC PREVIEW INTERACTIVE -->
+        <div class="create_feature_box"> 
+
+            {{ form_row(createFigure.image, {'label': ' ', 'attr': {'class': "create_featured_input", 'placeholder': "URL DE L'IMAGE", 'alt' : "IMAGE PRINCIPALE"}}) }}
+                    
+        </div>
+
+        <v-col cols="12 mt-n12">  
+                <v-img
+                class="default_img"
+                :aspect-ratio="16/9"
+                src="/backgrounds/default_picture.jpg"
+                alt="Image par défaut"
+                title="Image par défaut"
+                >
+                {# <span class="my-span-title">
+                    NOUVEAU TRICK
+                </span> #}
                 </v-img>
+
         </v-col>
-        <v-col cols="12" md="6">  
-                {{ form_row(createFigure.image, {'label': ' ', 'attr': {'placeholder': "URL DE L'IMAGE PRINCIPALE"}}) }}
-                {{ form_row(createFigure.title, {'label': ' ', 'attr': {'placeholder': "TITRE DE L'ARTICLE"}}) }}
+        <v-col class="create-col-title" cols="12" md="6">  
+
+                {{ form_row(createFigure.title, {'label': 'TITRE', 'attr': {'placeholder': "TITRE DE L'ARTICLE"}}) }}
+                
+                    
         </v-col>
     </v-row>
 </v-container>
 
+<!-- BOUTONS POUR AFFICHER LES MÉDIAS EN VERSION SMARTHPONE -->
 <v-container class="control-medias-container">
-    <v-row align="center" justify="center">
-        <v-col class="text-center" cols="12" > 
-            <v-btn class="control-medias font-weight-bold" color="primary" dark>ÉDITER LES MÉDIAS</v-btn>
-            <v-btn class="control-medias-2 font-weight-bold" color="primary" dark>FERMER L'ONGLET</v-btn>
-        </v-col>
-    </v-row>
+    <v-col class="text-center" cols="12" > 
+        <v-btn
+        class="control-medias font-weight-bold"
+        color="primary"
+        dark
+        >
+        ÉDITER LES MÉDIAS
+        </v-btn>
+        <v-btn
+        class="control-medias-2 font-weight-bold"
+        color="primary"
+        dark
+        >
+        FERMER L'ONGLET
+        </v-btn>
+    </v-col>
 </v-container>
 
-<v-container class="medias-grid" mt-10>
+<!-- CHAMP D'ÉDITION DES MÉDIAS DE L'ARTICLE -->
+<v-container class="medias-grid" mt-4>
     <v-layout row wrap>
         <v-col cols="12">
-            <v-row>       
+            <v-row class="next_textarea_box">       
+
                 {% for screen in createFigure.screens %}
-                <v-col cols="12" md="2">
-                    <v-img src="/backgrounds/default_picture_2.jpg" alt="Illustration" title="Illustration">
-                    </v-img>
-                    {{ form_row(screen.thumbnail, {'label': ' ', 'attr': {'class': "screen_class",'placeholder': "URL IMAGE OU VIDÉO YOUTUBE"}}) }}       
+
+                <!-- 5 mars : ajout de boutons de modifications des médias -->
+                <v-col
+                cols="12"
+                md="2"
+                class="flex_col_{{ loop.index0 }}"
+                >
+
+                    <div class="create_media_{{ loop.index0 }}">
+
+                        <img class="photo-step-errors" src="/backgrounds/default_screen_1.jpg" alt="Illustration" title="Illustration" />
+
+                        <v-img class="photo-step-regular default_picture_{{ loop.index0 }}" src="/backgrounds/default_picture_2.jpg" alt="Illustration" title="Illustration">
+                        </v-img>
+                        {{ form_row(screen.thumbnail, {'label': ' ', 'attr': {'class': "screen_class",'placeholder': "URL IMAGE OU VIDÉO YOUTUBE", 'alt' : "Médias"}}) }}  
+
+                    </div> 
+
+                    <p class="text-center medias-multi-buttons">
+                        <a class="change_input_btn_{{ loop.index0 }}">
+                            <i class="interactive_btn fas fa-pen"></i>
+                        </a>
+                        
+                        <a class="hidden_btn hide_input_btn_{{ loop.index0 }}">
+                            <i class="interactive_btn fas fa-arrow-up"></i>
+                        </a>
+                        
+                        <a class="trash_media_btn_{{ loop.index0 }}">
+                            <i class="interactive_btn fas fa-trash"></i>
+                        </a>
+                        
+                        <a class="hidden_btn restore_media_btn_{{ loop.index0 }}">
+                            <i class="interactive_btn fas fa-plus"></i>
+                        </a>
+                    </p>
+
                 </v-col>
+                <!-- 5 mars : fin d'ajout de boutons de modifications des médias -->
+
                 {% endfor %}
+
             </v-row>
+
+            <p class="text-center">
+                <a class="media_next_row_btn_1">
+                    <i class="interactive_btn_2 fas fa-plus-circle"></i>
+                </a>
+                <a class="media_next_row_btn_2">
+                    <i class="interactive_btn_2 fas fa-plus-circle"></i>
+                </a>
+                <a class="media_next_row_btn_3">
+                    <i class="interactive_btn_2 fas fa-plus-circle"></i>
+                </a>
+            </p>
+
         </v-col>
     </v-layout>
 </v-container>
 
+<!-- EDITION DE L'ARTICLE -->
 <v-container>
     <v-layout row wrap>
         <v-col cols="12">
             <v-card flat class="pa-5" color="rgba(255,255,255,0.4)">  
-                <v-col md="10" offset-md="1">
-                {{ form_row(createFigure.content, {'label': ' '}) }}
+                <v-col 
+                md="10"
+                offset-md="1"
+                >
+                {{ form_row(createFigure.content, {'label': ' ', 'attr': {'alt' : "Contenu"}}) }}
                 </v-col>
-                <v-col md="4" offset-md="4">
-                {{ form_row(createFigure.classification, {'label': ' '}) }}
+                <v-col 
+                md="4"
+                offset-md="4"
+                >
+                {{ form_row(createFigure.classification, {'label': 'CATÉGORIE','label_attr': {'class': 'special-label'}}) }}
                 </v-col>
-                <v-col md="4" offset-md="4" >
-                    <select id="change_screen_format">
-                        <option disabled selected value> Changer le format du post </option>
-                        <option value="{{ path('blog_create') }}?selected_screen=6">6 images ou vidéos</option>
-                        <option value="{{ path('blog_create') }}?selected_screen=7">7 images ou vidéos</option>
-                        <option value="{{ path('blog_create') }}?selected_screen=8">8 images ou vidéos</option>
-                        <option value="{{ path('blog_create') }}?selected_screen=9">9 images ou vidéos</option>
-                        <option value="{{ path('blog_create') }}?selected_screen=10">10 images ou vidéos</option>
-                        <option value="{{ path('blog_create') }}?selected_screen=11">11 images ou vidéos</option>
-                        <option value="{{ path('blog_create') }}?selected_screen=12">12 images ou vidéos</option>
-                        <option value="{{ path('blog_create') }}?selected_screen=13">13 images ou vidéos</option>
-                        <option value="{{ path('blog_create') }}?selected_screen=14">14 images ou vidéos</option>
-                        <option value="{{ path('blog_create') }}?selected_screen=15">15 images ou vidéos</option>
-                        <option value="{{ path('blog_create') }}?selected_screen=16">16 images ou vidéos</option>
-                        <option value="{{ path('blog_create') }}?selected_screen=17">17 images ou vidéos</option>
-                        <option value="{{ path('blog_create') }}?selected_screen=18">18 images ou vidéos</option>
-                        <option value="{{ path('blog_create') }}?selected_screen=19">19 images ou vidéos</option>
-                        <option value="{{ path('blog_create') }}?selected_screen=20">20 images ou vidéos</option>
-                    </select>
-                </v-col>
+                <!-- BOUTON DE RESTAURATION DES URLS YOUTUBE PUIS VÉRIFICATIONS D'URL SCREENS -->
+                <a>
+                <p class="special-button confirm-btn" id="check_screen">
+                Confirmer&nbsp;&nbsp;<i class="fas fa-pen"></i>
+                </p>
+                </a>
                 <div class="medium-spacer"></div>
-                <a><p class="special-button" id="check_screen" style="right:34px;position:absolute;padding:10px;">
-                Confirmer&nbsp;&nbsp;<i class="fas fa-pen"></i></p></a>
-                <div class="medium-spacer"></div>
-                <a><p class="special-button" id="update_screen" style="right:34px;position:absolute;margin-top:-20px;padding:10px;">
-                Recommencer&nbsp;&nbsp;<i class="fas fa-redo"></i></p></a>
+                <!-- BOUTON POUR RECOMMENCER LES SAISIES -->
+                <a>
+                <p class="special-button redo-btn" id="update_screen">
+                Recommencer&nbsp;&nbsp;<i class="fas fa-redo"></i>
+                </p>
+                </a>
                 <div class="regular-spacer"></div>
-                <button id="save_post" type="submit" class="edit-post-button" style="margin-top:28px;margin-right:12px;float:right;">
+                <button id="save_post" type="submit" class="edit-post-button create-btn">
                 Ajouter&nbsp;&nbsp;<i class="fas fa-pen"></i>
                 </button>
                 <div class="medium-spacer"></div>
@@ -118,10 +220,11 @@
 
 {% endif %}
 {% endblock %}
+
 {% block javascripts %}
 <script src="{{ asset('js/tinyMce/tinymce.min.js') }}"></script>
 <script src="{{ asset('js/tinyMce/tinyInit.js') }}"></script>
 <script src="{{ asset('js/tinyMce/langs/fr_FR.js') }}"></script>
-
 <script src="{{ asset('js/events/create.js') }}"></script>
+<script src="{{ asset('js/events/preview.js') }}"></script>
 {% endblock %}

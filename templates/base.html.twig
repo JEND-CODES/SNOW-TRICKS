@@ -24,6 +24,7 @@
     {{ include('inc/navbar.html.twig') }}
     {{ include('inc/searchBar.html.twig') }}
     {{ include('inc/logPopUp.html.twig') }}
+    {{ include('inc/profileBtn.html.twig') }}
 
     {% for message in app.flashes('notice') %}
         <v-container>
@@ -65,6 +66,20 @@
 
     {% block body %}
     {% endblock %}
+
+    {{ render(controller(
+        'App\\Controller\\ProfileController::miniMessage'
+    )) }}
+
+    {{ render(controller(
+        'App\\Controller\\ProfileController::colors'
+    )) }}
+
+    {# {{ render(controller(
+        'App\\Controller\\ProfileController::profile'
+    )) }} #}
+
+    {# {{ render(path('profile')) }} #}
 
     {{ include('inc/footer.html.twig') }}
 

@@ -6,8 +6,6 @@
 
 ## DÉMO => http://snow.planetcode.fr
 
-![SNOWTRICKS](https://raw.githubusercontent.com/JEND-CODES/SNOW-TRICKS/main/public/backgrounds/capchaSnowTricks.png)
-
 ### INSTRUCTIONS D'INSTALLATION
 ``` bash
 * CLONEZ LE PROJET : git clone https://github.com/JEND-CODES/SNOW-TRICKS

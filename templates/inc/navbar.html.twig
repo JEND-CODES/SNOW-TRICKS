@@ -14,7 +14,7 @@
 
             <v-toolbar-title>
 
-                <v-btn rounded large elevation="0" id="the-logo" color="blue darken-1" href="{{ path('blog') }}" style="z-index:11;">SNOWTRICKS
+                <v-btn rounded large elevation="0" id="the-logo" color="blue darken-1" href="{{ path('blog') }}">SNOWTRICKS
 
                 </v-btn>
 
@@ -28,15 +28,32 @@
 
         </v-app-bar>
 
-        <v-navigation-drawer v-model="drawer" app temporary style="z-index:12;">
+        <v-navigation-drawer v-model="drawer" app temporary class="drawer-index">
 
             {% if app.user %}
 
                 <div class="regular-spacer"></div>
 
-                <img style="display:block; margin-left:auto; margin-right:auto;" src="{{ asset('uploads/avatars/' ~ '/' ~ current_member.avatar) }}">
+                <img class="member_avatar" src="{{ asset('uploads/avatars/' ~ '/' ~ current_member.avatar) }}">
 
                 <div class="regular-spacer"></div>
+
+                {# 
+                
+                <v-card class="pa-5" outlined color="rgba(255,255,255,0.2)">
+
+
+                    {{ form_start(imgForm) }}
+
+                    {{ form_row(imgForm.avatar, {'label': 'Nouvelle image de profil','label_attr': {'class': 'special-label'}, 'attr': {'class': 'input-file'}}) }}
+
+                    <button type="submit" class="register-sublink">Actualiser&nbsp;&nbsp;<i class="fas fa-user-circle"></i></button>
+
+                    {{ form_end(imgForm) }}
+
+                </v-card>
+                
+                #}
 
             {% endif %}
 
@@ -44,39 +61,52 @@
 
                 <v-list-item v-ripple="{ class: `white--text` }" link href="{{ path('blog') }}">
                     <v-list-item-icon>
-                        <v-icon style="font-size:17px;text-indent:10px" color="#34495E">fas fa-home</v-icon>
+                        <v-icon class="drawer-icon-1" color="#34495E">fas fa-home</v-icon>
                     </v-list-item-icon>
                     <v-list-item-content>
-                        <v-list-item-title style="font-size:15px;">ACCUEIL</v-list-item-title>
+                        <v-list-item-title class="drawer-list-title">ACCUEIL</v-list-item-title>
                     </v-list-item-content>
                 </v-list-item>
 
-                {% if app.user.id is defined and app.user.id == 1 %}
+                {% if app.user %}
+
+                <v-list-item v-ripple="{ class: `white--text` }" link href="{{ path('account') }}">
+                    <v-list-item-icon>
+                        <v-icon class="drawer-icon-1" color="#34495E">fas fa-user</v-icon>
+                    </v-list-item-icon>
+                    <v-list-item-content>
+                        <v-list-item-title class="drawer-list-title">MON COMPTE</v-list-item-title>
+                    </v-list-item-content>
+                </v-list-item>
+                
+                {% endif %}
+
+                {% if app.user.id is defined and is_granted('ROLE_ADMIN') %}
 
                 <v-list-item v-ripple="{ class: `white--text` }" link href="{{ path('admin_backoff') }}">
                     <v-list-item-icon>
-                        <v-icon style="font-size:17px;text-indent:10px" color="#34495E">fas fa-desktop</v-icon>
+                        <v-icon class="drawer-icon-1" color="#34495E">fas fa-desktop</v-icon>
                     </v-list-item-icon>
                     <v-list-item-content>
-                        <v-list-item-title style="font-size:15px;">BACK OFFICE</v-list-item-title>
+                        <v-list-item-title class="drawer-list-title">BACK OFFICE</v-list-item-title>
                     </v-list-item-content>
                 </v-list-item>
 
                 <v-list-item v-ripple="{ class: `white--text` }" link href="{{ path('manage_members') }}">
                     <v-list-item-icon>
-                        <v-icon style="font-size:15px;text-indent:10px" color="#34495E">fas fa-user-friends</v-icon>
+                        <v-icon class="drawer-icon-2" color="#34495E">fas fa-user-friends</v-icon>
                     </v-list-item-icon>
                     <v-list-item-content>
-                        <v-list-item-title style="font-size:15px;">MEMBRES</v-list-item-title>
+                        <v-list-item-title class="drawer-list-title">MEMBRES</v-list-item-title>
                     </v-list-item-content>
                 </v-list-item>
 
                 <v-list-item v-ripple="{ class: `white--text` }" link href="{{ path('admin_backcom') }}">
                     <v-list-item-icon>
-                        <v-icon style="font-size:15px;text-indent:10px" color="#34495E">far fa-comments</v-icon>
+                        <v-icon class="drawer-icon-2" color="#34495E">far fa-comments</v-icon>
                     </v-list-item-icon>
                     <v-list-item-content>
-                        <v-list-item-title style="font-size:15px;">COMMENTAIRES</v-list-item-title>
+                        <v-list-item-title class="drawer-list-title">COMMENTAIRES</v-list-item-title>
                     </v-list-item-content>
                 </v-list-item>
 
@@ -86,28 +116,19 @@
 
                 <v-list-item v-ripple="{ class: `white--text` }" link href="{{ path('security_registration') }}">
                     <v-list-item-icon>
-                        <v-icon style="font-size:17px;text-indent:10px" color="#34495E">fas fa-user</v-icon>
+                        <v-icon class="drawer-icon-1" color="#34495E">fas fa-user</v-icon>
                     </v-list-item-icon>
                     <v-list-item-content>
-                        <v-list-item-title style="font-size:15px;">INSCRIPTION</v-list-item-title>
+                        <v-list-item-title class="drawer-list-title">INSCRIPTION</v-list-item-title>
                     </v-list-item-content>
                 </v-list-item>
 
                 <v-list-item v-ripple="{ class: `white--text` }" link href="{{ path('security_connexion') }}">
                     <v-list-item-icon>
-                        <v-icon style="font-size:17px;text-indent:10px" color="#34495E">fas fa-sign-in-alt</v-icon>
+                        <v-icon class="drawer-icon-1" color="#34495E">fas fa-sign-in-alt</v-icon>
                     </v-list-item-icon>
                     <v-list-item-content>
-                        <v-list-item-title style="font-size:15px;">CONNEXION</v-list-item-title>
-                    </v-list-item-content>
-                </v-list-item>
-
-                <v-list-item v-ripple="{ class: `white--text` }" link href="{{ path('reset_password') }}">
-                    <v-list-item-icon>
-                        <v-icon style="font-size:17px;text-indent:10px" color="#34495E">fas fa-unlock-alt</v-icon>
-                    </v-list-item-icon>
-                    <v-list-item-content>
-                        <v-list-item-title style="font-size:15px;">NEW PASSWORD</v-list-item-title>
+                        <v-list-item-title class="drawer-list-title">CONNEXION</v-list-item-title>
                     </v-list-item-content>
                 </v-list-item>
 
@@ -115,28 +136,28 @@
 
                 <v-list-item v-ripple="{ class: `white--text` }" link href="{{ path('blog_create') }}">
                     <v-list-item-icon>
-                        <v-icon style="font-size:15px;text-indent:10px" color="#34495E">fas fa-pencil-alt</v-icon>
+                        <v-icon class="drawer-icon-2" color="#34495E">fas fa-pencil-alt</v-icon>
                     </v-list-item-icon>
                     <v-list-item-content>
-                        <v-list-item-title style="font-size:15px;">NOUVEAU TRICK</v-list-item-title>
+                        <v-list-item-title class="drawer-list-title">NOUVEAU TRICK</v-list-item-title>
                     </v-list-item-content>
                 </v-list-item>
 
                 <v-list-item v-ripple="{ class: `white--text` }" link href="{{ path('new_password') }}">
                     <v-list-item-icon>
-                        <v-icon style="font-size:17px;text-indent:10px" color="#34495E">fas fa-key</v-icon>
+                        <v-icon class="drawer-icon-1" color="#34495E">fas fa-key</v-icon>
                     </v-list-item-icon>
                     <v-list-item-content>
-                        <v-list-item-title style="font-size:15px;">MOT DE PASSE</v-list-item-title>
+                        <v-list-item-title class="drawer-list-title">MOT DE PASSE</v-list-item-title>
                     </v-list-item-content>
                 </v-list-item>
 
                 <v-list-item v-ripple="{ class: `white--text` }" link href="{{ path('security_disconnect') }}">
                     <v-list-item-icon>
-                        <v-icon style="font-size:17px;text-indent:10px" color="#34495E">fas fa-sign-out-alt</v-icon>
+                        <v-icon class="drawer-icon-1" color="#34495E">fas fa-sign-out-alt</v-icon>
                     </v-list-item-icon>
                     <v-list-item-content>
-                        <v-list-item-title style="font-size:15px;">SE DÉCONNECTER</v-list-item-title>
+                        <v-list-item-title class="drawer-list-title">SE DÉCONNECTER</v-list-item-title>
                     </v-list-item-content>
                 </v-list-item>
 
@@ -146,7 +167,5 @@
 
         </v-navigation-drawer>
 
-        <div class="medium-spacer"></div>
-        <div class="regular-spacer"></div>
-        <div class="regular-spacer"></div>
+        <div class="custom-spacer"></div>
         

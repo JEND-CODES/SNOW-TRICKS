@@ -4,7 +4,7 @@
     <v-icon>fas fa-sign-in-alt</v-icon>
 </v-btn>
 
-<v-btn fab v-else elevation="0" color="rgba(255,255,255,0)" fixed @click="dialog = !dialog" class="login-btn-2 white--text font-weight-bold px-4 py-4 mt-1" alt="Login" title="Login" width="auto" style="font-size:15px;">
+<v-btn fab v-else elevation="0" color="rgba(255,255,255,0)" fixed @click="dialog = !dialog" class="login-btn-2 white--text font-weight-bold px-4 py-4 mt-1" alt="Login" title="Login" width="auto">
     Connexion&nbsp;<v-icon>fas fa-sign-in-alt</v-icon>
 </v-btn>
 
@@ -24,6 +24,8 @@
 
             </form>
 
+            <a class="reset-pass-link" href="{{ path('reset_password') }}">Mot de passe oublié ?</a>
+
         </v-card-text>
 
     </v-card>
@@ -34,8 +36,8 @@
     <v-icon>fas fa-sign-out-alt</v-icon>
 </v-btn>
 
-<v-btn fab v-if="$vuetify.breakpoint.mdAndUp" elevation="0" color="rgba(255,255,255,0)" fixed href="{{ path('security_disconnect') }}" class="login-btn-2 white--text font-weight-bold px-4 py-4 mt-1" alt="Logout" title="Logout" width="auto" style="font-size:15px;">
-    Logout&nbsp;<v-icon>fas fa-sign-out-alt</v-icon>
+<v-btn fab v-if="$vuetify.breakpoint.mdAndUp" elevation="0" color="rgba(255,255,255,0)" fixed href="{{ path('security_disconnect') }}" class="login-btn-2 white--text font-weight-bold px-4 py-4 mt-1" alt="Logout" title="Logout" width="auto">
+    Déconnexion&nbsp;<v-icon>fas fa-sign-out-alt</v-icon>
 </v-btn>
 
 {% endif %}

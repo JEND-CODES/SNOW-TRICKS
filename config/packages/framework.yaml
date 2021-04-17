@@ -15,3 +15,6 @@ framework:
     #fragments: true
     php_errors:
         log: true
+
+    # Ajouté le 16 avril conformément au tutoriel suivant : https://symfony.com/doc/current/templates.html#reusing-template-contents
+    fragments: { path: /_fragment }

@@ -1,11 +1,11 @@
 $(document).ready(function () {
 
-    document.getElementById("change_screen_format").onchange = function () {
+    /* document.getElementById("change_screen_format").onchange = function () {
         if (this.selectedIndex !== 0) {
             window.location.href = this.value;
             confirm("ÊTES-VOUS SÛR DE VOULOIR CHANGER LE FORMAT DE L'ARTICLE ? VOS MODIFICATIONS EN COURS NE SERONT PAS SAUVEGARDÉES");
         }
-    };
+    }; */
 
     $("#save_post").hide();
     $("#update_screen").hide();

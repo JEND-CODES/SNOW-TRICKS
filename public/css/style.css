@@ -4,6 +4,653 @@ body {
   font-family: 'Quicksand', sans-serif;
 }
 
+.profile-format {
+  max-width: 105px;
+}
+
+.btn-profile {
+  top: 4px;
+  right: 255px;
+  z-index: 10 !important;
+  border: 0px solid black !important;
+  overflow: hidden !important;
+}
+
+@media all and (max-width: 959px) {
+  .btn-profile {
+    top: 1px;
+    right: 140px;
+  }
+}
+
+@media all and (max-width: 500px) {
+  .btn-profile {
+    top: auto !important;
+    bottom: 0 !important;
+  }
+}
+
+@media all and (max-width: 350px) {
+  .btn-profile {
+    display: none;
+  }
+}
+
+.profile-mini-img {
+  max-width: 42px;
+  border-radius: 100%;
+}
+
+/* @media all and (max-width: 500px) {
+  .btn-profile {
+    top: auto !important;
+    bottom:0 !important;
+  }
+} */
+
+.comment-post-btn {
+  margin-top: 10px;
+  margin-left: 10px;
+  float: right;
+}
+
+.update-confirm-btn {
+  right: 34px;
+  position: absolute;
+  padding: 10px;
+}
+
+.update-redo-btn {
+  right: 34px;
+  position: absolute;
+  margin-top: -20px;
+  padding: 10px;
+}
+
+.update-post-btn {
+  margin-top: 28px !important;
+  margin-right: 12px !important;
+  float: right !important;
+}
+
+.photo-step-errors {
+  width: 100%;
+}
+
+.new-post-title {
+  font-family: 'Quicksand', sans-serif !important;
+  font-size: 28px;
+  word-wrap: break-word;
+  padding-bottom: 10px;
+}
+
+.default_img {
+  z-index: -1 !important;
+  min-height: 200px;
+}
+
+.create-col-1 {
+  z-index: 1 !important;
+}
+
+.edit-post-mini-label{
+  color: black;
+  font-size: 14px;
+  padding-left: 10px;
+  font-weight: bold;
+}
+
+.photo-img {
+  width: 100%;
+}
+
+.update_feature_box {
+  width: 100%;
+  height: 0px;
+  opacity: 0;
+  margin-top: 50px;
+  margin-bottom: -60px;
+  padding-left: 20%;
+  padding-right: 20%;
+}
+
+.update_featured_input {
+  caret-color: auto;
+}
+
+.create_feature_box {
+  width: 100%;
+  height: 0px;
+  opacity: 0;
+  margin-top: 30px;
+  margin-bottom: -10px;
+  padding-left: 20%;
+  padding-right: 20%;
+  z-index: 1;
+}
+
+.create_feature_box li {
+  color: red;
+  font-weight: bold;
+  background-color: rgba(255, 255, 255, 0.6);
+  width: 154px;
+  padding: 4px;
+}
+
+.create-col-title li {
+  color: red;
+  font-weight: bold;
+  font-size: 18px !important; 
+  background-color: rgba(255, 255, 255, 0.4);
+  width: 188px;
+  padding: 4px;
+}
+
+.update_feature_box li {
+  color: red;
+  font-weight: bold;
+  background-color: rgba(255, 255, 255, 0.6);
+  width: 154px;
+  padding: 4px;
+}
+
+.update-col-title li {
+  color: red;
+  font-weight: bold;
+  font-size: 18px !important; 
+  background-color: rgba(255, 255, 255, 0.4);
+  width: 188px;
+  padding: 4px;
+}
+
+.create_featured_input {
+  caret-color: auto;
+}
+
+/* FIN DE MODIFS DU 13 MARS */
+
+/* Modifications du 6 mars */
+.member_avatar {
+  display: block; 
+  margin-left: auto; 
+  margin-right: auto;
+  max-width: 120px;
+}
+
+.drawer-index {
+  z-index: 12;
+}
+
+.drawer-icon-1 {
+  font-size: 17px !important;
+  text-indent: 10px !important;
+}
+
+.drawer-icon-2 {
+  font-size: 15px !important;
+  text-indent: 10px !important;
+}
+
+.drawer-list-title {
+  font-size: 15px !important;
+}
+
+.footer-title-size {
+  font-size: 17px !important;
+}
+
+.footer-link {
+  font-size: 16px !important;
+  font-weight: bold !important;
+  letter-spacing: 1px !important;
+}
+
+.footer-link-color {
+  color:white !important;
+}
+
+.perso-link {
+  color:white !important;
+  transition: 0.5s !important;
+}
+
+.linkedin-icon {
+  padding-right: 20px !important;
+  font-size: 36px !important;
+}
+
+.github-icon {
+  font-size: 36px !important;
+}
+
+.reset-pass-link {
+  float: right !important;
+  margin-top: -2px !important;
+}
+
+.search-button {
+  background-color:#1E88E5 !important;
+}
+
+.register-sublink {
+  float: right !important;
+}
+
+.redo-btn {
+  right: 34px !important;
+  position: absolute !important;
+  margin-top: -20px !important;
+  padding: 10px !important;
+}
+
+.confirm-btn {
+  right: 34px !important;
+  position: absolute !important;
+  padding: 10px !important;
+}
+
+.create-btn {
+  margin-top: 28px !important;
+  margin-right: 12px !important;
+  float: right !important;
+}
+
+.open-modal-btn {
+  margin-top: -40px !important;
+}
+/* Modifications du 6 mars */
+
+/* Modifications du 5 mars */
+
+/* Révisions multiples du 5 mars */
+.update-chapter-btn-box {
+  width: 99%;
+  z-index: 1;
+  text-align: right;
+  margin-bottom: -40px !important;
+}
+
+@media all and (max-width: 960px) {
+  .update-chapter-btn-box {
+    width: 98%;
+  }
+}
+
+.create-chapter-btn-box {
+  width: 99%;
+  z-index: 1;
+  text-align: right;
+  margin-bottom: -40px !important;
+}
+
+@media all and (max-width: 960px) {
+  .create-chapter-btn-box {
+    width: 98%;
+  }
+}
+
+.special-trash-button {
+  cursor: pointer;
+  padding: 8px 13px;
+  border-radius: 4px;
+  background-color: grey !important;
+  color: white;
+  outline-style: none;
+  transition: 0.5s;
+  font-weight: bold;
+  right: 34px;
+  position: absolute;
+  margin-top: -20px;
+  padding: 10px;
+}
+
+.special-trash-button:hover {
+  background-color: red !important;
+}
+
+@media all and (min-width: 501px) {
+  .smart-slider {
+    margin-top: -10px;
+  }
+}
+
+@media all and (max-width: 500px) {
+  .navbar {
+    top: auto !important;
+    bottom: 0 !important;
+  }
+
+  .smart-slider {
+    margin-top: -70px;
+  }
+
+  .post-title {
+    margin-top: -70px;
+  }
+
+  .fixed-scroll-to-top {
+    position:fixed !important;
+    bottom: 70px !important;
+    height: 36px !important;
+    width: 36px !important;
+  }
+
+  .fixed-share-btn {
+    bottom: 70px !important;
+  }
+
+  .new-trick-box {
+    margin-top: -90px !important;
+  }
+
+  .box-new-position {
+    margin-top: -80px !important;
+  }
+}
+
+/* Bouton descendre aux tricks */
+#go-down-to-tricks {
+  float: right;
+  margin-top: -80px;
+  z-index: 1 !important;
+}
+
+#go-up-to-tricks {
+  float: left;
+}
+
+/* Nouveaux espaceurs */
+.custom-spacer {
+  height: 70px;
+}
+
+.thirty-spacer {
+  height: 30px;
+}
+
+.forty-spacer {
+  height: 40px;
+}
+
+/* Couleurs des Boutons en page d'accueil (section ajax call) */
+.pen-style {
+  float: right;
+  margin-right: 8px;
+  margin-top: -42px;
+  color:rgb(167, 57, 167) !important;
+}
+
+.pen-style:hover {
+  color:rgb(236, 103, 236) !important;
+}
+
+.trash-style {
+  float: right;
+  margin-right: 46px;
+  margin-top: -42px;
+  color:red !important;
+}
+
+.trash-style:hover {
+  color:rgb(252, 141, 141) !important;
+}
+
+/* Couleurs des boutons sur le slider en page d'accueil */
+.para-fa-pen {
+  position: absolute; 
+  top: 36px; 
+  right: 20px; 
+  color:rgb(167, 57, 167);
+}
+
+.para-fa-pen:hover {
+  color:rgb(236, 103, 236) !important;
+}
+
+.para-fa-trash {
+  position: absolute; 
+  top: 76px; 
+  right: 20px; 
+  color:red;
+}
+
+.para-fa-trash:hover {
+  color:rgb(252, 141, 141) !important;
+}
+
+.para-fa-pen-2 {
+  position: absolute; 
+  top: 40px; 
+  right: 30px; 
+  color:rgb(167, 57, 167);
+}
+
+.para-fa-pen-2:hover {
+  color:rgb(236, 103, 236) !important;
+}
+
+.para-fa-trash-2 {
+  position: absolute; 
+  top: 86px; 
+  right: 30px; 
+  color:red;
+}
+
+.para-fa-trash-2:hover {
+  color:rgb(252, 141, 141) !important;
+}
+
+/* Boutons de modification ou de suppression sur le template oneChapter */
+.index-img {
+  z-index: -1 !important;
+  min-height: 200px;
+}
+
+.one-chapter-btn-box {
+  width: 99%;
+  z-index: 1;
+  text-align: right;
+  margin-bottom: -40px !important;
+}
+
+@media all and (max-width: 960px) {
+  .one-chapter-btn-box {
+    width: 98%;
+  }
+}
+
+.mini-background {
+  padding: 6px 12px 6px 12px;
+  background:rgba(255, 255, 255, 0.85);
+  border-radius: 4px;
+}
+
+.mini-background-2 {
+  padding: 8px 8px 8px 8px;
+  background:rgba(255, 255, 255, 0.85);
+  border-radius: 4px; 
+}
+
+.one-chapter-pen {
+  color:rgb(167, 57, 167);
+  padding-right: 20px;
+}
+
+.one-chapter-pen:hover {
+  color:rgb(236, 103, 236) !important;
+}
+
+.one-chapter-trash {
+  color:red;
+}
+
+.one-chapter-trash:hover {
+  color:rgb(252, 141, 141) !important;
+}
+
+/* Centrage des informations d'un article */
+.centered-infos {
+  text-align: center;
+}
+
+/* Fin de révisions du 5 mars */
+
+/* Révisions Section More Tricks*/
+#next_figures {
+  display: flex;
+  flex-flow: row wrap;
+  padding-left: 140px;
+  padding-right: 140px;
+}
+
+@media all and (max-width: 1264px) {
+  #next_figures {
+    padding-left: 20px;
+    padding-right: 20px;
+  }
+}
+
+@media all and (max-width: 960px) {
+  #next_figures {
+    padding-left: 10px;
+    padding-right: 10px;
+  }
+}
+
+.figures-box {
+  display: none;
+  flex-flow: row wrap;
+  justify-content: space-around;
+  width: 100%;
+}
+
+@media all and (max-width: 1500px) {
+  .figures-box {
+    padding-left: 20px;
+    padding-right: 20px;
+  }
+}
+
+@media all and (max-width: 960px) {
+  .figures-box {
+    padding-left: 10px;
+    padding-right: 10px;
+  }
+}
+
+.inside-box {
+  display: inline-block;
+}
+
+.injected-img {
+  width: 350px;
+  height: 200px;
+}
+
+.injected-content {
+  width: 340px;
+}
+
+@media all and (max-width: 1550px) {
+  .injected-img {
+    width: 300px;
+    height: 200px;
+  }
+  .injected-content {
+    width: 280px;
+  }
+}
+
+@media all and (max-width: 1300px) {
+  .injected-img {
+    width: 280px;
+    height: 180px;
+  }
+  .injected-content {
+    width: 280px;
+  }
+}
+
+@media all and (max-width: 960px) {
+  .injected-img {
+    width: 580px;
+    height: 380px;
+  }
+  .injected-content {
+    width: 570px;
+  }
+}
+
+@media all and (max-width: 600px) {
+  .injected-img {
+    width: 100%;
+    height: auto;
+  }
+  .injected-content {
+    width: 100%;
+  }
+}
+
+.hidden-box {
+  display:none !important;
+}
+
+/* Fin de Révisions Section More Tricks*/
+
+/* Coloration des textes labels */
+label {
+  color:white;
+}
+.special-label {
+  color:black;
+}
+/* Fin de coloration des textes labels */
+
+.home-post-content {
+  font-family: 'Quicksand', sans-serif;
+  cursor: default;
+  font-size:17px;
+  color: black;
+}
+
+.home-post-caption {
+  font-family: 'Quicksand', sans-serif;
+  cursor: default;
+  font-size:13px;
+  color:#474747;
+}
+
+.backoff-caption {
+  font-family: 'Quicksand', sans-serif;
+  cursor: default;
+  font-size:13px;
+  color:#474747;
+}
+
+.comment-post-content {
+  font-family: 'Quicksand', sans-serif;
+  cursor: default;
+  font-size:17px;
+  color: black;
+}
+
+.comment-post-caption {
+  font-family: 'Quicksand', sans-serif;
+  cursor: default;
+  font-size:15px;
+  color:#474747;
+}
+
+.special-background {
+  z-index:-1 !important;
+  position:fixed !important;
+  top:0 !important;
+  left:0 !important;
+  height:100% !important;
+  width:100% !important;
+  background-color:#85C1E9 !important;
+}
+
 .mini-spacer {
   height: 5px;
 }
@@ -45,7 +692,7 @@ body {
 }
 
 #spinner {
-  background-color: #85c1e9;
+  background-color: #85C1E9;
   text-align: center;
   height: 100vh;
 }
@@ -76,7 +723,7 @@ body {
 
 .v-application {
   font-family: 'Quicksand', sans-serif;
-  background-color: transparent;
+  background-color: transparent !important;
 }
 
 .v-carousel .v-btn .v-btn__content .v-icon {
@@ -89,21 +736,23 @@ body {
 
 @media all and (min-width: 960px) {
   .v-carousel .v-btn .v-btn__content .v-icon {
-    font-size: 50px;
+    font-size: 50px !important;
     color: white;
     text-shadow: 1px 2px black;
   }
 }
 
 .post-font-size {
-  font-size: 20px;
+  font-size: 20px !important;
+  color:#444 !important;
 }
 
 #the-logo {
-  font-family: 'Quicksand', sans-serif;
-  font-size: 24px;
-  font-weight: bold;
-  color: white;
+  font-family: 'Quicksand', sans-serif !important;
+  font-size: 24px !important;
+  font-weight: bold !important;
+  color: white !important;
+  z-index:11 !important;
 }
 
 @media all and (max-width: 600px) {
@@ -117,15 +766,15 @@ a {
 }
 
 a:hover {
-  color: #1562ad;
+  color: #1562ad !important;
 }
 
 .v-btn:hover {
-  color: white;
+  color: white !important;
 }
 
 .footer-link:hover {
-  color: white;
+  color: white !important;
 }
 
 .responsive-image {
@@ -133,7 +782,7 @@ a:hover {
 }
 
 .posts-list-button:hover {
-  color: #2a3b4d;
+  color: #2a3b4d !important;
 }
 
 .deco-logo {
@@ -153,31 +802,65 @@ a:hover {
   }
 }
 
+/* Modifications du 5 mars */
 @media all and (max-width: 600px) {
   .deco-logo {
     left: 80px;
   }
 }
 
+@media all and (max-width: 500px) {
+  .deco-logo {
+    top: auto;
+    bottom: 10px;
+  }
+}
+/* Fin de Modifications du 5 mars */
+
 .login-btn {
   top: 2px;
   right: 70px;
-  z-index: 10;
+  z-index: 10 !important;
 }
 
+/* Modifications du 6 mars */
 .login-btn-2 {
   top: 2px;
   right: 70px;
-  z-index: 11;
-  border-radius: 4px;
-  font-size: 30px;
+  z-index: 11 !important;
+  border-radius: 4px !important;
+  font-size: 15px !important;
 }
+/* Fin de Modifications du 6 mars */
+
+/* Modifications du 5 mars */
+@media all and (max-width: 500px) {
+  .login-btn {
+    top: auto !important;
+    bottom:0 !important;
+  }
+  
+  .login-btn-2 {
+    top: auto !important;
+    bottom:0 !important;
+  }
+}
+/* Fin de Modifications du 5 mars */
 
 .btn-magnify {
   top: 2px;
   right: 10px;
-  z-index: 10;
+  z-index: 10 !important;
 }
+
+/* Modifications du 5 mars */
+@media all and (max-width: 500px) {
+  .btn-magnify {
+    top: auto !important;
+    bottom:0 !important;
+  }
+}
+/* Fin de Modifications du 5 mars */
 
 input[type=text] {
   width: 100%;
@@ -188,7 +871,7 @@ input[type=text] {
   box-sizing: border-box;
   transition: 0.5s;
   outline: none;
-  background-color: white;
+  background-color: white !important;
 }
 
 input[type=text]:focus {
@@ -204,7 +887,7 @@ input[type=search] {
   box-sizing: border-box;
   transition: 0.5s;
   outline: none;
-  background-color: white;
+  background-color: white !important;
 }
 
 input[type=search]:focus {
@@ -220,7 +903,7 @@ input[type=password] {
   box-sizing: border-box;
   transition: 0.5s;
   outline: none;
-  background-color: white;
+  background-color: white !important;
 }
 
 input[type=password]:focus {
@@ -236,7 +919,7 @@ input[type=email] {
   box-sizing: border-box;
   transition: 0.5s;
   outline: none;
-  background-color: white;
+  background-color: white !important;
 }
 
 input[type=email]:focus {
@@ -253,11 +936,11 @@ textarea {
   box-sizing: border-box;
   transition: 0.5s;
   outline: none;
-  background-color: white;
+  background-color: white !important;
 }
 
 textarea::-webkit-scrollbar {
-  width: 1px;
+  width: 0px;
 }
 
 .area-resize {
@@ -268,17 +951,53 @@ textarea::-webkit-scrollbar {
 textarea:focus {
   border: 1px solid #555;
 }
+/* Modifications du 5 mars */
 
 .screen_class {
-  height: 120px;
-  border-radius: 4px;
+  height: 0;
+  width: 0;
+  padding: 0;
+  border: 0px solid transparent;
 }
+
+.screen_class:focus {
+  border: 0px solid transparent;
+}
+
+.hidden_btn {
+  display: none;
+}
+
+.interactive_btn {
+  color: black;
+  padding: 10px;
+  transition: 0.2s;
+}
+
+.interactive_btn:hover {
+  color: rgb(75, 75, 75);
+  transition: 0.2s;
+}
+
+.interactive_btn_2 {
+  color: white;
+  padding: 10px;
+  font-size: 28px;
+  transition: 0.2s;
+}
+
+.interactive_btn_2:hover {
+  color: black;
+  transition: 0.2s;
+}
+
+/* Fin de modifications du 5 mars */
 
 button[type=submit] {
   cursor: pointer;
   padding: 10px 13px;
   border-radius: 4px;
-  background-color: #1e88e5;
+  background-color: #1E88E5 !important;
   margin-top: 5px;
   color: white;
   outline-style: none;
@@ -287,14 +1006,14 @@ button[type=submit] {
 }
 
 button[type=submit]:hover {
-  background-color: #3698ee;
+  background-color: #3698ee !important;
 }
 
 input[type=submit] {
   cursor: pointer;
   padding: 8px 13px;
   border-radius: 4px;
-  background-color: #1e88e5;
+  background-color: #1E88E5 !important;
   margin-top: 5px;
   color: white;
   outline-style: none;
@@ -303,14 +1022,14 @@ input[type=submit] {
 }
 
 input[type=submit]:hover {
-  background-color: #3698ee;
+  background-color: #3698ee !important;
 }
 
 .special-button {
   cursor: pointer;
   padding: 8px 13px;
   border-radius: 4px;
-  background-color: #1e88e5;
+  background-color: #1E88E5 !important;
   color: white;
   outline-style: none;
   transition: 0.5s;
@@ -318,15 +1037,15 @@ input[type=submit]:hover {
 }
 
 .special-button:hover {
-  background-color: #3698ee;
+  background-color: #3698ee !important;
 }
 
 .edit-post-button {
-  border-radius: 4px;
+  border-radius: 4px !important;
 }
 
 .edit-post-button:hover {
-  opacity: 0.85;
+  opacity: 0.85 !important;
 }
 
 select {
@@ -337,7 +1056,7 @@ select {
   box-sizing: border-box;
   transition: 0.5s;
   outline: none;
-  background-color: white;
+  background-color: white !important;
 }
 
 select:focus {
@@ -364,31 +1083,31 @@ select:focus {
 }
 
 .backoff-title {
-  font-family: 'Quicksand', sans-serif;
+  font-family: 'Quicksand', sans-serif !important;
   font-size: 24px;
   word-wrap: break-word;
 }
 
 .searching-title {
-  font-family: 'Quicksand', sans-serif;
+  font-family: 'Quicksand', sans-serif !important;
   font-size: 24px;
   word-wrap: break-word;
 }
 
 .excerpt-title {
-  font-family: 'Quicksand', sans-serif;
+  font-family: 'Quicksand', sans-serif !important;
   font-size: 24px;
   word-wrap: break-word;
 }
 
 .post-title {
-  font-family: 'Quicksand', sans-serif;
+  font-family: 'Quicksand', sans-serif !important;
   font-size: 28px;
   word-wrap: break-word;
 }
 
 .post-list-title {
-  font-family: 'Quicksand', sans-serif;
+  font-family: 'Quicksand', sans-serif !important;
   font-size: 24px;
   word-wrap: break-word;
 }
@@ -400,17 +1119,18 @@ select:focus {
   padding-top: 20px;
   padding-bottom: 80px;
   bottom: -3%;
-  font-family: 'Quicksand', sans-serif;
+  font-family: 'Quicksand', sans-serif !important;
   font-size: 32px;
   width: 100%;
-  border: 1px solid white;
   text-align: center;
   word-wrap: break-word;
   text-transform: uppercase;
+  transition: 0.5s;
 }
 
 .slide-title:hover {
-  color: #222;
+  color: rgb(70, 70, 70);
+  transition: 0.5s;
 }
 
 @media all and (max-width: 600px) {
@@ -433,7 +1153,7 @@ select:focus {
 
 .v-window__next,
 .v-window__prev {
-  background: transparent;
+  background: transparent !important;
 }
 
 .special-chevron {
@@ -443,14 +1163,9 @@ select:focus {
   margin-top: 7px;
 }
 
-.comments-box {
-  padding-left: 200px;
-  padding-right: 200px;
-}
-
-@media all and (max-width: 1264px) {
+@media all and (min-width: 1265px) {
   .comments-box {
-    padding-left: 1px;
-    padding-right: 1px;
+    padding-left: 200px;
+    padding-right: 200px;
   }
 }

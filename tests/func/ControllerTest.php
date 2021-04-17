@@ -5,6 +5,14 @@ namespace Tests\Func;
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 use App\Repository\MemberRepository;
 
+//**** Effectuer un test fonctionnel
+// Créer un client HTTP.
+// Effectuer une requête HTTP sur la page que nous devons tester.
+// S'assurer que les éléments sur la page testée sont bien présents (écrire des assertions).
+//****
+
+// Obtenir la liste des routes de l'application : php bin/console debug:router
+
 class ControllerTest extends WebTestCase
 {
 	public function testHomePage()
@@ -15,6 +23,7 @@ class ControllerTest extends WebTestCase
 
         $crawler = $client->request('GET', '/');
 
+        // $this->assertEquals(200, $client->getResponse()->getStatusCode());
         $this->assertResponseIsSuccessful();
 
         $this->assertSame(1, $crawler->filter('html:contains("SNOWTRICKS")')->count());
@@ -27,6 +36,7 @@ class ControllerTest extends WebTestCase
 
         $client->request('GET', '/azerty');
 
+        // $this->assertTrue($client->getResponse()->isNotFound());
         $this->assertEquals(404, $client->getResponse()->getStatusCode());
     }
 
@@ -47,10 +57,16 @@ class ControllerTest extends WebTestCase
 
         $memberRepo = static::$container->get(MemberRepository::class);
 
+        // Administrateur -> ROLE_ADMIN (autorisation d'accès en Back Office)
         $testUser = $memberRepo->findOneByEmail('jean@gmail.com');
 
+        // Membre -> ROLE_USER (accès interdit en Back Office)
+        // $testUser = $memberRepo->findOneByEmail('vincent@gmail.com');
+
+        // Simulation de connexion du membre Admin
         $client->loginUser($testUser);
 
+        // test e.g. the profile page
         $client->request('GET', '/admin/backoff');
         
         $this->assertResponseIsSuccessful();
@@ -60,7 +76,9 @@ class ControllerTest extends WebTestCase
     {
         $client = static::createClient();
 
+        // Faux Token
         $client->request('GET', '/confirm_reset/jean/r2f3d21sj1h6h8y4h654g8641k');
+        // $client->request('GET', '/');
 
         $this->assertResponseRedirects();
     }
@@ -90,10 +108,12 @@ class ControllerTest extends WebTestCase
 
         $member = $memberRepo->findOneByEmail('jean@gmail.com');
 
+        // Si le membre n'est pas connecté il ne pourra pas commenter !
         $client->loginUser($member);
 
         $client->followRedirects();
 
+        // Si la route n'est pas bonne erreur ! ex : '/blog/rocket-air'
         $crawler = $client->request('GET', '/blog/30/rocket-air');
 
         $form = $crawler->selectButton('Publier')->form();
@@ -102,8 +122,10 @@ class ControllerTest extends WebTestCase
 
         $crawler = $client->submit($form);
         
+        // Une réponse réussie renvoie le code status 200
         $this->assertEquals(200, $client->getResponse()->getStatusCode());
 
+        // Vérification que la page contient bien le nouveau commentaire
         $this->assertSame(1, $crawler->filter('html:contains("Nouveau commentaire")')->count());
 
     }

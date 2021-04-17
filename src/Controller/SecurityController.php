@@ -10,6 +10,7 @@ use App\Repository\MemberRepository;
 use App\Form\NewpassType;
 use App\Form\ResetType;
 use App\Form\ForgotType;
+use App\Form\ProfileType;
 use Symfony\Component\HttpFoundation\Request;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
@@ -22,14 +23,23 @@ use Symfony\Component\String\Slugger\SluggerInterface;
 use Symfony\Component\Security\Core\Security;
 use Symfony\Component\Security\Http\Authentication\AuthenticationUtils;
 
+use App\Service\FileUploader;
+use App\Service\RemoveFile;
+
+
 class SecurityController extends AbstractController
 {
 
     private $security;
+    private $uploader;
+    private $remover;
 
-    public function __construct(Security $security)
+    public function __construct(Security $security, FileUploader $uploader, RemoveFile $remover)
     {
        $this->security = $security;
+       $this->uploader = $uploader;
+       $this->remover = $remover;
+
     }
     
     /**
@@ -346,5 +356,90 @@ class SecurityController extends AbstractController
      * @Route("/disconnect", name="security_disconnect")
      */
     public function disconnect() {}
+
+    /**
+     * @Route("/account", name="account")
+     */
+    public function account(Request $request, EntityManagerInterface $manager /*, SluggerInterface $slugger*/)
+    {
+        $current_member = $this->security->getUser();
+
+        $current_avatar = $this->security->getUser()->getAvatar();
+
+        // dd($current_avatar);
+
+        if($current_member === null)
+        {
+            return $this->redirectToRoute('security_connexion');
+
+        } 
+
+        $profileForm = $this->createForm(ProfileType::class, $current_member);
+
+        $profileForm->handleRequest($request);
+
+        if($profileForm->isSubmitted() && $profileForm->isValid()) 
+        {
+            $this->remover->deleteFile($current_avatar);
+            
+            $avatarFile = $profileForm->get('avatar')->getData();
+
+            // Voir l'exemple de Service Upload files (doc Symfony) : https://symfony.com/doc/current/controller/upload_file.html
+
+            if ($avatarFile) {
+
+                $avatarFileName = $this->uploader->upload($avatarFile);
+
+                $current_member->setAvatar($avatarFileName);
+
+                // $current_member->setAvatar($newFilename);
+
+                /* $originalFilename = pathinfo($avatarFile->getClientOriginalName(), PATHINFO_FILENAME);
+                
+                $safeFilename = $slugger->slug($originalFilename);
+                $newFilename = $safeFilename.'-'.uniqid().'.'.$avatarFile->guessExtension();
+
+                try {
+
+                    $avatarFile->move(
+                        $this->getParameter('avatars_directory'),
+                        $newFilename
+                    );
+
+                } catch (FileException $e) {
+                    $this->addFlash(
+                        'warning',
+                        'IMAGE INVALIDE'
+                    );
+
+                    return $this->redirectToRoute('blog');
+
+                } */
+
+                // $current_member->setAvatar($newFilename);
+
+            }
+
+
+            $manager->persist($current_member);
+
+            $manager->flush();
+
+            $this->addFlash(
+                'notice',
+                'Compte mis à jour'
+            );
+            
+            return $this->redirectToRoute('account');
+
+        }
+
+        return $this->render('security/account.html.twig', [
+            'current_member' => $current_member,
+            'profileForm' => $profileForm->createView()
+        ]);
+
+    }
+
     
 }

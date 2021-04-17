@@ -25,6 +25,12 @@ class FigureType extends AbstractType
             ->add('screens', CollectionType::class, [
                 'entry_type' => ScreenType::class,
                 'entry_options' => ['label' => false],
+                // Tests réussis du 10 & 11 avril
+                // Options qui permettent d'ajouter ou de supprimer une nouvelle entrée (vidéo ou image) dynamiquement
+                'allow_add' => true,
+                'allow_delete' => true,
+                // Ce paramètre permet de récupérer automatiquement l'ID du Post, de lier cet ID comme clé étrangère dans la table Screen
+                'by_reference' => false,
             ])
             ->add('content', TextareaType::class, array(
                 'required' => false,
