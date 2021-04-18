@@ -30,20 +30,20 @@
                             <v-card flat class="text-center" color="blue darken-4" outlined>
                                 <v-card-text class="white--text">
 
-                                    <p style="font-size:17px;">RÉALISATION</p>
+                                    <p class="footer-title-size">RÉALISATION</p>
 
-                                    <a href="https://github.com/JEND-CODES" target="_blank" style="color:white;">
+                                    <a href="https://github.com/JEND-CODES" target="_blank" class="footer-link-color">
 
-                                        <p class="mb-12 footer-link" style="font-size:16px;font-weight:bold;letter-spacing:1px;">JEAN-EUDES NOUAILLE-DEGORCE</p>
+                                        <p class="mb-12 footer-link">JEAN-EUDES NOUAILLE-DEGORCE</p>
 
                                     </a>
 
-                                    <a style="color:white;transition:0.5s;" href="https://www.linkedin.com/in/jean-eudes-nouaille-degorce/" target="_blank">
-                                        <i class="fab fa-linkedin fa-2x" style="padding-right:20px;font-size:36px;"></i>
+                                    <a class="perso-link" href="https://www.linkedin.com/in/jean-eudes-nouaille-degorce/" target="_blank">
+                                        <i class="fab fa-linkedin fa-2x linkedin-icon"></i>
                                     </a>
 
-                                    <a style="color:white;transition:0.5s;" href="https://github.com/JEND-CODES" target="_blank">
-                                        <i class="fab fa-github fa-2x" style="font-size:36px;"></i>
+                                    <a class="perso-link" href="https://github.com/JEND-CODES" target="_blank">
+                                        <i class="fab fa-github fa-2x github-icon"></i>
                                     </a>
 
                                 </v-card-text>
@@ -65,7 +65,7 @@
                     </v-layout>
                 </v-container>
 
-                <v-speed-dial fab bottom left absolute>
+                <v-speed-dial class="fixed-share-btn" fab bottom left absolute>
 
                     <v-btn slot="activator" v-model="fab" color="blue darken-4" dark fab>
                         <v-icon>fa-share-alt</v-icon>
@@ -95,7 +95,7 @@
                     </v-card-text>
                 </v-card>
 
-                <div class="medium-spacer"></div>
+                <div class="custom-spacer"></div>
                 
             </v-col>
 
@@ -105,7 +105,7 @@
 
 </v-footer>
 
-<v-btn v-scroll="onScroll" v-show="fab" fab dark fixed bottom right color="rgb(0, 0, 0, 0.2)" @click="toTop">
+<v-btn class="fixed-scroll-to-top" v-scroll="onScroll" v-show="fab" fab dark fixed bottom right color="rgb(0, 0, 0, 0.2)" @click="toTop">
     <v-icon>fa-chevron-up</v-icon>
 </v-btn>
 

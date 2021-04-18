@@ -10,41 +10,106 @@
     <v-img src="/backgrounds/background1.jpg" height="100%" width="100%"></v-img>
 </v-card>
 
+<!-- MISE À JOUR D'UN ARTICLE -->
 {{ form_start(updateFigure) }}
                           
 <v-container mt-3 mb-n2>
-    <v-row align="center" justify="center">
+    <v-row
+    align="center"
+    justify="center"
+    >
+        
         <v-col class="white--text text-center" cols="12">  
-            <p class="post-title">{{ figure.title|upper|raw }}</p>
+            <p class="post-title mb-8">{{ figure.title|upper|raw }}<span class="edit-post-mini-label">ÉDITION</span></p>
+
+            <!-- 5 mars : ajout de boutons de modification de l'image en Une -->
+            <p class="update-chapter-btn-box">
+
+                <span class="mini-background-2">
+
+                    <a class="feature_arrow_btn">
+                        <i class="interactive_btn fas fa-arrow-up"></i>
+                    </a>
+
+                    <a class="feature_pen_btn">
+                        <i class="interactive_btn fas fa-pen"></i>
+                    </a>
+
+                    <a class="feature_trash_btn">
+                        <i class="interactive_btn far fa-trash-alt"></i>
+                    </a>
+
+                </span>
+
+            </p>
+
+            <!-- EDITION DE L'IMAGE EN UNE AVEC PREVIEW INTERACTIVE -->
+            <div class="update_feature_box">
+
+                {{ form_row(updateFigure.image, {'label': ' ', 'attr': {'class': "update_featured_input", 'placeholder': "URL DE L'IMAGE", 'alt' : "IMAGE PRINCIPALE"}}) }}
+
+            </div>   
+
+            <!-- Fin de modifications du 5 mars -->
+
                 {% if figure.image is not null %}
-                    <v-img :aspect-ratio="16/9" src="{{ figure.image|raw }}" alt="{{ figure.title|raw }}"title="{{ figure.title|raw }}"></v-img>
+                    <v-img
+                    class="index-img"
+                    :aspect-ratio="16/9"
+                    src="{{ figure.image|raw }}"
+                    alt="{{ figure.title|raw }}"
+                    title="{{ figure.title|raw }}"
+                    >
+                    </v-img>
                 {% else %}
-                    <v-img :aspect-ratio="16/9" src="/backgrounds/default_picture.jpg" alt="Image par défaut" title="Image par défaut"></v-img>
+                    <v-img
+                    class="index-img"
+                    :aspect-ratio="16/9"
+                    src="/backgrounds/default_picture.jpg"
+                    alt="Image par défaut"
+                    title="Image par défaut"
+                    >
+                    </v-img>
                 {% endif %}
         </v-col>
-        <v-col cols="12" md="6">  
-            {{ form_row(updateFigure.image, {'label': ' ', 'attr': {'placeholder': "URL DE L'IMAGE PRINCIPALE"}}) }}
-            {{ form_row(updateFigure.title, {'label': ' ', 'attr': {'placeholder': "TITRE DE L'ARTICLE"}}) }}             
+        <v-col class="update-col-title" cols="12" md="6">  
+            {{ form_row(updateFigure.title, {'label': 'TITRE', 'attr': {'placeholder': "TITRE DE L'ARTICLE"}}) }}             
         </v-col>
     </v-row>
 </v-container>
 
+<!-- BOUTONS POUR AFFICHER LES MÉDIAS EN VERSION SMARTHPONE -->
 <v-container class="control-medias-container">
-    <v-row align="center" justify="center">
-        <v-col class="text-center" cols="12" > 
-            <v-btn class="control-medias font-weight-bold" color="primary" dark>ÉDITER LES MÉDIAS</v-btn>
-            <v-btn class="control-medias-2 font-weight-bold" color="primary" dark>FERMER L'ONGLET</v-btn>
-        </v-col>
-    </v-row>
+    <v-col class="text-center" cols="12" > 
+        <v-btn
+        class="control-medias font-weight-bold"
+        color="primary"
+        dark
+        >
+        ÉDITER LES MÉDIAS
+        </v-btn>
+        <v-btn
+        class="control-medias-2 font-weight-bold"
+        color="primary"
+        dark
+        >
+        FERMER L'ONGLET
+        </v-btn>
+    </v-col>
 </v-container>
 
-<v-container class="medias-grid" mt-10>
+<!-- CHAMP D'ÉDITION DES MÉDIAS DE L'ARTICLE -->
+<v-container class="medias-grid" mt-4>
     <v-layout row wrap>
         <v-col cols="12">
             <v-row>
-                {% for screen in figure.screens %}
+                {# {% for screen in figure.screens %}
                 {% if not (screen.thumbnail starts with 'http') %}
-                <v-col cols="12" md="2">  
+                <!-- Modal Screen VIDEOS -->
+                <v-col
+                cols="12"
+                md="2"
+                >  
                     <card>
                         <div>
                         {% if screen.thumbnail is not null %}
@@ -54,9 +119,22 @@
                         {% endif %}
                         </div>
                         <div class="text-center">
-                            <v-dialog v-model="modalUpdate{{ loop.index }}" transition="dialog-bottom-transition" width="600">   
+                            <v-dialog
+                            v-model="modalUpdate{{ loop.index }}"
+                            transition="dialog-bottom-transition"
+                            width="600"
+                            >   
                                 <template v-slot:activator="{ on, attrs }">
-                                    <v-btn style="margin-top:-40px;" fab depressed color="primary" dark small v-bind="attrs" v-on="on">
+                                    <v-btn
+                                    class="open-modal-btn"
+                                    fab
+                                    depressed
+                                    color="primary"
+                                    dark
+                                    small
+                                    v-bind="attrs"
+                                    v-on="on"
+                                    >
                                     <i class="fas fa-play"></i>
                                     </v-btn>
                                 </template>
@@ -72,7 +150,11 @@
                     </card>    
                 </v-col>
                 {% else %}
-                <v-col cols="12" md="2">  
+                <!-- Modal Screen IMAGES -->
+                <v-col
+                cols="12"
+                md="2"
+                >  
                     <card>
                         <div>
                             {% if screen.thumbnail is not null %}
@@ -82,9 +164,22 @@
                             {% endif %}
                         </div>
                         <div class="text-center">
-                            <v-dialog v-model="modalUpdate{{ loop.index }}" transition="dialog-bottom-transition" width="600">   
+                            <v-dialog
+                            v-model="modalUpdate{{ loop.index }}"
+                            transition="dialog-bottom-transition"
+                            width="600"
+                            >   
                                 <template v-slot:activator="{ on, attrs }">
-                                    <v-btn style="margin-top:-40px;" fab depressed color="primary" dark small v-bind="attrs" v-on="on">
+                                    <v-btn
+                                    class="open-modal-btn"
+                                    fab
+                                    depressed
+                                    color="primary"
+                                    dark
+                                    small
+                                    v-bind="attrs"
+                                    v-on="on"
+                                    >
                                     <i class="fas fa-plus"></i>
                                     </v-btn>
                                 </template>
@@ -100,52 +195,108 @@
                     </card>     
                 </v-col>
                 {% endif %}
-                {% endfor %}
+                {% endfor %} #}
                 
                 {% for screen in updateFigure.screens %}
-                <v-col cols="12" md="2">          
-                    <card>
-                        <div>
-                           {{ form_row(screen.thumbnail, {'label': ' ', 'attr': {'class': "screen_class",'placeholder': "URL IMAGE OU VIDÉO YOUTUBE"}}) }}                  
-                        </div>
-                    </card>      
+
+                <v-col
+                cols="12"
+                md="2"
+                class="flex_col_{{ loop.index0 }}"
+                >          
+                    <div class="update_media_{{ loop.index0 }}">
+
+                            <v-img class="photo-step-regular default_picture_{{ loop.index0 }}" src="/backgrounds/default_picture_2.jpg" alt="Illustration" title="Illustration"></v-img>
+
+                            <img class="photo-step-regular photo-img default_photo_{{ loop.index0 }}" src="/backgrounds/default_picture_2.jpg" alt="Illustration" title="Illustration" />
+
+                            <img class="photo-step-errors" src="/backgrounds/default_screen_1.jpg" alt="Illustration" title="Illustration" />
+
+                           {{ form_row(screen.thumbnail, {'label': ' ', 'attr': {'class': "screen_class",'placeholder': "URL IMAGE OU VIDÉO YOUTUBE", 'alt' : "Médias"}}) }}    
+            
+                    </div>  
+
+                    <p class="text-center medias-multi-buttons">
+                        <a class="change_input_btn_{{ loop.index0 }}">
+                            <i class="interactive_btn fas fa-pen"></i>
+                        </a>
+                        
+                        <a class="hidden_btn hide_input_btn_{{ loop.index0 }}">
+                            <i class="interactive_btn fas fa-arrow-up"></i>
+                        </a>
+                        
+                        <a class="trash_media_btn_{{ loop.index0 }}">
+                            <i class="interactive_btn fas fa-trash"></i>
+                        </a>
+                        
+                        <a class="hidden_btn restore_media_btn_{{ loop.index0 }}">
+                            <i class="interactive_btn fas fa-plus"></i>
+                        </a>
+                    </p>
+
                 </v-col>
+
                 {% endfor %}
+
             </v-row>
+
+            <p class="text-center">
+                <a class="media_next_row_btn_1">
+                    <i class="interactive_btn_2 fas fa-plus-circle"></i>
+                </a>
+                <a class="media_next_row_btn_2">
+                    <i class="interactive_btn_2 fas fa-plus-circle"></i>
+                </a>
+                <a class="media_next_row_btn_3">
+                    <i class="interactive_btn_2 fas fa-plus-circle"></i>
+                </a>
+            </p>
+
         </v-col>
     </v-layout>
 </v-container>
 
+<!-- EDITION DE L'ARTICLE -->
 <v-container>
     <v-layout row wrap>
         <v-col cols="12">
             <v-card flat class="pa-5" color="rgba(255, 255, 255, 0.4)"> 
-                <v-col md="10" offset-md="1">
-                {{ form_row(updateFigure.content, {'label': ' '}) }}
+                <v-col 
+                md="10"
+                offset-md="1"
+                >
+                {{ form_row(updateFigure.content, {'label': ' ', 'attr': {'alt' : "Contenu"}}) }}
                 </v-col>
-                <v-col md="4" offset-md="4">
-                {{ form_row(updateFigure.classification, {'label': ' '}) }}
+                <v-col 
+                md="4"
+                offset-md="4"
+                >
+                {{ form_row(updateFigure.classification, {'label': 'CATÉGORIE','label_attr': {'class': 'special-label'}}) }}
                 </v-col>
                 <div class="medium-spacer"></div>
+                <!-- BOUTON DE SUPPRESSION -->
                 <a href="{{ path('delete_chapter', {'id': figure.id}) }}" onclick="return(confirm('Validez-vous ce choix ?'));">
-                <p class="special-button" style="right:34px;position:absolute;margin-top:-20px;padding:10px;">
+                <p class="special-trash-button">
                     Supprimer&nbsp;&nbsp;<i class="far fa-trash-alt"></i>
                 </p>
                 </a>
                 <div class="medium-spacer"></div>
+                <!-- BOUTON DE RESTAURATION DES URLS YOUTUBE PUIS VÉRIFICATIONS D'URL SCREENS -->
                 <a>
-                <p class="special-button" id="check_screen" style="right:34px;position:absolute;padding:10px;">
+                <p class="special-button update-confirm-btn" id="check_screen">
                     Confirmer&nbsp;&nbsp;<i class="fas fa-pen"></i>
                 </p>
                 </a>
                 <div class="regular-spacer"></div>   
+                <!-- BOUTON POUR RECOMMENCER LES SAISIES -->
                 <a>
-                <p class="special-button" id="update_screen" style="right:34px;position:absolute;margin-top:-20px;padding:10px;">
+                <p class="special-button update-redo-btn" id="update_screen">
                     Recommencer&nbsp;&nbsp;<i class="fas fa-redo"></i>
                 </p>
                 </a>
                 <div class="regular-spacer"></div>
-                <button id="save_post" type="submit" class="edit-post-button" style="margin-top:28px;margin-right:12px;float:right;">
+                <!-- BOUTON DE SAUVEGARDE -->
+                <button id="save_post" type="submit" class="edit-post-button update-post-btn">
                     Sauvegarder
                 </button>
                 <div class="medium-spacer"></div>
@@ -157,6 +308,10 @@
         </v-col> 
     </v-layout>
 </v-container>
+
+<a class="fake_btn">
+    <i class="interactive_btn fas fa-arrow-up"></i>
+</a>
 
 {% else %}
 
@@ -175,9 +330,11 @@
 
 {% endif %}
 {% endblock %}
+
 {% block javascripts %}
 <script src="{{ asset('js/tinyMce/tinymce.min.js') }}"></script>
 <script src="{{ asset('js/tinyMce/tinyInit.js') }}"></script>
 <script src="{{ asset('js/tinyMce/langs/fr_FR.js') }}"></script>
+<script src="{{ asset('js/events/media.js') }}"></script>
 <script src="{{ asset('js/events/update.js') }}"></script>
 {% endblock %}

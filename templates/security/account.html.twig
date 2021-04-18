@@ -1,5 +1,5 @@
 {% extends 'base.html.twig' %}
-{% block title %}SNOWTRICKS • Réinitialisation Password{% endblock %}
+{% block title %}SNOWTRICKS • Compte{% endblock %}
 {% block body %}
 
 <v-card class="special-background" flat outlined></v-card>
@@ -20,15 +20,13 @@
 
                         <v-card class="pa-5" outlined color="rgba(255,255,255,0.2)">
 
-                            <p>Demande de réinitialisation de mot de passe</p>
+                            {{ form_start(profileForm) }}
 
-                            {{ form_start(resetSecurity) }}
+                            {{ form_row(profileForm.avatar, {'label': 'Nouvelle image de profil','label_attr': {'class': 'special-label'}, 'attr': {'class': 'input-file'}}) }}
 
-                            {{ form_row(resetSecurity.username, {'label': ' ', 'attr': {'placeholder': 'Nom d\'utilisateur'}}) }}
+                            <button type="submit" class="register-sublink">Actualiser&nbsp;&nbsp;<i class="fas fa-user-circle"></i></button>
 
-                            <button type="submit">Confirmer</button>
-
-                            {{ form_end(resetSecurity) }}
+                            {{ form_end(profileForm) }}
 
                         </v-card>
 
@@ -43,7 +41,7 @@
         </v-col>
 
     </v-row>
-    
+
 </v-container>
 
 <div class="big-spacer"></div>

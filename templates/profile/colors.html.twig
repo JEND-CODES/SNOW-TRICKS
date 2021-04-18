@@ -1,0 +1,14 @@
+{% if app.user %}
+
+<h3>Template : profile/colors.html.twig</h3>
+
+<v-card-text class="mt-4">
+
+    {% for color in colors %}
+        <p>{{ color }}</p>
+    {% endfor %}
+
+</v-card-text>
+
+
+{% endif %}

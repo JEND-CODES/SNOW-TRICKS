@@ -5,7 +5,8 @@
 <v-card class="special-background" flat outlined></v-card>
 
 <v-container fluid class="mt-n3">
-    <v-row>
+
+    <v-row class="box-new-position">
 
         <v-col cols="12">
 
@@ -16,9 +17,10 @@
                     <v-col cols="12" md="4"></v-col>
 
                     <v-col cols="12" md="4">
+
                         <v-card class="pa-5" outlined color="rgba(255,255,255,0.2)">
 
-                            <p>Formulaire d'inscription</p>
+                            <p>FORMULAIRE D'INSCRIPTION</p>
 
                             {{ form_start(formSecurity) }}
 
@@ -30,13 +32,14 @@
 
                             {{ form_row(formSecurity.confirm_password, {'label': ' ', 'attr': {'placeholder': 'Confirmation'}}) }}
 
-                            {{ form_row(formSecurity.avatar, {'label': 'Image de profil', 'attr': {'class': 'input-file'}}) }}
+                            {{ form_row(formSecurity.avatar, {'label': 'Image de profil','label_attr': {'class': 'special-label'}, 'attr': {'class': 'input-file'}}) }}
 
-                            <button type="submit" style="float:right;">Inscription</button>
+                            <button type="submit" class="register-sublink">Inscription</button>
 
                             {{ form_end(formSecurity) }}
 
                         </v-card>
+
                     </v-col>
 
                     <v-col cols="12" md="4"></v-col>
@@ -44,10 +47,16 @@
                 </v-row>
 
             </v-card>
+
         </v-col>
 
     </v-row>
+    
 </v-container>
+
+<p class="text-center mt-n4">
+    <a href="{{ path('security_connexion') }}">Déjà inscrit ?</a>
+</p>
 
 <div class="big-spacer"></div>
 <div class="big-spacer"></div>

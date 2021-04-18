@@ -3,145 +3,266 @@
 {% block body %}
 
 <!-- Carousel taille Smartphone -->
-<v-carousel v-if="$vuetify.breakpoint.smAndDown" pa-0 ma-0 class="mt-n7" height="auto" hide-delimiter-background :show-arrows="false">
+<v-carousel class="smart-slider" v-if="$vuetify.breakpoint.smAndDown" pa-0 ma-0 height="auto" hide-delimiter-background :show-arrows="false">
+
     {% for figureSlide in figureSlides %}
+
     <v-carousel-item>
+
         <a href="{{ path('chapter_show', {'id': figureSlide.id, 'labelled': figureSlide.labelled }) }}">
+
             <p class="slide-title">{{ figureSlide.title|raw }}</p>
+
         </a>
+
         {% if figureSlide.image is not null %}
+
             <img src="{{ figureSlide.image|raw }}" class="responsive-image" alt="{{ figureSlide.title|raw }}" title="{{ figureSlide.title|raw }}" />
+
         {% else %}
+
             <img src="/backgrounds/default_picture.jpg" class="responsive-image" alt="Image par défaut" title="Image par défaut" />
+
         {% endif %}
-        {% if (app.user.id is defined and app.user.id == figureSlide.user.id) or (app.user.id is defined and app.user.id == 1) %}
+
+        {% if (app.user.id is defined and app.user.id == figureSlide.user.id) or (app.user.id is defined and is_granted('ROLE_ADMIN')) %}
+
         <a href="{{ path('blog_edit', {'id': figureSlide.id, 'labelled': figureSlide.labelled }) }}">
-        <p style="position:absolute; top:40px; right:30px; color:#1e88e5;">
+        <p class="para-fa-pen">
             <i class="fas fa-pen"></i>
         </p>
         </a>
+
         <a href="{{ path('delete_chapter', {'id': figureSlide.id}) }}" onclick="return(confirm('Validez-vous ce choix ?'));">
-        <p style="position:absolute; top:80px; right:30px; color:#1e88e5;">
+        <p class="para-fa-trash">
             <i class="far fa-trash-alt"></i>
         </p>
         </a>
+
         {% endif %}
+
     </v-carousel-item>
+
     {% endfor %}
+
 </v-carousel>
 
 <!-- Carousel tailles Medium and Up -->
 <v-carousel v-if="$vuetify.breakpoint.mdAndUp" height="710" hide-delimiters hide-delimiter-background :show-arrows="true" show-arrows-on-hover class="mt-n2">
+
     {% for figureSlide in figureSlides %}
+
     <v-carousel-item>
+
         <a href="{{ path('chapter_show', {'id': figureSlide.id, 'labelled': figureSlide.labelled }) }}">
+
             <p class="slide-title">{{ figureSlide.title|raw }}</p>
+
         </a>
+
         {% if figureSlide.image is not null %}
+
             <img src="{{ figureSlide.image|raw }}" class="responsive-image" alt="{{ figureSlide.title|raw }}" title="{{ figureSlide.title|raw }}" />
+
         {% else %}
+
             <img src="/backgrounds/default_picture.jpg" class="responsive-image" alt="Image par défaut" title="Image par défaut" />
+
         {% endif %}
-        {% if (app.user.id is defined and app.user.id == figureSlide.user.id) or (app.user.id is defined and app.user.id == 1) %}
+        
+        {% if (app.user.id is defined and app.user.id == figureSlide.user.id) or (app.user.id is defined and is_granted('ROLE_ADMIN')) %}
+
         <a href="{{ path('blog_edit', {'id': figureSlide.id, 'labelled': figureSlide.labelled }) }}">
-        <p style="position:absolute; top:40px; right:30px; color:#1e88e5;">
+        <p class="para-fa-pen-2">
             <i class="fas fa-pen"></i>
         </p>
         </a>
+
         <a href="{{ path('delete_chapter', {'id': figureSlide.id }) }}" onclick="return(confirm('Validez-vous ce choix ?'));">
-        <p style="position:absolute; top:80px; right:30px; color:#1e88e5;">
+        <p class="para-fa-trash-2">
             <i class="far fa-trash-alt"></i>
         </p>
         </a>
+
         {% endif %}
+
     </v-carousel-item>
+
     {% endfor %}
+
 </v-carousel>
+
+<span id="trick-section"></span>
 
 <!-- BOUTON POUR DESCENDRE AUX TRICKS -->
 <v-container v-if="$vuetify.breakpoint.smAndUp">
+
     <v-btn
-    id="go-to-tricks"
-    style="float:right;margin-top:-80px;z-index:1 !important;"
+    id="go-down-to-tricks"
     color="primary"
     dark
     >
     <i class="fas fa-arrow-down"></i>
     </v-btn>
+
 </v-container>
 
-<span id="trick-section"></span>
+<div class="forty-spacer"></div>
 
-<v-container grid-list-xl text-xs-center mt-8>
-    <v-layout row wrap>
-        <v-card flat class="pa-5" color="rgb(255, 255, 255, 0)" outlined>
-            <v-container fluid>
-                <v-row id="trick-box">
-                    {% for figure in figures %}
-                    <v-col cols="12" md="4" class="load-more">
-                        <v-card flat class="mx-auto" max-width="600">
-                            <a href="{{ path('chapter_show', {'id': figure.id, 'labelled': figure.labelled }) }}">
-                                <v-img v-ripple="{ class: `white--text` }" class="image-wrapper" :aspect-ratio="16/9" src="{{ figure.image|raw }}" alt="{{ figure.title|raw }}" title="{{ figure.title|raw }}">
-                                </v-img>
-                            </a>
-                            <v-card-text class="pt-6" style="position: relative;">
-                                <a href="{{ path('chapter_show', {'id': figure.id, 'labelled': figure.labelled }) }}">
-                                    <p class="excerpt-title mb-6">{{ figure.title|upper|raw }}</p>
-                                </a>
-                                <div class="mb-2">
-                                    <p class="home-post-content black--text mb-2">{{ figure.content|striptags|slice(0,100)|raw }}...</p>
-                                    {% if figure.freshDate is not null %}
-                                    <p class="mt-4 home-post-caption">MIS À JOUR LE {{ figure.freshDate|date('d/m/Y')|raw }} &bull; CATÉGORIE {{ figure.classification.title|upper|raw }} </p>
-                                    {% else %}
-                                    <p class="mt-4 home-post-caption">PUBLIÉ LE {{ figure.createdAt|date('d/m/Y')|raw }} &bull; CATÉGORIE {{ figure.classification.title|upper|raw }} </p>
-                                    {% endif %}
-                                    {% if (app.user.id is defined and app.user.id == figure.user.id) or (app.user.id is defined and app.user.id == 1) %}
-                                    <a href="{{ path('blog_edit', {'id': figure.id, 'labelled': figure.labelled }) }}">
-                                    <p style="position:absolute; top:10px; right:10px; color:black;">
-                                        <i class="fas fa-pen"></i>
-                                    </p>
-                                    </a>
-                                    <a href="{{ path('delete_chapter', {'id': figure.id}) }}" onclick="return(confirm('Validez-vous ce choix ?'));">
-                                    <p style="position:absolute; top:10px; right:40px; color:black;">
-                                        <i class="far fa-trash-alt"></i>
-                                    </p>
-                                    </a>
-                                    {% endif %}
-                                </div>
-                            </v-card-text>
-                        </v-card>
-                    </v-col>
-                    {% endfor %}
-                </v-row>
-            </v-container>
+<!-- RÉVISIONS DE LA PAGINATION EN PAGE D'ACCUEIL -->
+<div id="next_figures">
+
+    {% for promoteFigure in promoteFigures %}
+
+    <v-col cols="12" md="4">
+
+        <v-card flat class="mx-auto" max-width="600">
+
+            <a href="{{ path('chapter_show', {'id': promoteFigure.id, 'labelled': promoteFigure.labelled }) }}">
+
+                <v-img v-ripple="{ class: `white--text` }" class="image-wrapper" :aspect-ratio="16/9" src="{{ promoteFigure.image|raw }}" alt="{{ promoteFigure.title|raw }}" title="{{ promoteFigure.title|raw }}">
+                </v-img>
+
+            </a>
+
+            <a href="{{ path('chapter_show', {'id': promoteFigure.id, 'labelled': promoteFigure.labelled }) }}">
+
+                <p class="excerpt-title mb-6 mt-2">{{ promoteFigure.title|upper|raw }}</p>
+
+            </a>
+
+            {% if (app.user.id is defined and app.user.id == promoteFigure.user.id) or (app.user.id is defined and is_granted('ROLE_ADMIN')) %}
+
+                <a class="pen-style" href="{{ path('blog_edit', {'id': promoteFigure.id, 'labelled': promoteFigure.labelled }) }}">
+                    <i class="fas fa-pen"></i>
+                </a>
+
+                <a class="trash-style" href="{{ path('delete_chapter', {'id': promoteFigure.id}) }}" onclick="return(confirm('Validez-vous ce choix ?'));">
+                    <i class="far fa-trash-alt"></i>
+                </a>
+
+            {% endif %}
+
+            <p class="home-post-content black--text mb-2 mt-n2">{{ promoteFigure.content|striptags|slice(0,100)|raw }}...</p>
+
+            {% if promoteFigure.freshDate is not null %}
+
+                <p class="mt-4 home-post-caption mb-4">MIS À JOUR LE {{ promoteFigure.freshDate|date('d/m/Y')|raw }} &bull; CATÉGORIE {{ promoteFigure.classification.title|upper|raw }} </p>
+
+            {% else %}
+
+                <p class="mt-4 home-post-caption mb-4">PUBLIÉ LE {{ promoteFigure.createdAt|date('d/m/Y')|raw }} &bull; CATÉGORIE {{ promoteFigure.classification.title|upper|raw }} </p>
+
+            {% endif %}
+
         </v-card>
-    </v-layout>
-</v-container>
 
-<!-- BOUTON POUR AFFICHER PLUS DE POSTS -->
+    </v-col> 
+
+    {% endfor %}
+
+</div>
+
+<!-- BOUTON POUR AFFICHER PLUS DE TRICKS -->
 <v-container class="text-center">
+
     <v-btn
-    id="more-btn"
+    id="more-figures-btn"
     color="primary"
     dark
     >
-    <i class="fas fa-plus"></i>
+    <i class="fas fa-spinner fa-pulse"></i>
     </v-btn>
+
 </v-container>
 
 <!-- BOUTON POUR REMONTER AUX TRICKS -->
 <v-container v-if="$vuetify.breakpoint.smAndUp" class="hidden-up-btn">
+
     <v-btn
-    id="up-to-tricks"
-    style="float:left;"
+    id="go-up-to-tricks"
     color="primary"
     dark
     >
     <i class="fas fa-arrow-up"></i>
     </v-btn>
+
 </v-container>
 
 {% endblock %}
+
 {% block javascripts %}
-<script src="{{ asset('js/events/slice.js') }}"></script>
+<script>
+
+$(document).ready(function () {
+
+    $("#go-up-to-tricks").hide();
+
+    var clicked = 0;
+
+    $("#more-figures-btn").click(function() {
+
+        clicked++;
+
+        var starting = 3 * clicked;
+
+        $.ajax({
+            type:"GET",
+            url:"{{ path('more_figures') }}" + starting,
+            dataType: "html",
+            success: function(data) {
+
+                $("#next_figures").append(data);
+                $(".figures-box").slideDown().css("display", "flex");
+
+                if (clicked === 2) {
+                    $("#go-up-to-tricks").show();
+                }
+
+                if($('.figures-box').last().find('img').length === 0){
+                    $("#more-figures-btn").css("display", "none");
+                    $('.figures-box').last().addClass("hidden-box");
+                }
+            },
+            error: function (error) {
+                console.log(error);
+            }
+        });
+
+    });
+
+    $(window).scroll(function() {
+
+        if ($(window).scrollTop() >= $(document).height() - $(window).height()) {
+        // if ($(window).scrollTop() >= $(document).height() - $(window).height() - 10) {
+            $('#more-figures-btn').trigger("click");
+        }
+
+    });
+
+    $("#go-down-to-tricks").click(function() { 
+
+        $("html, body").animate({
+
+            scrollTop: $("#trick-section").offset().top 
+
+        }, 500); 
+
+    });
+
+    $("#go-up-to-tricks").click(function() { 
+
+        $("html, body").animate({
+
+            scrollTop: $("#trick-section").offset().top 
+
+        }, 800); 
+
+    });
+
+
+});
+
+</script>
+
 {% endblock %}

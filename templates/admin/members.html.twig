@@ -4,7 +4,7 @@
 
 <v-card class="special-background"></v-card>
 
-<v-layout justify-center>
+<v-layout justify-center class="box-new-position">
 
     <v-flex xs12 sm12 md9 lg6>
 
@@ -13,8 +13,10 @@
                 <v-layout row wrap>
 
                     <v-flex id="trick-box">
-                        
+
                         {% for member in members %}
+
+                        {% if app.user.id != member.id %}
 
                         <v-card class="ma-4 load-more">
 
@@ -22,7 +24,7 @@
 
                                 <v-flex>
 
-                                    <img src="{{ asset('uploads/avatars/' ~ '/' ~ member.avatar) }}" alt="Author" title="Author">
+                                    <img class="profile-format" src="{{ asset('uploads/avatars/' ~ '/' ~ member.avatar) }}" alt="Author" title="Author">
 
                                     <p class="grey--text">INSCRIT LE {{ member.createdAt|date('d/m/Y')|raw }}</p>
 
@@ -38,6 +40,8 @@
 
                         </v-card>
 
+                        {% endif %}
+                        
                         {% endfor %}
 
                     </v-flex>

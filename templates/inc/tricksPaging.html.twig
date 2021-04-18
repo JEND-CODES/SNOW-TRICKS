@@ -1,0 +1,47 @@
+<div class="figures-box mt-2">
+
+    {% for promoteFigure in promoteFigures %}
+
+    <div class="inside-box">
+
+        <a href="{{ path('chapter_show', {'id': promoteFigure.id, 'labelled': promoteFigure.labelled }) }}">
+
+            <img class="image-wrapper injected-img" src="{{ promoteFigure.image|raw }}" alt="{{ promoteFigure.title|raw }}" title="{{ promoteFigure.title|raw }}" />
+
+        </a>
+
+        <a href="{{ path('chapter_show', {'id': promoteFigure.id, 'labelled': promoteFigure.labelled }) }}">
+
+            <p class="excerpt-title mb-6">{{ promoteFigure.title|upper|raw }}</p>
+
+        </a>
+
+        {% if (app.user.id is defined and app.user.id == promoteFigure.user.id) or (app.user.id is defined and is_granted('ROLE_ADMIN')) %}
+
+            <a class="pen-style" href="{{ path('blog_edit', {'id': promoteFigure.id, 'labelled': promoteFigure.labelled }) }}">
+                <i class="fas fa-pen"></i>
+            </a>
+
+            <a class="trash-style" href="{{ path('delete_chapter', {'id': promoteFigure.id}) }}" onclick="return(confirm('Validez-vous ce choix ?'));">
+                <i class="far fa-trash-alt"></i>
+            </a>
+
+        {% endif %}
+
+        <p class="home-post-content black--text mb-2 injected-content">{{ promoteFigure.content|striptags|slice(0,100)|raw }}...</p>
+
+        {% if promoteFigure.freshDate is not null %}
+
+            <p class="mt-4 home-post-caption mb-8">MIS À JOUR LE {{ promoteFigure.freshDate|date('d/m/Y')|raw }} &bull; CATÉGORIE {{ promoteFigure.classification.title|upper|raw }} </p>
+
+            {% else %}
+
+            <p class="mt-4 home-post-caption mb-8">PUBLIÉ LE {{ promoteFigure.createdAt|date('d/m/Y')|raw }} &bull; CATÉGORIE {{ promoteFigure.classification.title|upper|raw }} </p>
+
+            {% endif %}
+
+    </div>
+                            
+    {% endfor %}
+
+</div>

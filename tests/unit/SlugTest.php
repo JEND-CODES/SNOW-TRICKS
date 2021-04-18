@@ -20,5 +20,4 @@ class SlugTest extends TestCase
 
     } 
 
-    
 }

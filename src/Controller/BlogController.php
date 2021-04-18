@@ -1,5 +1,7 @@
 <?php
 
+// LIVE ! php -S localhost:8000 -t public
+
 namespace App\Controller;
 
 use App\Entity\Figure;
@@ -38,12 +40,24 @@ class BlogController extends AbstractController
       
         $figureSlides = $repoFigure->findBy(array(), array('id' => 'DESC'), 3);
 
-        $figures = $repoFigure->findBy(array(), array('id' => 'DESC'), null, 3);
+        $promoteFigures = $repoFigure->findBy(array(), array('id' => 'DESC'), 6, 3);
         
         return $this->render('blog/posts.html.twig', [
             'current_member' => $current_member,
-            'figures' => $figures,
-            'figureSlides' => $figureSlides
+            'figureSlides' => $figureSlides,
+            'promoteFigures' => $promoteFigures
+        ]);
+    }
+
+    /**
+     * @Route("/{starting}", name="more_figures", requirements={"starting": "\d+"})
+     */
+    public function moreFigures(FigureRepository $repoFigure, $starting = 3)
+    {
+        $promoteFigures = $repoFigure->findBy(array(), array('id' => 'DESC'), 3, $starting + 6);
+
+        return $this->render('inc/tricksPaging.html.twig', [
+            'promoteFigures' => $promoteFigures
         ]);
     }
 
@@ -56,23 +70,7 @@ class BlogController extends AbstractController
 
         $figure = new Figure();
 
-        $get_screen = $request->query->get('selected_screen');
-  
-        if (is_null($get_screen))
-        {
-            $nbr_screens = 6;
-
-        } elseif ($get_screen < 6 || $get_screen > 20) {
-          
-            $nbr_screens = 6;
-
-        } else {
-
-            $nbr_screens = (int) strip_tags($get_screen);
-
-        }
-
-        for($i = 1; $i <= $nbr_screens; $i++) {
+        for($i = 1; $i <= 24; $i++) {
 
             $dynamic_screen[$i] = new Screen();
 
@@ -131,6 +129,26 @@ class BlogController extends AbstractController
     public function updateFigure(Figure $figure, Request $request, EntityManagerInterface $manager, SluggerInterface $slugger)
     {
         $current_member = $this->security->getUser();
+
+        $screenCount = count($figure->getScreens());
+
+        $addScreen = 24 - $screenCount;
+
+        for($j = 1; $j <= $addScreen; $j++) {
+
+            $dynamic_screen[$j] = new Screen();
+
+            $dynamic_screen[$j]->setThumbnail('');
+            
+            $figure->getScreens()->add($dynamic_screen[$j]);
+
+            if(!$dynamic_screen[$j]->getId())
+            {
+            
+                $dynamic_screen[$j]->setFigure($figure);
+            }
+
+        }
        
         $updateFigure = $this->createForm(FigureType::class, $figure);
         
@@ -167,7 +185,7 @@ class BlogController extends AbstractController
         
     }
 
-   /**
+    /**
      * @Route("/blog/{id}/{labelled}", name="chapter_show")
      */
     public function show(Figure $figure, Request $request, string $labelled)
