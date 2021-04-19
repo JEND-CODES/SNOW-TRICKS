@@ -21,30 +21,33 @@
 * LANCEZ VOTRE SERVEUR LOCAL POUR VISUALISER LE SITE
 ```
 
-### DIAGRAMMES
+## DIAGRAMMES
 
-![SNOWTRICKS]()
+![SNOWTRICKS](https://raw.githubusercontent.com/JEND-CODES/SNOW-TRICKS/main/diagrammes/Cas_Gestion_Tricks_P6_V1.png)
 
-![SNOWTRICKS]()
+![SNOWTRICKS](https://raw.githubusercontent.com/JEND-CODES/SNOW-TRICKS/main/diagrammes/S%C3%A9quence_Inscription_P6_V1.png)
 
-![SNOWTRICKS]()
+![SNOWTRICKS](https://raw.githubusercontent.com/JEND-CODES/SNOW-TRICKS/main/diagrammes/S%C3%A9quence_New_Password_P6_V1.png)
 
-![SNOWTRICKS]()
+![SNOWTRICKS](https://raw.githubusercontent.com/JEND-CODES/SNOW-TRICKS/main/diagrammes/Diagramme_de_Classes_P6_V3.png)
 
-![SNOWTRICKS]()
+![SNOWTRICKS](https://raw.githubusercontent.com/JEND-CODES/SNOW-TRICKS/main/diagrammes/Mod%C3%A8le_de_donn%C3%A9es_P6_V2.png)
 
-![SNOWTRICKS]()
+![SNOWTRICKS](https://raw.githubusercontent.com/JEND-CODES/SNOW-TRICKS/main/diagrammes/Concepteur_BDD_SnowTricks_v5.JPG)
 
-### CAPTURES
+## CAPTURES
 
-![SNOWTRICKS]()
+### HOMEPAGE
+![SNOWTRICKS](https://raw.githubusercontent.com/JEND-CODES/SNOW-TRICKS/main/public/captures/capture_homepage.JPG)
 
-![SNOWTRICKS]()
+### ARTICLE
+![SNOWTRICKS](https://raw.githubusercontent.com/JEND-CODES/SNOW-TRICKS/main/public/captures/capture_article.JPG)
 
-![SNOWTRICKS]()
+### NOUVEAU TRICK
+![SNOWTRICKS](https://raw.githubusercontent.com/JEND-CODES/SNOW-TRICKS/main/public/captures/capture_nouveau_trick.JPG)
 
-![SNOWTRICKS]()
+### ÉDITION TRICK
+![SNOWTRICKS](https://raw.githubusercontent.com/JEND-CODES/SNOW-TRICKS/main/public/captures/capture_edition_trick.JPG)
 
-![SNOWTRICKS]()
-
-![SNOWTRICKS]()
+### BACK OFFICE
+![SNOWTRICKS](https://raw.githubusercontent.com/JEND-CODES/SNOW-TRICKS/main/public/captures/capture_back_office.JPG)
