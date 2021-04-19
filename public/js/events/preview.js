@@ -164,20 +164,17 @@ $(document).ready(function () {
     });
 
     $.each(Array(24), function(item10) {
-        $("#figure_screens_"+ item10 +"_thumbnail").on("change", function() {
-            $("#figure_screens_"+ item10 +"_thumbnail").blur(function() {         
-                if(!$(this).val()) {                      
-                    $(".default_picture_"+ item10 +"").html("<img src='/backgrounds/default_picture_2.jpg' width='100%' />");
-                } else if ($(this).val().indexOf("https://www.youtube.com/watch?v=") > -1 || $(this).val().indexOf("https://youtu.be/") > -1 || $(this).val().indexOf("https://www.youtube.com/embed/") > -1) {
-                    // var videoValue = $("#figure_screens_"+ item10 +"_thumbnail").val();
-                    $(".default_picture_"+ item10 +"").html("<img src='/backgrounds/youtube_capcha.jpg' width='100%' />");
-                } else if ($(this).val().indexOf("https://") > -1 || $(this).val().indexOf("http://") > -1) {
-                    var imageValue = $("#figure_screens_"+ item10 +"_thumbnail").val();
-                    $(".default_picture_"+ item10 +"").html("<img src='"+ imageValue +"' width='100%'>");
-                } else {
-                    $(".default_picture_"+ item10 +"").html("<img src='/backgrounds/default_picture_2.jpg' width='100%' />");
-                }
-            });
+        $("#figure_screens_"+ item10 +"_thumbnail").on("change", function() {     
+            if(!$(this).val()) {                      
+                $(".default_picture_"+ item10 +"").html("<img src='/backgrounds/default_picture_2.jpg' width='100%' />");
+            } else if ($(this).val().indexOf("https://www.youtube.com/watch?v=") > -1 || $(this).val().indexOf("https://youtu.be/") > -1 || $(this).val().indexOf("https://www.youtube.com/embed/") > -1) {
+                $(".default_picture_"+ item10 +"").html("<img src='/backgrounds/youtube_capcha.jpg' width='100%' />");
+            } else if ($(this).val().indexOf("https://") > -1 || $(this).val().indexOf("http://") > -1) {
+                var imageValue = $("#figure_screens_"+ item10 +"_thumbnail").val();
+                $(".default_picture_"+ item10 +"").html("<img src='"+ imageValue +"' width='100%'>");
+            } else {
+                $(".default_picture_"+ item10 +"").html("<img src='/backgrounds/default_picture_2.jpg' width='100%' />");
+            }
         });
     });
 
