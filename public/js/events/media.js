@@ -133,27 +133,25 @@ $(document).ready(function () {
 
     $.each(Array(24), function(item11) {
         if (!$(".update_feature_box:has(li)").length > 0) {
-            $("#figure_screens_"+ item11 +"_thumbnail").on("change", function() {
-                $("#figure_screens_"+ item11 +"_thumbnail").blur(function() {        
-                    if(!$(this).val()) {       
-                        $(".default_picture_"+ item11 +"").html("<img src='/backgrounds/default_picture_2.jpg' width='100%' class='substitute-img' />");
-                        $(".default_picture_"+ item11 +"").show();
-                        $(".default_photo_"+ item11 +"").hide();
-                    } else if ($(this).val().indexOf("https://www.youtube.com/watch?v=") > -1 || $(this).val().indexOf("https://youtu.be/") > -1 || $(this).val().indexOf("https://www.youtube.com/embed/") > -1) {
-                        $(".default_picture_"+ item11 +"").html("<img src='/backgrounds/youtube_capcha.jpg' width='100%' class='substitute-img' />");
-                        $(".default_picture_"+ item11 +"").show();
-                        $(".default_photo_"+ item11 +"").hide();
-                    } else if ($(this).val().indexOf("https://") > -1 || $(this).val().indexOf("http://") > -1) {
-                        var imageValue2 = $("#figure_screens_"+ item11 +"_thumbnail").val();
-                        $(".default_picture_"+ item11 +"").html("<img src='"+imageValue2+"' width='100%' class='substitute-img' />");
-                        $(".default_picture_"+ item11 +"").show();
-                        $(".default_photo_"+ item11 +"").hide();
-                    } else {
-                        $(".default_picture_"+ item11 +"").html("<img src='/backgrounds/default_picture_2.jpg' width='100%' class='substitute-img' />");
-                        $(".default_picture_"+ item11 +"").show();
-                        $(".default_photo_"+ item11 +"").hide();
-                    }
-                });
+            $("#figure_screens_"+ item11 +"_thumbnail").on("change", function() {      
+                if(!$(this).val()) {       
+                    $(".default_picture_"+ item11 +"").html("<img src='/backgrounds/default_picture_2.jpg' width='100%' class='substitute-img' />");
+                    $(".default_picture_"+ item11 +"").show();
+                    $(".default_photo_"+ item11 +"").hide();
+                } else if ($(this).val().indexOf("https://www.youtube.com/watch?v=") > -1 || $(this).val().indexOf("https://youtu.be/") > -1 || $(this).val().indexOf("https://www.youtube.com/embed/") > -1) {
+                    $(".default_picture_"+ item11 +"").html("<img src='/backgrounds/youtube_capcha.jpg' width='100%' class='substitute-img' />");
+                    $(".default_picture_"+ item11 +"").show();
+                    $(".default_photo_"+ item11 +"").hide();
+                } else if ($(this).val().indexOf("https://") > -1 || $(this).val().indexOf("http://") > -1) {
+                    var imageValue2 = $("#figure_screens_"+ item11 +"_thumbnail").val();
+                    $(".default_picture_"+ item11 +"").html("<img src='"+imageValue2+"' width='100%' class='substitute-img' />");
+                    $(".default_picture_"+ item11 +"").show();
+                    $(".default_photo_"+ item11 +"").hide();
+                } else {
+                    $(".default_picture_"+ item11 +"").html("<img src='/backgrounds/default_picture_2.jpg' width='100%' class='substitute-img' />");
+                    $(".default_picture_"+ item11 +"").show();
+                    $(".default_photo_"+ item11 +"").hide();
+                }
             });
         }
     });
