@@ -14,11 +14,11 @@ $(document).ready(function () {
 
         for (var y = 0; y < restoreForms.length; y++) {
 
-            var videosUrl = $(restoreForms[parseInt(y)]).val();
+            var videosUrl = $(restoreForms[parseInt(y, 10)]).val();
 
             if (videosUrl.length === 11) {
 
-                $(restoreForms[parseInt(y)]).val("https://www.youtube.com/watch?v=" + $(restoreForms[parseInt(y)]).val());
+                $(restoreForms[parseInt(y, 10)]).val("https://www.youtube.com/watch?v=" + $(restoreForms[parseInt(y, 10)]).val());
 
             }
 
@@ -36,7 +36,7 @@ $(document).ready(function () {
 
             if (videosIds.length === 11) {
 
-                $(updateForms[parseInt(y)]).val("https://www.youtube.com/watch?v=" + $(updateForms[parseInt(y)]).val());
+                $(updateForms[parseInt(y, 10)]).val("https://www.youtube.com/watch?v=" + $(updateForms[parseInt(y, 10)]).val());
 
             }
 
@@ -50,19 +50,19 @@ $(document).ready(function () {
 
             var inputsResults = $(inputs[parseInt(i)]).val();
 
-            if (inputsResults.indexOf("https://www.youtube.com/watch?v=") > -1 && $(inputs[parseInt(i)]).val().length === 43) {
+            if (inputsResults.indexOf("https://www.youtube.com/watch?v=") > -1 && $(inputs[parseInt(i, 10)]).val().length === 43) {
                
                 error++;
 
-            } else if (inputsResults.indexOf("https://www.youtube.com/watch?v=") > -1 && $(inputs[parseInt(i)]).val().length === 60) {
+            } else if (inputsResults.indexOf("https://www.youtube.com/watch?v=") > -1 && $(inputs[parseInt(i, 10)]).val().length === 60) {
 
                 error++;
 
-            } else if (inputsResults.indexOf("https://youtu.be/") > -1 && $(inputs[parseInt(i)]).val().length === 28) {
+            } else if (inputsResults.indexOf("https://youtu.be/") > -1 && $(inputs[parseInt(i, 10)]).val().length === 28) {
 
                 error++;
 
-            } else if (inputsResults.indexOf("https://www.youtube.com/embed/") > -1 && $(inputs[parseInt(i)]).val().length === 41) {
+            } else if (inputsResults.indexOf("https://www.youtube.com/embed/") > -1 && $(inputs[parseInt(i, 10)]).val().length === 41) {
 
                 error++;
 
@@ -135,7 +135,7 @@ $(document).ready(function () {
 
         for (var z = 0; z < forms.length; z++) {
 
-            var formsResults = $(forms[parseInt(z)]).val();
+            var formsResults = $(forms[parseInt(z, 10)]).val();
 
             if (formsResults.indexOf("https://www.youtube.com/watch?v=") > -1 || formsResults.indexOf("https://youtu.be/") > -1 || formsResults.indexOf("https://www.youtube.com/embed/") > -1) {
 
@@ -145,7 +145,7 @@ $(document).ready(function () {
 
                 if (match && match[2].length === 11) {
             
-                    $(forms[parseInt(z)]).val(match[2]);
+                    $(forms[parseInt(z, 10)]).val(match[2]);
 
                 }
 
