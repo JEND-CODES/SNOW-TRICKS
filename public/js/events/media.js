@@ -69,7 +69,7 @@ $(document).ready(function () {
         var changeInput = $(".change_input_btn_" + item3);
 
         $(changeInput).click(function () {
-            if ($("#figure_screens_"+ item3 +"_thumbnail").width() != "100%" ) {
+            if ($("#figure_screens_"+ item3 +"_thumbnail").width() !== "100%" ) {
                 $("#figure_screens_"+ item3 +"_thumbnail").css("width", "100%").css("height", "120px").css("padding", "10px 13px");
                 $(".change_input_btn_" + item3).hide();
                 $(".hide_input_btn_" + item3).show();
