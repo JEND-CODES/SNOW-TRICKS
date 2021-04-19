@@ -6,9 +6,6 @@ $(document).ready(function () {
         }
     };
 
-    var billy = filterInt('-340');
-    alert(billy);
-
     $("#save_post").hide();
     $("#update_screen").hide();
 
