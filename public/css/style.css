@@ -132,7 +132,7 @@ body {
 .create-col-title li {
   color: red;
   font-weight: bold;
-  font-size: 18px; 
+  font-size: 18px;
   background-color: rgba(255, 255, 255, 0.4);
   width: 188px;
   padding: 4px;
@@ -149,7 +149,7 @@ body {
 .update-col-title li {
   color: red;
   font-weight: bold;
-  font-size: 18px; 
+  font-size: 18px;
   background-color: rgba(255, 255, 255, 0.4);
   width: 188px;
   padding: 4px;
@@ -160,8 +160,8 @@ body {
 }
 
 .member_avatar {
-  display: block; 
-  margin-left: auto; 
+  display: block;
+  margin-left: auto;
   margin-right: auto;
   max-width: 120px;
 }
@@ -199,7 +199,7 @@ body {
 }
 
 .perso-link {
-  color:white;
+  color: white;
   transition: 0.5s;
 }
 
@@ -369,7 +369,7 @@ body {
   float: right;
   margin-right: 46px;
   margin-top: -42px;
-  color:red;
+  color: red;
 }
 
 .trash-style:hover {
@@ -377,9 +377,9 @@ body {
 }
 
 .para-fa-pen {
-  position: absolute; 
-  top: 36px; 
-  right: 20px; 
+  position: absolute;
+  top: 36px;
+  right: 20px;
   color: rgb(167, 57, 167);
 }
 
@@ -388,9 +388,9 @@ body {
 }
 
 .para-fa-trash {
-  position: absolute; 
-  top: 76px; 
-  right: 20px; 
+  position: absolute;
+  top: 76px;
+  right: 20px;
   color: red;
 }
 
@@ -399,9 +399,9 @@ body {
 }
 
 .para-fa-pen-2 {
-  position: absolute; 
-  top: 40px; 
-  right: 30px; 
+  position: absolute;
+  top: 40px;
+  right: 30px;
   color: rgb(167, 57, 167);
 }
 
@@ -410,9 +410,9 @@ body {
 }
 
 .para-fa-trash-2 {
-  position: absolute; 
-  top: 86px; 
-  right: 30px; 
+  position: absolute;
+  top: 86px;
+  right: 30px;
   color: red;
 }
 
@@ -447,7 +447,7 @@ body {
 .mini-background-2 {
   padding: 8px 8px 8px 8px;
   background: rgba(255, 255, 255, 0.85);
-  border-radius: 4px; 
+  border-radius: 4px;
 }
 
 .one-chapter-pen {
@@ -531,7 +531,7 @@ body {
     width: 300px;
     height: 200px;
   }
-  
+
   .injected-content {
     width: 280px;
   }
@@ -542,6 +542,7 @@ body {
     width: 280px;
     height: 180px;
   }
+
   .injected-content {
     width: 280px;
   }
@@ -552,6 +553,7 @@ body {
     width: 580px;
     height: 380px;
   }
+
   .injected-content {
     width: 570px;
   }
@@ -562,6 +564,7 @@ body {
     width: 100%;
     height: auto;
   }
+
   .injected-content {
     width: 100%;
   }
@@ -574,6 +577,7 @@ body {
 label {
   color: white;
 }
+
 .special-label {
   color: black;
 }
@@ -806,7 +810,7 @@ a:hover {
     top: auto;
     bottom: 0;
   }
-  
+
   .login-btn-2 {
     top: auto;
     bottom: 0;
@@ -822,7 +826,7 @@ a:hover {
 @media all and (max-width: 500px) {
   .btn-magnify {
     top: auto;
-    bottom:0;
+    bottom: 0;
   }
 }
 
