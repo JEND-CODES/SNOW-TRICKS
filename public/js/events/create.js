@@ -4,7 +4,7 @@ $(document).ready(function () {
         if (/^(-|\+)?(\d+)$/.test(value)) {
             return Number(value);
         }
-    };
+    }
 
     $("#save_post").hide();
     $("#update_screen").hide();
@@ -103,7 +103,7 @@ $(document).ready(function () {
 
                 }
 
-            }
+            };
 
             var result = isUriImage(inputsResults);
 
