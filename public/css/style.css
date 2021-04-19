@@ -85,7 +85,7 @@ body {
   z-index: 1;
 }
 
-.edit-post-mini-label{
+.edit-post-mini-label {
   color: black;
   font-size: 14px;
   padding-left: 10px;
@@ -195,7 +195,7 @@ body {
 }
 
 .footer-link-color {
-  color:white;
+  color: white;
 }
 
 .perso-link {
@@ -218,7 +218,7 @@ body {
 }
 
 .search-button {
-  background-color:#1E88E5;
+  background-color: #1e88e5;
 }
 
 .register-sublink {
@@ -286,7 +286,6 @@ body {
   right: 34px;
   position: absolute;
   margin-top: -20px;
-  padding: 10px;
 }
 
 .special-trash-button:hover {
@@ -314,7 +313,7 @@ body {
   }
 
   .fixed-scroll-to-top {
-    position:fixed;
+    position: fixed;
     bottom: 70px;
     height: 36px;
     width: 36px;
@@ -333,7 +332,6 @@ body {
   }
 }
 
-/* Bouton descendre aux tricks */
 #go-down-to-tricks {
   float: right;
   margin-top: -80px;
@@ -360,11 +358,11 @@ body {
   float: right;
   margin-right: 8px;
   margin-top: -42px;
-  color:rgb(167, 57, 167);
+  color: rgb(167, 57, 167);
 }
 
 .pen-style:hover {
-  color:rgb(236, 103, 236);
+  color: rgb(236, 103, 236);
 }
 
 .trash-style {
@@ -375,54 +373,53 @@ body {
 }
 
 .trash-style:hover {
-  color:rgb(252, 141, 141);
+  color: rgb(252, 141, 141);
 }
 
 .para-fa-pen {
   position: absolute; 
   top: 36px; 
   right: 20px; 
-  color:rgb(167, 57, 167);
+  color: rgb(167, 57, 167);
 }
 
 .para-fa-pen:hover {
-  color:rgb(236, 103, 236);
+  color: rgb(236, 103, 236);
 }
 
 .para-fa-trash {
   position: absolute; 
   top: 76px; 
   right: 20px; 
-  color:red;
+  color: red;
 }
 
 .para-fa-trash:hover {
-  color:rgb(252, 141, 141);
+  color: rgb(252, 141, 141);
 }
 
 .para-fa-pen-2 {
   position: absolute; 
   top: 40px; 
   right: 30px; 
-  color:rgb(167, 57, 167);
+  color: rgb(167, 57, 167);
 }
 
 .para-fa-pen-2:hover {
-  color:rgb(236, 103, 236);
+  color: rgb(236, 103, 236);
 }
 
 .para-fa-trash-2 {
   position: absolute; 
   top: 86px; 
   right: 30px; 
-  color:red;
+  color: red;
 }
 
 .para-fa-trash-2:hover {
-  color:rgb(252, 141, 141);
+  color: rgb(252, 141, 141);
 }
 
-/* Boutons de modification ou de suppression sur le template oneChapter */
 .index-img {
   z-index: -1;
   min-height: 200px;
@@ -443,31 +440,31 @@ body {
 
 .mini-background {
   padding: 6px 12px 6px 12px;
-  background:rgba(255, 255, 255, 0.85);
+  background: rgba(255, 255, 255, 0.85);
   border-radius: 4px;
 }
 
 .mini-background-2 {
   padding: 8px 8px 8px 8px;
-  background:rgba(255, 255, 255, 0.85);
+  background: rgba(255, 255, 255, 0.85);
   border-radius: 4px; 
 }
 
 .one-chapter-pen {
-  color:rgb(167, 57, 167);
+  color: rgb(167, 57, 167);
   padding-right: 20px;
 }
 
 .one-chapter-pen:hover {
-  color:rgb(236, 103, 236);
+  color: rgb(236, 103, 236);
 }
 
 .one-chapter-trash {
-  color:red;
+  color: red;
 }
 
 .one-chapter-trash:hover {
-  color:rgb(252, 141, 141);
+  color: rgb(252, 141, 141);
 }
 
 .centered-infos {
@@ -534,6 +531,7 @@ body {
     width: 300px;
     height: 200px;
   }
+  
   .injected-content {
     width: 280px;
   }
@@ -570,49 +568,49 @@ body {
 }
 
 .hidden-box {
-  display:none;
+  display: none;
 }
 
 label {
-  color:white;
+  color: white;
 }
 .special-label {
-  color:black;
+  color: black;
 }
 
 .home-post-content {
   font-family: 'Quicksand', sans-serif;
   cursor: default;
-  font-size:17px;
+  font-size: 17px;
   color: black;
 }
 
 .home-post-caption {
   font-family: 'Quicksand', sans-serif;
   cursor: default;
-  font-size:13px;
-  color:#474747;
+  font-size: 13px;
+  color: #474747;
 }
 
 .backoff-caption {
   font-family: 'Quicksand', sans-serif;
   cursor: default;
-  font-size:13px;
-  color:#474747;
+  font-size: 13px;
+  color: #474747;
 }
 
 .comment-post-content {
   font-family: 'Quicksand', sans-serif;
   cursor: default;
-  font-size:17px;
+  font-size: 17px;
   color: black;
 }
 
 .comment-post-caption {
   font-family: 'Quicksand', sans-serif;
   cursor: default;
-  font-size:15px;
-  color:#474747;
+  font-size: 15px;
+  color: #474747;
 }
 
 .special-background {
@@ -622,7 +620,7 @@ label {
   left: 0;
   height: 100%;
   width: 100%;
-  background-color:#85C1E9;
+  background-color: #85c1e9;
 }
 
 .mini-spacer {
@@ -718,7 +716,7 @@ label {
 
 .post-font-size {
   font-size: 20px;
-  color:#444;
+  color: #444;
 }
 
 #the-logo {
@@ -726,7 +724,7 @@ label {
   font-size: 24px;
   font-weight: bold;
   color: white;
-  z-index:11;
+  z-index: 11;
 }
 
 @media all and (max-width: 600px) {
@@ -776,7 +774,6 @@ a:hover {
   }
 }
 
-/* Modifications du 5 mars */
 @media all and (max-width: 600px) {
   .deco-logo {
     left: 80px;
@@ -789,7 +786,6 @@ a:hover {
     bottom: 10px;
   }
 }
-/* Fin de Modifications du 5 mars */
 
 .login-btn {
   top: 2px;
@@ -797,7 +793,6 @@ a:hover {
   z-index: 10;
 }
 
-/* Modifications du 6 mars */
 .login-btn-2 {
   top: 2px;
   right: 70px;
@@ -809,12 +804,12 @@ a:hover {
 @media all and (max-width: 500px) {
   .login-btn {
     top: auto;
-    bottom:0;
+    bottom: 0;
   }
   
   .login-btn-2 {
     top: auto;
-    bottom:0;
+    bottom: 0;
   }
 }
 
@@ -920,7 +915,6 @@ textarea::-webkit-scrollbar {
 textarea:focus {
   border: 1px solid #555;
 }
-/* Modifications du 5 mars */
 
 .screen_class {
   height: 0;
