@@ -10,7 +10,6 @@
     <v-img src="/backgrounds/background1.jpg" height="100%" width="100%"></v-img>
 </v-card>
 
-<!-- CRÉATION D'UN ARTICLE -->
 {{ form_start(createFigure) }}
 
 <v-container mt-3 mb-n2>
@@ -45,7 +44,6 @@
 
         </v-col>
 
-        <!-- EDITION DE L'IMAGE EN UNE AVEC PREVIEW INTERACTIVE -->
         <div class="create_feature_box"> 
 
             {{ form_row(createFigure.image, {'label': ' ', 'attr': {'class': "create_featured_input", 'placeholder': "URL DE L'IMAGE", 'alt' : "IMAGE PRINCIPALE"}}) }}
@@ -60,9 +58,6 @@
                 alt="Image par défaut"
                 title="Image par défaut"
                 >
-                {# <span class="my-span-title">
-                    NOUVEAU TRICK
-                </span> #}
                 </v-img>
 
         </v-col>
@@ -70,12 +65,10 @@
 
                 {{ form_row(createFigure.title, {'label': 'TITRE', 'attr': {'placeholder': "TITRE DE L'ARTICLE"}}) }}
                 
-                    
         </v-col>
     </v-row>
 </v-container>
 
-<!-- BOUTONS POUR AFFICHER LES MÉDIAS EN VERSION SMARTHPONE -->
 <v-container class="control-medias-container">
     <v-col class="text-center" cols="12" > 
         <v-btn
@@ -95,7 +88,6 @@
     </v-col>
 </v-container>
 
-<!-- CHAMP D'ÉDITION DES MÉDIAS DE L'ARTICLE -->
 <v-container class="medias-grid" mt-4>
     <v-layout row wrap>
         <v-col cols="12">
@@ -103,7 +95,6 @@
 
                 {% for screen in createFigure.screens %}
 
-                <!-- 5 mars : ajout de boutons de modifications des médias -->
                 <v-col
                 cols="12"
                 md="2"
@@ -124,22 +115,18 @@
                         <a class="change_input_btn_{{ loop.index0 }}">
                             <i class="interactive_btn fas fa-pen"></i>
                         </a>
-                        
                         <a class="hidden_btn hide_input_btn_{{ loop.index0 }}">
                             <i class="interactive_btn fas fa-arrow-up"></i>
                         </a>
-                        
                         <a class="trash_media_btn_{{ loop.index0 }}">
                             <i class="interactive_btn fas fa-trash"></i>
                         </a>
-                        
                         <a class="hidden_btn restore_media_btn_{{ loop.index0 }}">
                             <i class="interactive_btn fas fa-plus"></i>
                         </a>
                     </p>
 
                 </v-col>
-                <!-- 5 mars : fin d'ajout de boutons de modifications des médias -->
 
                 {% endfor %}
 
@@ -161,7 +148,6 @@
     </v-layout>
 </v-container>
 
-<!-- EDITION DE L'ARTICLE -->
 <v-container>
     <v-layout row wrap>
         <v-col cols="12">
@@ -178,14 +164,12 @@
                 >
                 {{ form_row(createFigure.classification, {'label': 'CATÉGORIE','label_attr': {'class': 'special-label'}}) }}
                 </v-col>
-                <!-- BOUTON DE RESTAURATION DES URLS YOUTUBE PUIS VÉRIFICATIONS D'URL SCREENS -->
                 <a>
                 <p class="special-button confirm-btn" id="check_screen">
                 Confirmer&nbsp;&nbsp;<i class="fas fa-pen"></i>
                 </p>
                 </a>
                 <div class="medium-spacer"></div>
-                <!-- BOUTON POUR RECOMMENCER LES SAISIES -->
                 <a>
                 <p class="special-button redo-btn" id="update_screen">
                 Recommencer&nbsp;&nbsp;<i class="fas fa-redo"></i>

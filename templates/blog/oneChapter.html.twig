@@ -6,7 +6,6 @@
     <v-img src="/backgrounds/background1.jpg" height="100%" width="100%"></v-img>
 </v-card>
 
-<!-- TITRE ET IMAGE EN UNE -->
 <v-container mt-3 mb-n2>
 
     <v-row
@@ -68,7 +67,6 @@
 
 </v-container>
 
-<!-- BOUTONS POUR AFFICHER LES MÉDIAS EN VERSION SMARTHPONE -->
 <v-container class="control-medias-container text-center">
 
     <v-btn
@@ -89,7 +87,6 @@
 
 </v-container>
 
-<!-- GRILLE D'IMAGES ET DE VIDÉOS ASSOCIÉES -->
 <v-container class="medias-grid">
 
     <v-layout row wrap>
@@ -104,7 +101,6 @@
 
                 {% if screen.thumbnail is not null %}
 
-                <!-- Modal Screen VIDEOS -->
                 <v-col
                 cols="12"
                 md="2"
@@ -163,7 +159,6 @@
 
                 {% if screen.thumbnail is not null %}
 
-                <!-- Modal Screen IMAGES -->
                 <v-col
                 cols="12"
                 md="2"
@@ -229,7 +224,6 @@
     
 </v-container>
 
-<!-- CONTENU TEXTE ET DATES -->
 <v-container mt-n3>
 
       <v-layout row wrap>
@@ -266,7 +260,6 @@
 
 </v-container>
 
-<!-- COMMENTAIRES -->
 {% if app.user %}
 
 <v-container fluid class="mt-n3">
@@ -356,7 +349,7 @@
     <v-container fluid class="comments-box">
 
         <v-row class="justify-center">
-            <!-- SLICE DE PAGINATION DES COMMENTAIRES -->
+
             {% for mention in figure.mentions|slice(start, limit) %}
 
                 <v-col
@@ -387,7 +380,6 @@
 
     </v-container>
 
-    <!-- BOUTONS DE PAGINATION DES COMMENTAIRES -->
     <v-container id="mention_links" class="text-center"> 
     </v-container>
 

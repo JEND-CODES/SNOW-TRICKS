@@ -1,7 +1,5 @@
 <?php
 
-// LIVE ! php -S localhost:8000 -t public
-
 namespace App\Controller;
 
 use App\Entity\Figure;
@@ -29,6 +27,7 @@ class BlogController extends AbstractController
     public function __construct(Security $security)
     {
        $this->security = $security;
+       
     }
 
     /**

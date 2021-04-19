@@ -2,7 +2,6 @@
 {% block title %}SNOWTRICKS • Back Office{% endblock %}
 {% block body %}
 
-<!-- V-card Background-color -->
 <v-card class="special-background"></v-card>
 
 <v-container class="box-new-position">
@@ -68,13 +67,11 @@
                                             {% endif %}
 
                                             <div class="regular-spacer"></div>
-
-                                            <!-- Important de placer le "raw" après "striptags" ou "slice" -->    
+ 
                                             <p>{{ article.content|striptags|slice(0,200)|raw}}...</p>  
 
                                         </v-col>
                                         
-                                        <!-- V-col vide pour alignement au passage en taille smartphone -->
                                         <v-col
                                         v-if="$vuetify.breakpoint.smAndDown"
                                         sm="4"
@@ -119,7 +116,6 @@
 
 </v-container>
 
-<!-- BOUTON POUR AFFICHER PLUS DE POSTS -->
 <v-container class="text-center">
 
     <v-btn

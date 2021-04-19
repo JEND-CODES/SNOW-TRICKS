@@ -2,7 +2,6 @@
 {% block title %}SNOWTRICKS • Accueil{% endblock %}
 {% block body %}
 
-<!-- Carousel taille Smartphone -->
 <v-carousel class="smart-slider" v-if="$vuetify.breakpoint.smAndDown" pa-0 ma-0 height="auto" hide-delimiter-background :show-arrows="false">
 
     {% for figureSlide in figureSlides %}
@@ -47,7 +46,6 @@
 
 </v-carousel>
 
-<!-- Carousel tailles Medium and Up -->
 <v-carousel v-if="$vuetify.breakpoint.mdAndUp" height="710" hide-delimiters hide-delimiter-background :show-arrows="true" show-arrows-on-hover class="mt-n2">
 
     {% for figureSlide in figureSlides %}
@@ -94,7 +92,6 @@
 
 <span id="trick-section"></span>
 
-<!-- BOUTON POUR DESCENDRE AUX TRICKS -->
 <v-container v-if="$vuetify.breakpoint.smAndUp">
 
     <v-btn
@@ -109,7 +106,6 @@
 
 <div class="forty-spacer"></div>
 
-<!-- RÉVISIONS DE LA PAGINATION EN PAGE D'ACCUEIL -->
 <div id="next_figures">
 
     {% for promoteFigure in promoteFigures %}
@@ -163,7 +159,6 @@
 
 </div>
 
-<!-- BOUTON POUR AFFICHER PLUS DE TRICKS -->
 <v-container class="text-center">
 
     <v-btn
@@ -176,7 +171,6 @@
 
 </v-container>
 
-<!-- BOUTON POUR REMONTER AUX TRICKS -->
 <v-container v-if="$vuetify.breakpoint.smAndUp" class="hidden-up-btn">
 
     <v-btn
@@ -233,8 +227,7 @@ $(document).ready(function () {
 
     $(window).scroll(function() {
 
-        if ($(window).scrollTop() >= $(document).height() - $(window).height()) {
-        // if ($(window).scrollTop() >= $(document).height() - $(window).height() - 10) {
+        if ($(window).scrollTop() >= $(document).height() - $(window).height() && $('#more-figures-btn').is(':visible')) {
             $('#more-figures-btn').trigger("click");
         }
 

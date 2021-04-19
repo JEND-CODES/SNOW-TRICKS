@@ -10,7 +10,6 @@
     <v-img src="/backgrounds/background1.jpg" height="100%" width="100%"></v-img>
 </v-card>
 
-<!-- MISE À JOUR D'UN ARTICLE -->
 {{ form_start(updateFigure) }}
                           
 <v-container mt-3 mb-n2>
@@ -22,7 +21,6 @@
         <v-col class="white--text text-center" cols="12">  
             <p class="post-title mb-8">{{ figure.title|upper|raw }}<span class="edit-post-mini-label">ÉDITION</span></p>
 
-            <!-- 5 mars : ajout de boutons de modification de l'image en Une -->
             <p class="update-chapter-btn-box">
 
                 <span class="mini-background-2">
@@ -43,14 +41,11 @@
 
             </p>
 
-            <!-- EDITION DE L'IMAGE EN UNE AVEC PREVIEW INTERACTIVE -->
             <div class="update_feature_box">
 
                 {{ form_row(updateFigure.image, {'label': ' ', 'attr': {'class': "update_featured_input", 'placeholder': "URL DE L'IMAGE", 'alt' : "IMAGE PRINCIPALE"}}) }}
 
             </div>   
-
-            <!-- Fin de modifications du 5 mars -->
 
                 {% if figure.image is not null %}
                     <v-img
@@ -78,7 +73,6 @@
     </v-row>
 </v-container>
 
-<!-- BOUTONS POUR AFFICHER LES MÉDIAS EN VERSION SMARTHPONE -->
 <v-container class="control-medias-container">
     <v-col class="text-center" cols="12" > 
         <v-btn
@@ -98,105 +92,11 @@
     </v-col>
 </v-container>
 
-<!-- CHAMP D'ÉDITION DES MÉDIAS DE L'ARTICLE -->
 <v-container class="medias-grid" mt-4>
     <v-layout row wrap>
         <v-col cols="12">
             <v-row>
-                {# {% for screen in figure.screens %}
-                {% if not (screen.thumbnail starts with 'http') %}
-                <!-- Modal Screen VIDEOS -->
-                <v-col
-                cols="12"
-                md="2"
-                >  
-                    <card>
-                        <div>
-                        {% if screen.thumbnail is not null %}
-                           <v-img src="https://img.youtube.com/vi/{{ screen.thumbnail|raw }}/hqdefault.jpg" alt="Illustration" title="Illustration"></v-img>
-                        {% else %}
-                            <v-img src="/backgrounds/default_picture_2.jpg" alt="Illustration" title="Illustration"></v-img>
-                        {% endif %}
-                        </div>
-                        <div class="text-center">
-                            <v-dialog
-                            v-model="modalUpdate{{ loop.index }}"
-                            transition="dialog-bottom-transition"
-                            width="600"
-                            >   
-                                <template v-slot:activator="{ on, attrs }">
-                                    <v-btn
-                                    class="open-modal-btn"
-                                    fab
-                                    depressed
-                                    color="primary"
-                                    dark
-                                    small
-                                    v-bind="attrs"
-                                    v-on="on"
-                                    >
-                                    <i class="fas fa-play"></i>
-                                    </v-btn>
-                                </template>
-                                <v-card width="600" height="400">
-                                    {% if screen.thumbnail is not null %}
-                                    <iframe width="100%" height="400px" src="https://www.youtube.com/embed/{{ screen.thumbnail|raw }}" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-                                    {% else %}
-                                    <v-img height="100%" src="/backgrounds/default_picture_2.jpg" alt="Illustration" title="Illustration"></v-img>
-                                    {% endif %}
-                                </v-card>
-                            </v-dialog>
-                        </div>       
-                    </card>    
-                </v-col>
-                {% else %}
-                <!-- Modal Screen IMAGES -->
-                <v-col
-                cols="12"
-                md="2"
-                >  
-                    <card>
-                        <div>
-                            {% if screen.thumbnail is not null %}
-                            <v-img src="{{ screen.thumbnail|raw }}" alt="Illustration" title="Illustration"></v-img>
-                            {% else %}
-                            <v-img src="/backgrounds/default_picture_2.jpg" alt="Illustration" title="Illustration"></v-img>
-                            {% endif %}
-                        </div>
-                        <div class="text-center">
-                            <v-dialog
-                            v-model="modalUpdate{{ loop.index }}"
-                            transition="dialog-bottom-transition"
-                            width="600"
-                            >   
-                                <template v-slot:activator="{ on, attrs }">
-                                    <v-btn
-                                    class="open-modal-btn"
-                                    fab
-                                    depressed
-                                    color="primary"
-                                    dark
-                                    small
-                                    v-bind="attrs"
-                                    v-on="on"
-                                    >
-                                    <i class="fas fa-plus"></i>
-                                    </v-btn>
-                                </template>
-                                <v-card width="600" height="auto">
-                                    {% if screen.thumbnail is not null %}
-                                    <v-img src="{{ screen.thumbnail|raw }}" alt="Illustration" title="Illustration"></v-img>
-                                    {% else %}
-                                    <v-img height="100%" src="/backgrounds/default_picture_2.jpg" alt="Illustration" title="Illustration"></v-img>
-                                    {% endif %}
-                                </v-card>
-                            </v-dialog>
-                        </div>          
-                    </card>     
-                </v-col>
-                {% endif %}
-                {% endfor %} #}
-                
+               
                 {% for screen in updateFigure.screens %}
 
                 <v-col
@@ -256,7 +156,6 @@
     </v-layout>
 </v-container>
 
-<!-- EDITION DE L'ARTICLE -->
 <v-container>
     <v-layout row wrap>
         <v-col cols="12">
@@ -274,28 +173,24 @@
                 {{ form_row(updateFigure.classification, {'label': 'CATÉGORIE','label_attr': {'class': 'special-label'}}) }}
                 </v-col>
                 <div class="medium-spacer"></div>
-                <!-- BOUTON DE SUPPRESSION -->
                 <a href="{{ path('delete_chapter', {'id': figure.id}) }}" onclick="return(confirm('Validez-vous ce choix ?'));">
                 <p class="special-trash-button">
                     Supprimer&nbsp;&nbsp;<i class="far fa-trash-alt"></i>
                 </p>
                 </a>
                 <div class="medium-spacer"></div>
-                <!-- BOUTON DE RESTAURATION DES URLS YOUTUBE PUIS VÉRIFICATIONS D'URL SCREENS -->
                 <a>
                 <p class="special-button update-confirm-btn" id="check_screen">
                     Confirmer&nbsp;&nbsp;<i class="fas fa-pen"></i>
                 </p>
                 </a>
                 <div class="regular-spacer"></div>   
-                <!-- BOUTON POUR RECOMMENCER LES SAISIES -->
                 <a>
                 <p class="special-button update-redo-btn" id="update_screen">
                     Recommencer&nbsp;&nbsp;<i class="fas fa-redo"></i>
                 </p>
                 </a>
                 <div class="regular-spacer"></div>
-                <!-- BOUTON DE SAUVEGARDE -->
                 <button id="save_post" type="submit" class="edit-post-button update-post-btn">
                     Sauvegarder
                 </button>

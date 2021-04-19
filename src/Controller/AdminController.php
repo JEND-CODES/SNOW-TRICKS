@@ -14,22 +14,20 @@ use App\Entity\Member;
 use App\Repository\FigureRepository;
 use App\Repository\MentionRepository;
 use App\Repository\MemberRepository;
-
-// use Symfony\Component\Filesystem\Filesystem;
 use App\Service\RemoveFile;
 
 class AdminController extends AbstractController
 {
     private $security;
 
-    private $remover;
+    private $removeFile;
 
-    public function __construct(Security $security, RemoveFile $remover)
+    public function __construct(Security $security, RemoveFile $removeFile)
     {
        $this->security = $security;
 
-       $this->remover = $remover;
-
+       $this->removeFile = $removeFile;
+       
     }
 
     /**
@@ -106,32 +104,13 @@ class AdminController extends AbstractController
      */
     public function deleteMember(Member $member)
     {
-
-        // POUR EMPÊCHER UN ADMINISTRATEUR DE SUPPRIMER SON PROPRE COMPTE !
         if ($this->security->getUser()->getId() === $member->getId()) 
         {
             throw $this->createNotFoundException('Access Denied.');
-            // $errorMessage = 'Administrateur ne va pas supprimer son compte !';
-            // dd($errorMessage);
+       
         }
 
-        // $filename = $member->getAvatar();
-
-        // Tenter de mettre un service de suppression à la place
-
-        // CE QUE JE REMPLACE PAR LE SERVICE :
-        // $fileSystem = new Filesystem();
-
-        // $projectDir = $this->getParameter('kernel.project_dir');
-
-        // $fileSystem->remove($projectDir.'/public/uploads/avatars/'.$filename);
-
-        // CE QUE JE FAIS VIA LE SERVICE :
-        // $this->remover->deleteFile($filename);
-
-        // OU PLUS SIMPLE ENCORE ! :
-        $this->remover->deleteFile($member->getAvatar());
-
+        $this->removeFile->deleteFile($member->getAvatar());
 
         $entityManager = $this->getDoctrine()->getManager();
         

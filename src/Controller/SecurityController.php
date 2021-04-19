@@ -360,13 +360,11 @@ class SecurityController extends AbstractController
     /**
      * @Route("/account", name="account")
      */
-    public function account(Request $request, EntityManagerInterface $manager /*, SluggerInterface $slugger*/)
+    public function account(Request $request, EntityManagerInterface $manager)
     {
         $current_member = $this->security->getUser();
 
         $current_avatar = $this->security->getUser()->getAvatar();
-
-        // dd($current_avatar);
 
         if($current_member === null)
         {
@@ -384,42 +382,13 @@ class SecurityController extends AbstractController
             
             $avatarFile = $profileForm->get('avatar')->getData();
 
-            // Voir l'exemple de Service Upload files (doc Symfony) : https://symfony.com/doc/current/controller/upload_file.html
-
             if ($avatarFile) {
 
                 $avatarFileName = $this->uploader->upload($avatarFile);
 
                 $current_member->setAvatar($avatarFileName);
 
-                // $current_member->setAvatar($newFilename);
-
-                /* $originalFilename = pathinfo($avatarFile->getClientOriginalName(), PATHINFO_FILENAME);
-                
-                $safeFilename = $slugger->slug($originalFilename);
-                $newFilename = $safeFilename.'-'.uniqid().'.'.$avatarFile->guessExtension();
-
-                try {
-
-                    $avatarFile->move(
-                        $this->getParameter('avatars_directory'),
-                        $newFilename
-                    );
-
-                } catch (FileException $e) {
-                    $this->addFlash(
-                        'warning',
-                        'IMAGE INVALIDE'
-                    );
-
-                    return $this->redirectToRoute('blog');
-
-                } */
-
-                // $current_member->setAvatar($newFilename);
-
             }
-
 
             $manager->persist($current_member);
 
@@ -427,10 +396,10 @@ class SecurityController extends AbstractController
 
             $this->addFlash(
                 'notice',
-                'Compte mis à jour'
+                'COMPTE MIS À JOUR'
             );
             
-            return $this->redirectToRoute('account');
+            return $this->redirectToRoute('blog');
 
         }
 

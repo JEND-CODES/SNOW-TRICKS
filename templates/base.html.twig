@@ -27,7 +27,7 @@
     {{ include('inc/profileBtn.html.twig') }}
 
     {% for message in app.flashes('notice') %}
-        <v-container>
+        <v-container class="success-flashes">
             <v-row>
                 <v-col md="4" offset-md="4" sm="6" offset-sm="3">
                     <v-alert
@@ -46,7 +46,7 @@
     {% endfor %}
 
     {% for message in app.flashes('warning') %}
-        <v-container>
+        <v-container class="warning-flashes">
             <v-row>
                 <v-col md="4" offset-md="4" sm="6" offset-sm="3">
                     <v-alert
@@ -66,20 +66,6 @@
 
     {% block body %}
     {% endblock %}
-
-    {{ render(controller(
-        'App\\Controller\\ProfileController::miniMessage'
-    )) }}
-
-    {{ render(controller(
-        'App\\Controller\\ProfileController::colors'
-    )) }}
-
-    {# {{ render(controller(
-        'App\\Controller\\ProfileController::profile'
-    )) }} #}
-
-    {# {{ render(path('profile')) }} #}
 
     {{ include('inc/footer.html.twig') }}
 

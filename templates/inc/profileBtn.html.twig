@@ -1,19 +1,26 @@
 {% if app.user %}
 
 <v-btn fab elevation="0" color="rgba(255,255,255,0)" fixed @click="profile = !profile" class="btn-profile white--text" alt="Compte" title="Compte">
-    {# <v-icon>fas fa-plus</v-icon> #}
     <img class="profile-mini-img" src="{{ asset('uploads/avatars/' ~ '/' ~ app.user.avatar) }}">
 </v-btn>
 
-<v-dialog v-model="profile" max-width="500px">
+<v-dialog v-model="profile" max-width="320px">
     
     <v-card class="pa-2" color="rgba(255,255,255,0.85)">
 
         <v-card-text class="mt-6 text-center">
 
-            <i class="fas fa-user"></i>
-            <div class="regular-spacer"></div>
-            <a class="font-weight-bold" href="{{ path('account') }}">MODIFIER MON COMPTE</a>
+            <form action="{{ path('account') }}" name="profile" method="post" enctype="multipart/form-data">
+
+                <label for="profile_avatar" color="black" class="special-label font-weight-bold">NOUVELLE IMAGE DE PROFIL</label>
+
+                <input type="file" id="profile_avatar" name="profile[avatar]" required="required" class="input-file font-weight-bold">
+
+                <button type="submit">Actualiser&nbsp;&nbsp;<i class="fas fa-user-circle"></i></button> 
+
+                <input type="hidden" id="profile__token" name="profile[_token]" value="{{ csrf_token('profile') }}">
+
+            </form>
 
         </v-card-text>
 
