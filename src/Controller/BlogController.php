@@ -4,36 +4,56 @@ namespace App\Controller;
 
 use App\Entity\Figure;
 use App\Entity\Mention;
-use App\Entity\Screen;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\Routing\Annotation\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-use Symfony\Component\Form\Extension\Core\Type\TextType;
-use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Doctrine\ORM\EntityManagerInterface;
 use App\Repository\FigureRepository;
 use Symfony\Component\Security\Core\Security;
 use App\Form\FigureType;
 use Symfony\Component\String\Slugger\SluggerInterface;
 use App\Form\MentionType;
+use App\Handler\MakeScreen;
 
 class BlogController extends AbstractController
 {
-
+    /**
+     * @var Security
+     */
     private $security;
 
-    public function __construct(Security $security)
+    /**
+     * @var EntityManagerInterface
+     */
+    private $manager;
+
+    /**
+     * @var SluggerInterface
+     */
+    private $slugger;
+
+    /**
+     * @var MakeScreen
+     */
+    private $makeScreen;
+
+    public function __construct(Security $security, EntityManagerInterface $manager, SluggerInterface $slugger, MakeScreen $makeScreen)
     {
-       $this->security = $security;
-       
+        $this->security = $security;
+        $this->manager = $manager;
+        $this->slugger = $slugger;
+        $this->makeScreen = $makeScreen;
     }
 
     /**
      * @Route("/", name="blog")
+     * @param FigureRepository $repoFigure
+     * @return Response
      */
-    public function blog(FigureRepository $repoFigure)
+    public function blog(FigureRepository $repoFigure): Response
     {
         $current_member = $this->security->getUser();
       
@@ -50,8 +70,11 @@ class BlogController extends AbstractController
 
     /**
      * @Route("/{starting}", name="more_figures", requirements={"starting": "\d+"})
+     * @param FigureRepository $repoFigure
+     * @param int $starting
+     * @return Response
      */
-    public function moreFigures(FigureRepository $repoFigure, $starting = 3)
+    public function moreFigures(FigureRepository $repoFigure, $starting = 3): Response
     {
         $promoteFigures = $repoFigure->findBy(array(), array('id' => 'DESC'), 3, $starting + 6);
 
@@ -61,29 +84,18 @@ class BlogController extends AbstractController
     }
 
     /**
-    * @Route("/blog/new", name="blog_create")
-    */
-    public function createFigure(Figure $figure = null, Request $request, EntityManagerInterface $manager, SluggerInterface $slugger)
+     * @Route("/blog/new", name="blog_create")
+     * @param Figure $figure
+     * @param Request $request
+     * @return Response
+     */
+    public function createFigure(Figure $figure = null, Request $request): Response
     {
         $current_member = $this->security->getUser();
 
         $figure = new Figure();
 
-        for($i = 1; $i <= 24; $i++) {
-
-            $dynamic_screen[$i] = new Screen();
-
-            $dynamic_screen[$i]->setThumbnail('');
-            
-            $figure->getScreens()->add($dynamic_screen[$i]);
-
-            if(!$dynamic_screen[$i]->getId())
-            {
-            
-                $dynamic_screen[$i]->setFigure($figure);
-            }
-
-        }
+        $this->makeScreen->newScreen($figure);
 
         $createFigure = $this->createForm(FigureType::class, $figure);
         
@@ -95,14 +107,14 @@ class BlogController extends AbstractController
             {
                 $figure->setCreatedAt(new \DateTime());
 
-                $figure->setLabelled($slugger->slug($figure->getTitle()));
+                $figure->setLabelled($this->slugger->slug($figure->getTitle()));
 
                 $figure->setUser($this->getUser());
             }
 
-            $manager->persist($figure);
+            $this->manager->persist($figure);
 
-            $manager->flush();
+            $this->manager->flush();
 
             $this->addFlash(
                 'notice',
@@ -123,9 +135,12 @@ class BlogController extends AbstractController
     }
 
     /**
-    * @Route("/blog/{id}/edit", name="blog_edit")
-    */
-    public function updateFigure(Figure $figure, Request $request, EntityManagerInterface $manager, SluggerInterface $slugger)
+     * @Route("/blog/{id}/edit", name="blog_edit")
+     * @param Figure $figure
+     * @param Request $request
+     * @return Response
+     */
+    public function updateFigure(Figure $figure, Request $request): Response
     {
         $current_member = $this->security->getUser();
 
@@ -133,21 +148,7 @@ class BlogController extends AbstractController
 
         $addScreen = 24 - $screenCount;
 
-        for($j = 1; $j <= $addScreen; $j++) {
-
-            $dynamic_screen[$j] = new Screen();
-
-            $dynamic_screen[$j]->setThumbnail('');
-            
-            $figure->getScreens()->add($dynamic_screen[$j]);
-
-            if(!$dynamic_screen[$j]->getId())
-            {
-            
-                $dynamic_screen[$j]->setFigure($figure);
-            }
-
-        }
+        $this->makeScreen->nextScreen($addScreen, $figure);
        
         $updateFigure = $this->createForm(FigureType::class, $figure);
         
@@ -158,11 +159,11 @@ class BlogController extends AbstractController
          
             $figure->setFreshDate(new \DateTime());
 
-            $figure->setLabelled($slugger->slug($figure->getTitle()));
+            $figure->setLabelled($this->slugger->slug($figure->getTitle()));
             
-            $manager->persist($figure);
+            $this->manager->persist($figure);
 
-            $manager->flush();
+            $this->manager->flush();
 
             $this->addFlash(
                 'notice',
@@ -181,30 +182,28 @@ class BlogController extends AbstractController
             'updateFigure' => $updateFigure->createView()
         ]);
         
-        
     }
 
     /**
      * @Route("/blog/{id}/{labelled}", name="chapter_show")
+     * @param Figure $figure
+     * @param Request $request
+     * @param string $labelled
+     * @return Response
      */
-    public function show(Figure $figure, Request $request, string $labelled)
+    public function show(Figure $figure, Request $request, string $labelled): Response
     {
-
         $current_member = $this->security->getUser();
 
         $get_mentions = $request->query->get('show_mentions');
 
         if (is_null($get_mentions))
         {
-        
             $start = 0;
             $limit = 10;
-
         } else {
-
             $start = (int) strip_tags($get_mentions);
             $limit = 10;
-            
         }
 
         $mention = new Mention();
@@ -225,12 +224,10 @@ class BlogController extends AbstractController
                 }
             
             $mention = $formMention->getData();
+
+            $this->manager->persist($mention);
             
-            $entityManager = $this->getDoctrine()->getManager();
-            
-            $entityManager->persist($mention);
-            
-            $entityManager->flush();
+            $this->manager->flush();
 
             $this->addFlash(
                 'notice',
@@ -254,14 +251,14 @@ class BlogController extends AbstractController
     /**
      * @Route("/office/delete/{id}", name="delete_chapter")
      * @Method({"DELETE"})
+     * @param Figure $figure
+     * @return RedirectResponse
      */
     public function delete(Figure $figure) 
     {
-        $entityManager = $this->getDoctrine()->getManager();
-       
-        $entityManager->remove($figure);
-        
-        $entityManager->flush();
+        $this->manager->remove($figure);
+            
+        $this->manager->flush();
 
         $this->addFlash(
             'notice',

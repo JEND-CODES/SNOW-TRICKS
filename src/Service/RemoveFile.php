@@ -6,17 +6,13 @@ use Symfony\Component\Filesystem\Filesystem;
 
 class RemoveFile
 {
-    
     private $fileSystem;
-
     private $path;
 
     public function __construct(Filesystem $fileSystem, $path)
     {
         $this->fileSystem = $fileSystem;
-
         $this->path = $path;
-
     }
 
     public function deleteFile(?string $file): void

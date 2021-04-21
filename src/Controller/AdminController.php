@@ -6,6 +6,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\RedirectResponse;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\Security\Core\Security;
@@ -18,22 +19,34 @@ use App\Service\RemoveFile;
 
 class AdminController extends AbstractController
 {
+    /**
+     * @var Security
+     */
     private $security;
 
+    /**
+     * @var EntityManagerInterface
+     */
+    private $manager;
+
+    /**
+     * @var RemoveFile
+     */
     private $removeFile;
 
-    public function __construct(Security $security, RemoveFile $removeFile)
+    public function __construct(Security $security, EntityManagerInterface $manager, RemoveFile $removeFile)
     {
-       $this->security = $security;
-
-       $this->removeFile = $removeFile;
-       
+        $this->security = $security;
+        $this->manager = $manager;
+        $this->removeFile = $removeFile;
     }
 
     /**
      * @Route("/admin/backoff", name="admin_backoff")
+     * @param FigureRepository $repoFigure
+     * @return Response
      */
-    public function backOff(FigureRepository $repoFigure) 
+    public function backOff(FigureRepository $repoFigure): Response 
     {
         $current_member = $this->security->getUser();
 
@@ -48,8 +61,10 @@ class AdminController extends AbstractController
 
     /**
      * @Route("/admin/backcom", name="admin_backcom")
+     * @param MentionRepository $repoMention
+     * @return Response
      */
-    public function backCom(MentionRepository $repoMention)
+    public function backCom(MentionRepository $repoMention): Response
     {
         $current_member = $this->security->getUser();
 
@@ -59,19 +74,20 @@ class AdminController extends AbstractController
             'current_member' => $current_member,
             'comments' => $comments
         ]);
+        
     }
     
     /**
      * @Route("/admin/backcom/delete/{id}", name="delete_comment")
      * @Method({"DELETE"})
+     * @param Mention $mention
+     * @return RedirectResponse
      */
     public function deleteComment(Mention $mention)
     {
-        $entityManager = $this->getDoctrine()->getManager();
+        $this->manager->remove($mention);
         
-        $entityManager->remove($mention);
-        
-        $entityManager->flush();
+        $this->manager->flush();
 
         $this->addFlash(
             'notice',
@@ -84,8 +100,10 @@ class AdminController extends AbstractController
 
     /**
      * @Route("/admin/members", name="manage_members")
+     * @param MemberRepository $repoMember
+     * @return Response
      */
-    public function manageMembers(MemberRepository $repoMember)
+    public function manageMembers(MemberRepository $repoMember): Response
     {
         $current_member = $this->security->getUser();
 
@@ -101,22 +119,21 @@ class AdminController extends AbstractController
     /**
      * @Route("/admin/members/delete/{id}", name="delete_member")
      * @Method({"DELETE"})
+     * @param Member $member
+     * @return RedirectResponse
      */
     public function deleteMember(Member $member)
     {
         if ($this->security->getUser()->getId() === $member->getId()) 
         {
             throw $this->createNotFoundException('Access Denied.');
-       
         }
 
         $this->removeFile->deleteFile($member->getAvatar());
 
-        $entityManager = $this->getDoctrine()->getManager();
+        $this->manager->remove($member);
         
-        $entityManager->remove($member);
-        
-        $entityManager->flush();
+        $this->manager->flush();
 
         $this->addFlash(
             'notice',

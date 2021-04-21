@@ -17,14 +17,13 @@ use App\Repository\MentionRepository;
 
 class AppFixtures extends Fixture
 {
-    public function __construct(ClassificationRepository $classificationRepository, FigureRepository $figureRepository, ScreenRepository $screenRepository, MentionRepository $mentionRepository, MemberRepository $memberRepository)
+    public function __construct(ClassificationRepository $classificationRepo, FigureRepository $figureRepo, ScreenRepository $screenRepo, MentionRepository $mentionRepo, MemberRepository $memberRepo)
 	{
-		$this->classificationRepository = $classificationRepository;
-		$this->figureRepository = $figureRepository;
-		$this->screenRepository = $screenRepository;
-		$this->mentionRepository = $mentionRepository;
-		$this->memberRepository = $memberRepository;
-
+		$this->classificationRepo = $classificationRepo;
+		$this->figureRepo = $figureRepo;
+		$this->screenRepo = $screenRepo;
+		$this->mentionRepo = $mentionRepo;
+		$this->memberRepo = $memberRepo;
 	}
 
     public function load(ObjectManager $manager)
@@ -44,11 +43,11 @@ class AppFixtures extends Fixture
 
         $screens = ['https://www.meriski.co.uk/uploads/Images/blog/Beginners_Guide_To_Skiing/_1200/41273701930_c5a6c590f0_o.jpg', 'https://www.meriski.co.uk/uploads/Images/blog/Beginners_Guide_To_Skiing/_1200/41273701930_c5a6c590f0_o.jpg', 'https://www.meriski.co.uk/uploads/Images/blog/Beginners_Guide_To_Skiing/_1200/41273701930_c5a6c590f0_o.jpg', 'UrMDH3um3CE', 's3jRiFyOijw', 'SQyTWk7OxSI'];
 
-		$this->memberRepository->fixtureIndex();
-		$this->screenRepository->fixtureIndex();
-		$this->mentionRepository->fixtureIndex();
-		$this->figureRepository->fixtureIndex();
-		$this->classificationRepository->fixtureIndex();
+		$this->memberRepo->fixtureIndex();
+		$this->screenRepo->fixtureIndex();
+		$this->mentionRepo->fixtureIndex();
+		$this->figureRepo->fixtureIndex();
+		$this->classificationRepo->fixtureIndex();
 
         foreach ($members as $key => $value)
         {
@@ -81,7 +80,6 @@ class AppFixtures extends Fixture
     
         foreach ($figures as $key3 => $value3)
         {
-            
             $figure = new Figure();
 
             $figure->setTitle($value3)

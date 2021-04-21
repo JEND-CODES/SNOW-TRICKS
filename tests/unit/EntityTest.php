@@ -3,37 +3,63 @@
 namespace Tests\Unit;
 
 use PHPUnit\Framework\TestCase;
-// use Doctrine\ORM\EntityManager;
 use App\Entity\Classification;
 use App\Entity\Figure;
 use App\Entity\Member;
 use App\Entity\Mention;
 use App\Entity\Screen;
 
-// php bin/phpunit
-// php bin/console cache:clear
-
-// Doc : https://symfony.com/doc/current/testing.html
-
 class EntityTest extends TestCase
 {
-    // private $entityManager;
 
- 	public function testFigure()
+    // FIGURE
+    public function testFigureId()
 	{
 		$figure = new Figure();
 
-		$value = "Lorem";
+		$id = null;
+
+		$this->assertEquals($id, $figure->getId());
+	}
+
+ 	public function testFigureFields()
+	{
+		$figure = new Figure();
+
+		$value = "Lorem Ipsum";
+
+        $slug = strtolower(trim(preg_replace('/[^A-Za-z0-9-]+/', '-', $value)));
+
+        $image = "http://planetcode.fr/photos/styleweek.jpg";
+
+        $date = new \Datetime;
 
 		$figure->setTitle($value)
 				->setContent($value)
+                ->setLabelled($slug)
+                ->setImage($image)
+                ->setCreatedAt($date)
+                ->setFreshDate($date)
 				;
 
 		$this->assertEquals($value, $figure->getTitle());
 		$this->assertEquals($value, $figure->getContent());
+        $this->assertEquals($slug, $figure->getLabelled());
+        $this->assertEquals($image, $figure->getImage());
+        $this->assertEquals($date, $figure->getCreatedAt());
+        $this->assertEquals($date, $figure->getFreshDate());
 	} 
 
-    public function testClassification()
+    public function testFigureSetUser()
+    {
+        $figure = new Figure();
+
+        $figure->setUser(new Member);
+
+        $this->assertInstanceOf(Member::class, $figure->getUser());
+    }
+
+    public function testFigureSetClassification()
     {
         $figure = new Figure();
 
@@ -44,7 +70,48 @@ class EntityTest extends TestCase
         $this->assertSame($classification, $figure->getClassification());
     }
 
-    public function testScreen()
+    public function testFigureRemoveMention()
+	{
+		$figure = new Figure();
+
+		$mention = new Mention();
+
+		$figure->addMention($mention);
+
+		$this->assertEquals($mention, $figure->getMentions()[0]);
+
+		$figure->removeMention($mention);
+
+		$this->assertEquals([], $figure->getMentions()->toArray());
+	}
+
+    public function testFigureRemoveScreen()
+	{
+		$figure = new Figure();
+
+		$screen = new Screen();
+
+		$figure->addScreen($screen);
+
+		$this->assertEquals($screen, $figure->getScreens()[0]);
+
+		$figure->removeScreen($screen);
+
+		$this->assertEquals([], $figure->getScreens()->toArray());
+	}
+
+    // MENTION
+    public function testMentionSetUser()
+    {
+        $mention = new Mention();
+
+        $mention->setUser(new Member);
+
+        $this->assertInstanceOf(Member::class, $mention->getUser());
+    }
+
+    // SCREEN
+    public function testScreenSetFigure()
     {
         $screen = new Screen();
 
@@ -54,21 +121,43 @@ class EntityTest extends TestCase
 
         $this->assertSame($figure, $screen->getFigure());
     }
-
-    public function testMention()
+    
+    // MEMBER
+    public function testMemberSetValidation()
     {
-        $mention = new Mention();
-
         $member = new Member();
 
-        $mention->setUser($member);
+        $member->setValidation(true);
 
-        $this->assertSame($member, $mention->getUser());
+        $this->assertEquals($member->getValidation(), true);
     }
 
-    // Renvoi d'erreur
+    public function testMemberEraseCredentials()
+    {
+        $member = new Member();
+
+        $this->assertEquals($member->eraseCredentials(), null);
+    }
+
+    // CLASSIFICATION
+    public function testClassificationRemoveFigure()
+	{
+		$classification = new Classification();
+
+		$figure = new Figure();
+
+		$classification->addFigure($figure);
+
+		$this->assertEquals($figure, $classification->getFigures()[0]);
+
+		$classification->removeFigure($figure);
+
+		$this->assertEquals([], $classification->getFigures()->toArray());
+	}
+
+    // Renvoi d'erreur : "TypeError: Argument 1 passed to App\Entity\Member::setPassword() must be of the type string, null given"
     /*
-	public function testMember()
+	public function testMemberPassword()
 	{
 		$member = new Member();
 
@@ -81,9 +170,9 @@ class EntityTest extends TestCase
 	}
     */
 
-    // Renvoi d'erreur
+    // Renvoi d'erreur : "TypeError: Argument 1 passed to App\Entity\Member::setEmail() must be of the type string, null given"
     /*
-    public function testEmail()
+    public function testMemberEmail()
     {
         $member = new Member();
 
@@ -95,9 +184,9 @@ class EntityTest extends TestCase
     }
     */
 
-    // Renvoi d'erreur
+    // Renvoi d'erreur : "TypeError: Argument 1 passed to App\Entity\Member::setUsername() must be of the type string, null given"
     /*
-    public function testPseudo()
+    public function testMemberPseudo()
     {
         $member = new Member();
 
@@ -109,7 +198,6 @@ class EntityTest extends TestCase
         
     }
     */
-
-   
+    
 
 }

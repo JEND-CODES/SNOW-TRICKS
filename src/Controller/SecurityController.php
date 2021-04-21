@@ -4,6 +4,10 @@ namespace App\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\RedirectResponse;
+use Doctrine\ORM\EntityManagerInterface;
 use App\Entity\Member;
 use App\Form\MemberType;
 use App\Repository\MemberRepository;
@@ -11,41 +15,63 @@ use App\Form\NewpassType;
 use App\Form\ResetType;
 use App\Form\ForgotType;
 use App\Form\ProfileType;
-use Symfony\Component\HttpFoundation\Request;
-use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
-use Symfony\Component\Mailer\MailerInterface;
-use Symfony\Bridge\Twig\Mime\TemplatedEmail;
-use Symfony\Component\Mime\Address;
-use Symfony\Component\HttpFoundation\File\Exception\FileException;
-use Symfony\Component\HttpFoundation\File\UploadedFile;
 use Symfony\Component\String\Slugger\SluggerInterface;
 use Symfony\Component\Security\Core\Security;
 use Symfony\Component\Security\Http\Authentication\AuthenticationUtils;
-
 use App\Service\FileUploader;
 use App\Service\RemoveFile;
-
+use App\Service\MailSender;
 
 class SecurityController extends AbstractController
 {
-
+    /**
+     * @var Security
+     */
     private $security;
-    private $uploader;
-    private $remover;
 
-    public function __construct(Security $security, FileUploader $uploader, RemoveFile $remover)
+    /**
+     * @var EntityManagerInterface
+     */
+    private $manager;
+
+    /**
+     * @var UserPasswordEncoderInterface
+     */
+    private $encoder;
+
+    /**
+     * @var FileUploader
+     */
+    private $uploadFile;
+
+    /**
+     * @var RemoveFile
+     */
+    private $removeFile;
+
+    /**
+     * @var MailSender
+     */
+    private $mailSender;
+
+    public function __construct(Security $security, EntityManagerInterface $manager, UserPasswordEncoderInterface $encoder, FileUploader $uploadFile, RemoveFile $removeFile, MailSender $mailSender)
     {
-       $this->security = $security;
-       $this->uploader = $uploader;
-       $this->remover = $remover;
-
+        $this->security = $security;
+        $this->manager = $manager;
+        $this->encoder = $encoder;
+        $this->uploadFile = $uploadFile;
+        $this->removeFile = $removeFile;
+        $this->mailSender = $mailSender;
     }
     
     /**
      * @Route("/inscription", name="security_registration")
+     * @param Request $request
+     * @param SluggerInterface $slugger
+     * @return Response
      */
-    public function registration(Request $request, EntityManagerInterface $manager, UserPasswordEncoderInterface $encoder, MailerInterface $mailer, SluggerInterface $slugger)
+    public function registration(Request $request, SluggerInterface $slugger): Response
     {
         $current_member = $this->security->getUser();
 
@@ -64,32 +90,14 @@ class SecurityController extends AbstractController
             $avatarFile = $formSecurity->get('avatar')->getData();
 
             if ($avatarFile) {
-                $originalFilename = pathinfo($avatarFile->getClientOriginalName(), PATHINFO_FILENAME);
-                
-                $safeFilename = $slugger->slug($originalFilename);
-                $newFilename = $safeFilename.'-'.uniqid().'.'.$avatarFile->guessExtension();
 
-                try {
-                    $avatarFile->move(
-                        $this->getParameter('avatars_directory'),
-                        $newFilename
-                    );
-
-                } catch (FileException $e) {
-                    $this->addFlash(
-                        'warning',
-                        'IMAGE INVALIDE'
-                    );
-
-                    return $this->redirectToRoute('security_registration');
-
-                }
+                $newFilename = $this->uploadFile->upload($avatarFile);
 
                 $member->setAvatar($newFilename);
 
             }
             
-            $hash = $encoder->encodePassword($member, $member->getPassword());
+            $hash = $this->encoder->encodePassword($member, $member->getPassword());
             
             $member->setPassword($hash)
                     ->setCreatedAt(new \DateTime)
@@ -98,21 +106,11 @@ class SecurityController extends AbstractController
                     ->setRole('ROLE_USER')
                     ;
 
-            $manager->persist($member);
+            $this->manager->persist($member);
 
-            $manager->flush();
+            $this->manager->flush();
 
-            $email = (new TemplatedEmail())
-                ->from('noreply@snowtricks.com')
-                ->to(new Address($member->getEmail()))
-                ->subject('CONFIRMATION DE VOTRE COMPTE SNOWTRICKS')
-                ->htmlTemplate('emails/validation.html.twig')
-                ->context([
-                    'member' => $member
-                ])
-                ;
-
-            $mailer->send($email);
+            $this->mailSender->sendMail($member->getEmail(), $member, 'CONFIRMATION DE VOTRE COMPTE SNOWTRICKS', 'emails/validation.html.twig');
 
             $this->addFlash(
                 'notice',
@@ -130,11 +128,14 @@ class SecurityController extends AbstractController
         ]);
     }
     
-    
     /**
      * @Route("/confirm_account/{username}/{token}", name="confirm_account")
+     * @param MemberRepository $repoMember
+     * @param $username
+     * @param $token
+     * @return RedirectResponse
      */
-    public function confirmAccount(MemberRepository $repoMember, $username, $token, EntityManagerInterface $manager)
+    public function confirmAccount(MemberRepository $repoMember, $username, $token)
     {
 
         $member = $repoMember->findOneByUsername($username);
@@ -143,9 +144,9 @@ class SecurityController extends AbstractController
         {
             $member->setValidation(true);
 
-            $manager->persist($member);
+            $this->manager->persist($member);
 
-            $manager->flush();
+            $this->manager->flush();
 
             $this->addFlash(
                 'notice',
@@ -163,8 +164,10 @@ class SecurityController extends AbstractController
 
     /**
      * @Route("/newpass", name="new_password")
+     * @param Request $request
+     * @return Response
      */
-    public function updatePass(Request $request, EntityManagerInterface $manager, UserPasswordEncoderInterface $encoder)
+    public function updatePass(Request $request): Response
     {
         $current_member = $this->security->getUser();
 
@@ -181,13 +184,13 @@ class SecurityController extends AbstractController
         if($formNewpass->isSubmitted() && $formNewpass->isValid())
         {
           
-                $hash = $encoder->encodePassword($current_member, $current_member->getPassword());
+                $hash = $this->encoder->encodePassword($current_member, $current_member->getPassword());
                 
                 $current_member->setPassword($hash);
                 
-                $manager->persist($current_member);
+                $this->manager->persist($current_member);
 
-                $manager->flush();
+                $this->manager->flush();
 
                 $this->addFlash(
                     'notice',
@@ -206,12 +209,14 @@ class SecurityController extends AbstractController
     
     /**
      * @Route("/resetpass", name="reset_password")
+     * @param Request $request
+     * @param MemberRepository $repoMember
+     * @return Response
      */
-    public function resetPass(Request $request, EntityManagerInterface $manager, MemberRepository $repoMember, MailerInterface $mailer)
+    public function resetPass(Request $request, MemberRepository $repoMember): Response
     {
         $current_member = $this->security->getUser();
 
-        // Si oui redirection vers Homepage
         if(!is_null($current_member)) {
             return $this->redirectToRoute('blog');
         }
@@ -242,21 +247,11 @@ class SecurityController extends AbstractController
             {
                 $member->setToken(hash('sha256', random_bytes(10)));
 
-                $manager->persist($member);
+                $this->manager->persist($member);
 
-                $manager->flush();
+                $this->manager->flush();
 
-                $email = (new TemplatedEmail())
-                    ->from('noreply@snowtricks.com')
-                    ->to(new Address($member->getEmail()))
-                    ->subject('RÉINITIALISATION DE VOTRE MOT PASSE SNOWTRICKS')
-                    ->htmlTemplate('emails/diepass.html.twig')
-                    ->context([
-                        'member' => $member
-                    ])
-                    ;
-
-                $mailer->send($email);
+                $this->mailSender->sendMail($member->getEmail(), $member, 'RÉINITIALISATION DE VOTRE MOT PASSE SNOWTRICKS', 'emails/diepass.html.twig');
 
                 $this->addFlash(
                     'notice',
@@ -277,8 +272,13 @@ class SecurityController extends AbstractController
 
     /**
      * @Route("/confirm_reset/{username}/{token}", name="confirm_reset")
+     * @param Request $request
+     * @param MemberRepository $repoMember
+     * @param $username
+     * @param $token
+     * @return Response
      */
-    public function confirmReset(Request $request, MemberRepository $repoMember, UserPasswordEncoderInterface $encoder, EntityManagerInterface $manager, $username, $token)
+    public function confirmReset(Request $request, MemberRepository $repoMember, $username, $token): Response
     {
         $current_member = $this->security->getUser();
 
@@ -305,13 +305,13 @@ class SecurityController extends AbstractController
         {
             if($member->getToken() === $token)
             {
-                $hash = $encoder->encodePassword($member, $member->getPassword());
+                $hash = $this->encoder->encodePassword($member, $member->getPassword());
             
                 $member->setPassword($hash);
                 
-                $manager->persist($member);
+                $this->manager->persist($member);
     
-                $manager->flush();
+                $this->manager->flush();
 
                 $this->addFlash(
                     'notice',
@@ -335,8 +335,10 @@ class SecurityController extends AbstractController
     
     /**
      * @Route("/connexion", name="security_connexion")
+     * @param AuthenticationUtils $utils
+     * @return Response
      */
-    public function connexion(AuthenticationUtils $utils)
+    public function connexion(AuthenticationUtils $utils): Response
     {
         $current_member = $this->security->getUser();
 
@@ -354,13 +356,17 @@ class SecurityController extends AbstractController
     
     /**
      * @Route("/disconnect", name="security_disconnect")
+     * @return void
      */
-    public function disconnect() {}
+    public function disconnect(): void 
+    {}
 
     /**
      * @Route("/account", name="account")
+     * @param Request $request
+     * @return Response
      */
-    public function account(Request $request, EntityManagerInterface $manager)
+    public function account(Request $request): Response
     {
         $current_member = $this->security->getUser();
 
@@ -378,21 +384,21 @@ class SecurityController extends AbstractController
 
         if($profileForm->isSubmitted() && $profileForm->isValid()) 
         {
-            $this->remover->deleteFile($current_avatar);
+            $this->removeFile->deleteFile($current_avatar);
             
             $avatarFile = $profileForm->get('avatar')->getData();
 
             if ($avatarFile) {
 
-                $avatarFileName = $this->uploader->upload($avatarFile);
+                $avatarFileName = $this->uploadFile->upload($avatarFile);
 
                 $current_member->setAvatar($avatarFileName);
 
             }
 
-            $manager->persist($current_member);
+            $this->manager->persist($current_member);
 
-            $manager->flush();
+            $this->manager->flush();
 
             $this->addFlash(
                 'notice',

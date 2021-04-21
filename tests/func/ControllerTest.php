@@ -5,14 +5,6 @@ namespace Tests\Func;
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 use App\Repository\MemberRepository;
 
-//**** Effectuer un test fonctionnel
-// Créer un client HTTP.
-// Effectuer une requête HTTP sur la page que nous devons tester.
-// S'assurer que les éléments sur la page testée sont bien présents (écrire des assertions).
-//****
-
-// Obtenir la liste des routes de l'application : php bin/console debug:router
-
 class ControllerTest extends WebTestCase
 {
 	public function testHomePage()
@@ -66,7 +58,6 @@ class ControllerTest extends WebTestCase
         // Simulation de connexion du membre Admin
         $client->loginUser($testUser);
 
-        // test e.g. the profile page
         $client->request('GET', '/admin/backoff');
         
         $this->assertResponseIsSuccessful();
@@ -96,7 +87,11 @@ class ControllerTest extends WebTestCase
 
         $crawler = $client->submit($form);
 
-        $this->expectNotToPerformAssertions();
+        $this->assertSame(302, $client->getResponse()->getStatusCode());
+
+        $crawler = $client->followRedirect();
+
+        $this->assertSame(200, $client->getResponse()->getStatusCode());
 
     }
 
