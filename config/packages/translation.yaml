@@ -1,6 +1,13 @@
 framework:
-    default_locale: en
+    # default_locale: en
+    # translator:
+        # default_path: '%kernel.project_dir%/translations'
+        # fallbacks:
+            # - en
+
+    # Cf. https://symfony.com/doc/current/translation.html
+    # Le paramètre "locale" est défini dans security.yaml
+    default_locale: 'fr'
     translator:
-        default_path: '%kernel.project_dir%/translations'
         fallbacks:
-            - en
+            - '%locale%'

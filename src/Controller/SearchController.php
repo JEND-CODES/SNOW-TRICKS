@@ -11,17 +11,23 @@ use Symfony\Component\Security\Core\Security;
 
 class SearchController extends AbstractController
 {
+    /**
+     * @var Security
+     */
     private $security;
 
     public function __construct(Security $security)
     {
-       $this->security = $security;
+        $this->security = $security;
     }
 
     /**
      * @Route("/search", name="search")
+     * @param Request $request
+     * @param FigureRepository $repoFigure
+     * @return Response
      */
-    public function search(Request $request, FigureRepository $repoFigure)
+    public function search(Request $request, FigureRepository $repoFigure): Response
     {
 
         $current_member = $this->security->getUser();

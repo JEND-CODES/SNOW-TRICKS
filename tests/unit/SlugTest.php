@@ -8,15 +8,14 @@ class SlugTest extends TestCase
 {
 
     public function testSlug()
-    {
-                    
-    $before = "Snow Tricks";
+    { 
+        $before = "Snow Tricks";
 
-    $after = "snow-tricks";
+        $after = "snow-tricks";
 
-    $result = strtolower(trim(preg_replace('/[^A-Za-z0-9-]+/', '-', $before)));
+        $result = strtolower(trim(preg_replace('/[^A-Za-z0-9-]+/', '-', $before)));
 
-    $this->assertEquals($result, $after);
+        $this->assertEquals($result, $after);
 
     } 
 
