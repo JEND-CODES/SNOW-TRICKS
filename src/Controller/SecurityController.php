@@ -7,6 +7,7 @@ use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\RedirectResponse;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Doctrine\ORM\EntityManagerInterface;
 use App\Entity\Member;
 use App\Form\MemberType;
@@ -55,7 +56,14 @@ class SecurityController extends AbstractController
      */
     private $mailSender;
 
-    public function __construct(Security $security, EntityManagerInterface $manager, UserPasswordEncoderInterface $encoder, FileUploader $uploadFile, RemoveFile $removeFile, MailSender $mailSender)
+    public function __construct(
+        Security $security, 
+        EntityManagerInterface $manager, 
+        UserPasswordEncoderInterface $encoder, 
+        FileUploader $uploadFile, 
+        RemoveFile $removeFile, 
+        MailSender $mailSender
+        )
     {
         $this->security = $security;
         $this->manager = $manager;
@@ -66,7 +74,7 @@ class SecurityController extends AbstractController
     }
     
     /**
-     * @Route("/inscription", name="security_registration")
+     * @Route("/inscription", name="security_registration", methods={"GET","POST"})
      * @param Request $request
      * @param SluggerInterface $slugger
      * @return Response
@@ -110,7 +118,9 @@ class SecurityController extends AbstractController
 
             $this->manager->flush();
 
-            $this->mailSender->sendMail($member->getEmail(), $member, 'CONFIRMATION DE VOTRE COMPTE SNOWTRICKS', 'emails/validation.html.twig');
+            $templateName = 'validation';
+
+            $this->mailSender->sendMail($member->getEmail(), $member, $this->mailSender::NEW_ACCOUNT_TITLE, "emails/".$templateName.".html.twig");
 
             $this->addFlash(
                 'notice',
@@ -129,13 +139,13 @@ class SecurityController extends AbstractController
     }
     
     /**
-     * @Route("/confirm_account/{username}/{token}", name="confirm_account")
+     * @Route("/confirm_account/{username}/{token}", name="confirm_account", requirements={"username": ".*", "token": ".*"}, methods={"GET","POST"})
      * @param MemberRepository $repoMember
-     * @param $username
-     * @param $token
+     * @param string $username
+     * @param string $token
      * @return RedirectResponse
      */
-    public function confirmAccount(MemberRepository $repoMember, $username, $token)
+    public function confirmAccount(MemberRepository $repoMember, string $username, string $token): RedirectResponse
     {
 
         $member = $repoMember->findOneByUsername($username);
@@ -163,7 +173,7 @@ class SecurityController extends AbstractController
     }
 
     /**
-     * @Route("/newpass", name="new_password")
+     * @Route("/newpass", name="new_password", methods={"GET","POST"})
      * @param Request $request
      * @return Response
      */
@@ -208,7 +218,7 @@ class SecurityController extends AbstractController
     }
     
     /**
-     * @Route("/resetpass", name="reset_password")
+     * @Route("/resetpass", name="reset_password", methods={"GET","POST"})
      * @param Request $request
      * @param MemberRepository $repoMember
      * @return Response
@@ -251,12 +261,15 @@ class SecurityController extends AbstractController
 
                 $this->manager->flush();
 
-                $this->mailSender->sendMail($member->getEmail(), $member, 'RÉINITIALISATION DE VOTRE MOT PASSE SNOWTRICKS', 'emails/diepass.html.twig');
+                $templateName = 'diepass';
+
+                $this->mailSender->sendMail($member->getEmail(), $member, $this->mailSender::NEW_PASSWORD_TITLE, "emails/".$templateName.".html.twig");
 
                 $this->addFlash(
                     'notice',
                     'Un email vous a été adressé pour procéder à la création d\'un nouveau mot de passe'
                 );
+                
                 return $this->redirectToRoute('blog');
                 
             }
@@ -271,14 +284,14 @@ class SecurityController extends AbstractController
     }
 
     /**
-     * @Route("/confirm_reset/{username}/{token}", name="confirm_reset")
+     * @Route("/confirm_reset/{username}/{token}", name="confirm_reset", requirements={"username": ".*", "token": ".*"}, methods={"GET","POST"})
      * @param Request $request
      * @param MemberRepository $repoMember
-     * @param $username
-     * @param $token
+     * @param string $username
+     * @param string $token
      * @return Response
      */
-    public function confirmReset(Request $request, MemberRepository $repoMember, $username, $token): Response
+    public function confirmReset(Request $request, MemberRepository $repoMember, string $username, string $token): Response
     {
         $current_member = $this->security->getUser();
 
@@ -334,7 +347,7 @@ class SecurityController extends AbstractController
     }
     
     /**
-     * @Route("/connexion", name="security_connexion")
+     * @Route("/connexion", name="security_connexion", methods={"GET","POST"})
      * @param AuthenticationUtils $utils
      * @return Response
      */
@@ -355,14 +368,7 @@ class SecurityController extends AbstractController
     }
     
     /**
-     * @Route("/disconnect", name="security_disconnect")
-     * @return void
-     */
-    public function disconnect(): void 
-    {}
-
-    /**
-     * @Route("/account", name="account")
+     * @Route("/account", name="account", methods={"GET","POST"})
      * @param Request $request
      * @return Response
      */

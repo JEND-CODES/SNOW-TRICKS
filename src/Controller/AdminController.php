@@ -34,7 +34,11 @@ class AdminController extends AbstractController
      */
     private $removeFile;
 
-    public function __construct(Security $security, EntityManagerInterface $manager, RemoveFile $removeFile)
+    public function __construct(
+        Security $security, 
+        EntityManagerInterface $manager, 
+        RemoveFile $removeFile
+        )
     {
         $this->security = $security;
         $this->manager = $manager;
@@ -42,7 +46,7 @@ class AdminController extends AbstractController
     }
 
     /**
-     * @Route("/admin/backoff", name="admin_backoff")
+     * @Route("/admin/backoff", name="admin_backoff", methods={"GET"})
      * @param FigureRepository $repoFigure
      * @return Response
      */
@@ -60,7 +64,7 @@ class AdminController extends AbstractController
     }
 
     /**
-     * @Route("/admin/backcom", name="admin_backcom")
+     * @Route("/admin/backcom", name="admin_backcom", methods={"GET"})
      * @param MentionRepository $repoMention
      * @return Response
      */
@@ -78,12 +82,11 @@ class AdminController extends AbstractController
     }
     
     /**
-     * @Route("/admin/backcom/delete/{id}", name="delete_comment")
-     * @Method({"DELETE"})
+     * @Route("/admin/backcom/delete/{id}", name="delete_comment", requirements={"id": "\d+"}, methods={"GET", "DELETE"})
      * @param Mention $mention
      * @return RedirectResponse
      */
-    public function deleteComment(Mention $mention)
+    public function deleteComment(Mention $mention): RedirectResponse
     {
         $this->manager->remove($mention);
         
@@ -99,7 +102,7 @@ class AdminController extends AbstractController
     }
 
     /**
-     * @Route("/admin/members", name="manage_members")
+     * @Route("/admin/members", name="manage_members", methods={"GET"})
      * @param MemberRepository $repoMember
      * @return Response
      */
@@ -117,12 +120,11 @@ class AdminController extends AbstractController
     }
 
     /**
-     * @Route("/admin/members/delete/{id}", name="delete_member")
-     * @Method({"DELETE"})
+     * @Route("/admin/members/delete/{id}", name="delete_member", requirements={"id": "\d+"}, methods={"GET", "DELETE"})
      * @param Member $member
      * @return RedirectResponse
      */
-    public function deleteMember(Member $member)
+    public function deleteMember(Member $member): RedirectResponse
     {
         if ($this->security->getUser()->getId() === $member->getId()) 
         {

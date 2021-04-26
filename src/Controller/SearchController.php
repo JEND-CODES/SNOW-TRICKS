@@ -6,6 +6,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use App\Repository\FigureRepository;
 use Symfony\Component\Security\Core\Security;
 
@@ -22,7 +23,7 @@ class SearchController extends AbstractController
     }
 
     /**
-     * @Route("/search", name="search")
+     * @Route("/search", name="search", methods={"GET"})
      * @param Request $request
      * @param FigureRepository $repoFigure
      * @return Response

@@ -16,7 +16,7 @@ use Symfony\Component\Security\Core\Security;
 use App\Form\FigureType;
 use Symfony\Component\String\Slugger\SluggerInterface;
 use App\Form\MentionType;
-use App\Handler\MakeScreen;
+use App\Handler\MakeScreenHandler;
 
 class BlogController extends AbstractController
 {
@@ -36,11 +36,16 @@ class BlogController extends AbstractController
     private $slugger;
 
     /**
-     * @var MakeScreen
+     * @var MakeScreenHandler
      */
     private $makeScreen;
 
-    public function __construct(Security $security, EntityManagerInterface $manager, SluggerInterface $slugger, MakeScreen $makeScreen)
+    public function __construct(
+        Security $security, 
+        EntityManagerInterface $manager, 
+        SluggerInterface $slugger, 
+        MakeScreenHandler $makeScreen
+        )
     {
         $this->security = $security;
         $this->manager = $manager;
@@ -49,7 +54,7 @@ class BlogController extends AbstractController
     }
 
     /**
-     * @Route("/", name="blog")
+     * @Route("/", name="blog", methods={"GET"})
      * @param FigureRepository $repoFigure
      * @return Response
      */
@@ -69,12 +74,12 @@ class BlogController extends AbstractController
     }
 
     /**
-     * @Route("/{starting}", name="more_figures", requirements={"starting": "\d+"})
+     * @Route("/{starting}", name="more_figures", requirements={"starting": "\d+"}, methods={"GET"})
      * @param FigureRepository $repoFigure
      * @param int $starting
      * @return Response
      */
-    public function moreFigures(FigureRepository $repoFigure, $starting = 3): Response
+    public function moreFigures(FigureRepository $repoFigure, int $starting = 3): Response
     {
         $promoteFigures = $repoFigure->findBy(array(), array('id' => 'DESC'), 3, $starting + 6);
 
@@ -84,7 +89,7 @@ class BlogController extends AbstractController
     }
 
     /**
-     * @Route("/blog/new", name="blog_create")
+     * @Route("/blog/new", name="blog_create", methods={"GET","POST"})
      * @param Figure $figure
      * @param Request $request
      * @return Response
@@ -95,7 +100,7 @@ class BlogController extends AbstractController
 
         $figure = new Figure();
 
-        $this->makeScreen->newScreen($figure);
+        $this->makeScreen->handle(24, $figure);
 
         $createFigure = $this->createForm(FigureType::class, $figure);
         
@@ -135,7 +140,7 @@ class BlogController extends AbstractController
     }
 
     /**
-     * @Route("/blog/{id}/edit", name="blog_edit")
+     * @Route("/blog/{id}/edit", name="blog_edit", requirements={"id": "\d+"}, methods={"GET","POST"})
      * @param Figure $figure
      * @param Request $request
      * @return Response
@@ -148,7 +153,7 @@ class BlogController extends AbstractController
 
         $addScreen = 24 - $screenCount;
 
-        $this->makeScreen->nextScreen($addScreen, $figure);
+        $this->makeScreen->handle($addScreen, $figure);
        
         $updateFigure = $this->createForm(FigureType::class, $figure);
         
@@ -185,7 +190,7 @@ class BlogController extends AbstractController
     }
 
     /**
-     * @Route("/blog/{id}/{labelled}", name="chapter_show")
+     * @Route("/blog/{id}/{labelled}", name="chapter_show", requirements={"id": "\d+", "labelled": ".*"}, methods={"GET","POST"})
      * @param Figure $figure
      * @param Request $request
      * @param string $labelled
@@ -249,12 +254,11 @@ class BlogController extends AbstractController
     }
    
     /**
-     * @Route("/office/delete/{id}", name="delete_chapter")
-     * @Method({"DELETE"})
+     * @Route("/office/delete/{id}", name="delete_chapter", requirements={"id": "\d+"}, methods={"GET", "DELETE"})
      * @param Figure $figure
      * @return RedirectResponse
      */
-    public function delete(Figure $figure) 
+    public function delete(Figure $figure): RedirectResponse 
     {
         $this->manager->remove($figure);
             
