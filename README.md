@@ -6,6 +6,17 @@
 
 ## DÉMO => http://snow.planetcode.fr
 
+### PRÉREQUIS
+``` bash
+* PHP >=7.2.5
+
+* Composer v2.0.11
+
+* MySql v5.7
+
+* Apache v2.4.39
+```
+
 ### INSTRUCTIONS D'INSTALLATION
 ``` bash
 * CLONEZ LE PROJET : git clone https://github.com/JEND-CODES/SNOW-TRICKS
@@ -23,7 +34,7 @@
 
 ## DIAGRAMMES
 
-![SNOWTRICKS](https://raw.githubusercontent.com/JEND-CODES/SNOW-TRICKS/main/diagrammes/Cas_Gestion_Tricks_P6_V1.png)
+![SNOWTRICKS](https://raw.githubusercontent.com/JEND-CODES/SNOW-TRICKS/main/diagrammes/Cas_Gestion_Tricks_P6_V2.png)
 
 ![SNOWTRICKS](https://raw.githubusercontent.com/JEND-CODES/SNOW-TRICKS/main/diagrammes/S%C3%A9quence_Inscription_P6_V1.png)
 
